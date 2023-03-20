@@ -4,7 +4,7 @@ const lines = text.split("\n");
 const separator = ",";
 const inputSeparator = "\t";
 
-const headers = "starId,date,magnitude,magError,filter,referenceId";
+const headers = "starId,julianDate,magnitude,magError,filter,referenceId";
 const columnCount = headers.split(separator).length;
 
 const res = [headers];

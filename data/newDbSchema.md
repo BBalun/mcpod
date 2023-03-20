@@ -22,7 +22,7 @@ amplitudeEff - decimal
 
 Catalog
 starId - string
-date - decimal
+julianDate - decimal
 magnitude - decimal
 magError - decimal
 filter - string
