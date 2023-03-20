@@ -1,0 +1,12 @@
+.table th,
+.table td {
+  @apply border-2 border-solid border-white p-1;
+}
+
+.table tr {
+  @apply odd:bg-slate-200 even:bg-slate-400;
+}
+
+.table thead tr {
+  @apply !bg-slate-400;
+}

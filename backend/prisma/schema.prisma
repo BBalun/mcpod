@@ -1,0 +1,67 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Element {
+  hdNumber Int @id @map("hvezda")
+
+  epoch  Decimal  @map("epocha")
+  period Decimal? @map("perioda")
+
+  @@map("elementy")
+}
+
+model Catalog {
+  id Int @id @default(autoincrement())
+
+  hdNumber       Int      @map("hvezda")
+  julianDate     Decimal  @map("jd")
+  magnitude      Decimal? @map("mag")
+  magnitudeError Decimal? @map("mag_err")
+  filter         String   @map("filter")
+  reference      String   @map("reference")
+
+  @@index([reference])
+  @@map("katalog")
+}
+
+model Observation {
+  id Int @id @default(autoincrement())
+
+  hdNumber  Int    @map("hvezda")
+  filter    String @map("filter")
+  reference String @map("reference")
+
+  lambdaEff        Int?     @map("lambda_eff")
+  count            Int?     @map("pocet")
+  magnitudeAverage Decimal? @map("magavg")
+  magnitudeError   Decimal? @map("mag_err")
+  stdErr           Decimal? @map("stderr")
+  amlitEff         Decimal? @map("amlit_eff")
+
+  @@unique([hdNumber, filter, reference])
+  @@map("pozorovani")
+}
+
+model Reference {
+  id Int @id @default(autoincrement())
+
+  reference String @map("reference")
+  hdNumber  Int    @map("hvezda")
+
+  author      String? @map("autor")
+  bibCode     String? @map("bibcode")
+  sStar       String? @map("s_hvezda")
+  description String? @map("popis")
+
+  @@unique([reference, hdNumber])
+  @@map("reference")
+}

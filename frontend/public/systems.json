@@ -1,0 +1,139 @@
+[
+  {
+    "name": "Johnson",
+    "displayName": "Johnson",
+    "filters": [
+      { "name": "U", "displayName": "U", "code": "1" },
+      { "name": "B", "displayName": "B", "code": "2" },
+      { "name": "V", "displayName": "V", "code": "3" },
+      { "name": "R", "displayName": "R", "code": "4" },
+      { "name": "Rc", "displayName": "R[sub]C[/sub]", "code": "5" },
+      { "name": "I", "displayName": "I", "code": "6" },
+      { "name": "J", "displayName": "J", "code": "7" },
+      { "name": "K", "displayName": "K", "code": "8" },
+      { "name": "L", "displayName": "L", "code": "9" },
+      { "name": "M", "displayName": "M", "code": "10" }
+    ]
+  },
+  {
+    "name": "Stromgren",
+    "displayName": "Strömgren",
+    "filters": [
+      { "name": "u", "code": "20", "displayName": "u" },
+      { "name": "v", "code": "21", "displayName": "v" },
+      { "name": "b", "code": "22", "displayName": "b" },
+      { "name": "y", "code": "23", "displayName": "y" },
+      { "name": "c1", "code": "24", "displayName": "c[sub]1[/sub]" },
+      { "name": "m1", "code": "25", "displayName": "m[sub]1[/sub]" },
+      { "name": "beta", "code": "26", "displayName": "{beta}" },
+      {
+        "name": "beta191",
+        "code": "26.1",
+        "displayName": "{beta}[sub]191[/sub]"
+      },
+      {
+        "name": "beta37",
+        "code": "26.2",
+        "displayName": "{beta}[sub]37[/sub]"
+      },
+      { "name": "alpha", "code": "27", "displayName": "{alpha}" },
+      { "name": "b-y", "code": "28", "displayName": "(b-y)" },
+      { "name": "gamma", "code": "29", "displayName": "{gamma}" }
+    ]
+  },
+  {
+    "name": "Hipparcos",
+    "displayName": "Hipparcos",
+    "filters": [
+      { "name": "Hp", "code": "30", "displayName": "H[sub]p[/sub]" },
+      { "name": "Bt", "code": "31", "displayName": "B[sub]t[/sub]" },
+      { "name": "Vt", "code": "32", "displayName": "V[sub]t[/sub]" }
+    ]
+  },
+  {
+    "name": "Geneva",
+    "displayName": "Geneva",
+    "filters": [
+      { "name": "U-B1", "code": "36", "displayName": "U-B[sub]1[/sub]" },
+      {
+        "name": "B1-B2",
+        "code": "37",
+        "displayName": "B[sub]1[/sub]-B[sub]2[/sub]"
+      },
+      {
+        "name": "B2-V1",
+        "code": "38",
+        "displayName": "B[sub]2[/sub]-V[sub]1[/sub]"
+      },
+      { "name": "V1-G", "code": "39", "displayName": "V[sub]1[/sub]-G" },
+      { "name": "U", "code": "40", "displayName": "H" },
+      { "name": "B", "code": "41", "displayName": "B" },
+      { "name": "V", "code": "42", "displayName": "V" },
+      { "name": "B1", "code": "43", "displayName": "B[sub]1[/sub]" },
+      { "name": "B2", "code": "44", "displayName": "B[sub]2[/sub]" },
+      { "name": "V1", "code": "45", "displayName": "V[sub]1[/sub]" },
+      { "name": "G", "code": "46", "displayName": "G" }
+    ]
+  },
+  {
+    "name": "10colour",
+    "displayName": "10 colour photometry",
+    "filters": [
+      { "name": "U", "code": "50", "displayName": "U" },
+      { "name": "P", "code": "51", "displayName": "P" },
+      { "name": "X", "code": "52", "displayName": "X" },
+      { "name": "Y", "code": "53", "displayName": "Y" },
+      { "name": "Z", "code": "54", "displayName": "Z" },
+      { "name": "V", "code": "55", "displayName": "V" },
+      { "name": "HR", "code": "56", "displayName": "HR" },
+      { "name": "S", "code": "57", "displayName": "S" },
+      { "name": "MR", "code": "58", "displayName": "MR" },
+      { "name": "DR", "code": "59", "displayName": "DR" }
+    ]
+  },
+  {
+    "name": "Walraven",
+    "displayName": "Walraven",
+    "filters": [
+      { "name": "V", "code": "60", "displayName": "V" },
+      { "name": "B", "code": "61", "displayName": "B" },
+      { "name": "L", "code": "62", "displayName": "L" },
+      { "name": "U", "code": "63", "displayName": "U" },
+      { "name": "W", "code": "64", "displayName": "W" }
+    ]
+  },
+  {
+    "name": "Maitzen",
+    "displayName": "Maitzen",
+    "filters": [
+      { "name": "V", "code": "70", "displayName": "g[sub]1[/sub]" },
+      { "name": "B", "code": "71", "displayName": "g[sub]2[/sub]" },
+      { "name": "delta_a", "code": "73", "displayName": "{Delta}a" }
+    ]
+  },
+  {
+    "name": "DAO",
+    "displayName": "DAO",
+    "filters": [
+      { "name": "D", "code": "90", "displayName": "D" },
+      { "name": "H", "code": "91", "displayName": "H" },
+      { "name": "B", "code": "92", "displayName": "B" },
+      { "name": "V", "code": "93", "displayName": "V" },
+      { "name": "Bq", "code": "94", "displayName": "B'" },
+      { "name": "Vq", "code": "95", "displayName": "V'" }
+    ]
+  },
+  {
+    "name": "MOST",
+    "displayName": "MOST",
+    "filters": [{ "name": "Vm", "code": "100", "displayName": "V[sub]m[/sub]" }]
+  },
+  {
+    "name": "default",
+    "displayName": "Others",
+    "filters": [
+      { "name": "4200A", "code": "75", "displayName": "4200{Aring}" },
+      { "name": "5360A", "code": "76", "displayName": "5360{Aring}" }
+    ]
+  }
+]
