@@ -10,58 +10,63 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Element {
-  hdNumber Int @id @map("hvezda")
-
-  epoch  Decimal  @map("epocha")
-  period Decimal? @map("perioda")
-
-  @@map("elementy")
+model Ephemeris {
+  starId String   @id
+  epoch  Decimal?
+  period Decimal?
 }
 
 model Catalog {
   id Int @id @default(autoincrement())
 
-  hdNumber       Int      @map("hvezda")
-  julianDate     Decimal  @map("jd")
-  magnitude      Decimal? @map("mag")
-  magnitudeError Decimal? @map("mag_err")
-  filter         String   @map("filter")
-  reference      String   @map("reference")
+  starId      String
+  julianDate  Decimal
+  magnitude   Decimal?
+  magErr      Decimal?
+  filter      String
+  referenceId String
 
-  @@index([reference])
-  @@map("katalog")
+  @@index([starId])
+  @@index([referenceId])
 }
 
 model Observation {
   id Int @id @default(autoincrement())
 
-  hdNumber  Int    @map("hvezda")
-  filter    String @map("filter")
-  reference String @map("reference")
+  starId      String
+  filter      String
+  referenceId String
 
-  lambdaEff        Int?     @map("lambda_eff")
-  count            Int?     @map("pocet")
-  magnitudeAverage Decimal? @map("magavg")
-  magnitudeError   Decimal? @map("mag_err")
-  stdErr           Decimal? @map("stderr")
-  amlitEff         Decimal? @map("amlit_eff")
+  lambdaEff    Decimal?
+  magAverage   Decimal?
+  magError     Decimal?
+  stdError     Decimal?
+  amplitudeEff Decimal?
 
-  @@unique([hdNumber, filter, reference])
-  @@map("pozorovani")
+  // @@unique([starId, filter, referenceId])
+  @@index([starId, referenceId])
 }
 
 model Reference {
   id Int @id @default(autoincrement())
 
-  reference String @map("reference")
-  hdNumber  Int    @map("hvezda")
+  referenceId String
+  starId      String
 
-  author      String? @map("autor")
-  bibCode     String? @map("bibcode")
-  sStar       String? @map("s_hvezda")
-  description String? @map("popis")
+  author           String?
+  bibcode          String?
+  referenceStarIds String?
 
-  @@unique([reference, hdNumber])
-  @@map("reference")
+  @@unique([referenceId, starId])
+}
+
+model Measurement {
+  id Int @id @default(autoincrement())
+
+  starId      String
+  referenceId String
+  filter      String
+  countr      Int
+
+  @@unique([starId, filter, referenceId])
 }
