@@ -6,7 +6,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -66,7 +66,7 @@ model Measurement {
   starId      String
   referenceId String
   filter      String
-  countr      Int
+  count       Int
 
   @@unique([starId, filter, referenceId])
 }

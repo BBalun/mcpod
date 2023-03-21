@@ -2,14 +2,16 @@ version: "3.6"
 
 services:
   db:
+    container_name: mcpod2_postgres
     image: postgres:alpine
     restart: always
     volumes:
       - postgres_volume:/var/lib/postgresql/data
+      - ./data/data/output:/data/output
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
-      - 5432:5432
+      - 5431:5432
 
 volumes:
   postgres_volume:

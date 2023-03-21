@@ -149,3 +149,15 @@ amlit_eff = sa dopocitava
   - datam z tycha vytvorit specialnu referenciu oznacujucu iba tycho
   - rovnako pre data z hipparcosu
 
+### otazky na konzultaciu
+- data/input/katalog.csv
+  - line 232756 - mag_err value = `1 0.004` - is it 0 or 10?
+- data/input/reference_with_errors.csv
+  - line 126, 127 - same starId and referenceId
+  - line 148, 149 - same starId and referenceId
+  - line 202, 203 - same starId and referenceId
+  - line 402, 403 - same starId and referenceId
+  - line 409, 428 - same starId and referenceId
+  - line 455, 456, 457 - same starId and referenceId
+  - line 469, 470 - same starId and referenceId
+  - line 636, 637 - same starId and referenceId
