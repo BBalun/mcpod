@@ -44,7 +44,7 @@ export async function fetchStarIds(input: string) {
     .map(([id, _sId]) => id)
     // .map((id) => id.replace(/\s+/g, " ")); // replace all sequences of white space characters with only one space
     .filter((id) => id.startsWith("HD") || id.startsWith("HIP") || id.startsWith("TYC")) // for now, use only HD, HIP and TYC identifiers
-    .map((id) => id.replace(" ", ""));
+    .map((id) => id.replaceAll(" ", ""));
 
   return starIds;
 

@@ -26,7 +26,7 @@ interface PhaseChartProps {
 }
 
 const schema = z.object({
-  epoch: z
+  epoch: z.coerce
     .string()
     .trim()
     .min(1, "Phase is required")
@@ -38,7 +38,7 @@ const schema = z.object({
         })
         .nonnegative("Phase must be positive")
     ),
-  period: z
+  period: z.coerce
     .string()
     .trim()
     .min(1, "Period is required")

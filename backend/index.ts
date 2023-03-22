@@ -66,6 +66,12 @@ const appRouter = t.router({
       const starIdsWithInput = starIds.includes(starId) ? starIds : [...starIds, starId];
 
       const starData = await getData(starIdsWithInput, filters, startDate, endDate, referenceIds);
+      if (starData.length === 0) {
+        // TODO: how to handle no data
+        // return {
+        //   error: `No data found for star '${starId}'`,
+        // };
+      }
       const chartData = groupByFilterCode(starData); // data for main chart
 
       const ephemerids = await getEphemerids(starIdsWithInput); // epoch and period

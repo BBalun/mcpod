@@ -15,4 +15,4 @@
 - [ ] fix design
 - [ ] cache star ids after fetching them from simbad
 - [ ] cache data from hip and tyc
-- [ ] do julian date filtering on the client
+- [ ] filtering on the client (julian data + filters)

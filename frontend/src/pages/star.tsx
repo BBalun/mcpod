@@ -8,6 +8,7 @@ import PhaseCurveChartSection from "../components/PhaseCurveChartSection";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
+import { RouterOutput } from "../types/trpc";
 
 const Star = () => {
   const { starId } = useParams();
@@ -20,6 +21,7 @@ const Star = () => {
   const referenceIds = searchParams.getAll("reference");
 
   const [filters, setFilters] = useState<string[]>([]);
+  const [data, setData] = useState<RouterOutput["getStarData"]>();
 
   const [startDate, setStartDate] = useState<number>();
   const [endDate, setEndDate] = useState<number>();
@@ -36,7 +38,6 @@ const Star = () => {
   } = useQuery(["systems"], fetchSystems);
 
   const {
-    data,
     isLoading: starDataLoading,
     isError: isStarDataError,
     error: starDataError,
@@ -50,6 +51,9 @@ const Star = () => {
     },
     {
       enabled: !!systems,
+      onSuccess(data) {
+        setData(data);
+      },
     }
   );
 
@@ -67,6 +71,7 @@ const Star = () => {
     // TODO: show loading spinner
     return <div>Loading...</div>;
   }
+  console.log("is data undefiend", data === undefined);
 
   return (
     <div className="flex w-full flex-row gap-1 px-7 pt-2">
