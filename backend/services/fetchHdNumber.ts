@@ -1,6 +1,7 @@
 import fetch from "isomorphic-fetch";
 
-export async function fetchHdNumber(input: string) {
+/// Fetch star IDs - HD, HIP, TYC numbers (result also includes input parameter)
+export async function fetchStarIds(input: string) {
   const options = {
     method: "POST",
     headers: {
@@ -29,34 +30,44 @@ export async function fetchHdNumber(input: string) {
     };
   }
 
-  const starData = (data as any).data as Array<[string, number]>;
+  const starIdsData = (data as any).data as Array<[string, number]>;
 
-  const simbadId = starData.map(([_, simbadId]) => simbadId).sort((a, b) => a - b)[0];
+  // Query may return multiple stars (star identifiers), sort them and choose the smaller one
+  const simbadId = starIdsData
+    .map(([_, simbadId]) => simbadId)
+    .sort((a, b) => a - b)
+    .at(0)!;
 
-  const hdNumberFields = starData.filter(([id, sId]) => sId === simbadId && id.startsWith("HD "));
+  const starIds = starIdsData
+    .filter(([_id, sId]) => sId === simbadId) // Make sure that only IDs of one star are present
+    .map(([id, _sId]) => id)
+    // .map((id) => id.replace(/\s+/g, " ")); // replace all sequences of white space characters with only one space
+    .filter((id) => id.startsWith("HD") || id.startsWith("HIP") || id.startsWith("TYC")) // for now, use only HD, HIP and TYC identifiers
+    .map((id) => id.replace(" ", ""));
 
-  if (!hdNumberFields.length) {
-    return {
-      error: {
-        msg: `Failed to find hd number for star ${input}`,
-      },
-      data: null,
-    };
-  }
+  starIds.push(input); // include users input, this allows scientists to use custom star identifiers
 
-  const [hdNumberString, _] = hdNumberFields.sort((a, b) => a.length - b.length)[0];
-
-  const hdNumber = parseInt(hdNumberString.replace("HD ", "").replaceAll(" ", ""));
-  if (isNaN(hdNumber)) {
-    return {
-      error: {
-        msg: `Failed to parse hd number for star ${input}`,
-      },
-      data: null,
-    };
-  }
   return {
     error: null,
-    data: hdNumber,
+    data: starIds,
   };
+
+  // if (!starIds.length) {
+  //   return {
+  //     error: {
+  //       msg: `Failed to find any start identifiers for star ${input}`,
+  //     },
+  //     data: null,
+  //   };
+  // }
+
+  // // Some IDs should contain spaces (NAME id), but some should not (HD, TYC, HIP)
+  // // Just to make sure include both variants of IDs in a search
+  // // Also include users input, just in case someone entered custom/non-standard ID into a database
+  // const starIdVariants = [input, ...starIds, ...starIds.map((id) => id.replaceAll(" ", ""))];
+
+  // return {
+  //   error: null,
+  //   data: starIdVariants,
+  // };
 }
