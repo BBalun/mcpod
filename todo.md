@@ -1,0 +1,18 @@
+- [ ] rewrite scripts in `/data/data` to use Node instead of Deno 
+  (may not be necessary, because this should be run only once during development)
+- [x] create script to load data from `/data/data/output` to database
+- [ ] fix all type errors 
+  - [ ] change hdNumber to starId everywhere
+- [ ] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
+- [ ] fetch data from external catalogues
+- [ ] figure out how to add artificial information about references for data from external catalogues
+- [ ] data export on chart page
+- [ ] data export page - for exporting data from multiple stars
+- [ ] make chart interactive
+  - [ ] export only data that is visible on a chart
+- [ ] fix bibcode URL link (problem with `&`)
+- [ ] home page 
+- [ ] fix design
+- [ ] cache star ids after fetching them from simbad
+- [ ] cache data from hip and tyc
+- [ ] do julian date filtering on the client

@@ -120,6 +120,8 @@ fiktivne HD cislo gaia - dava to zmysel?
 
 prefix hd v katalogu
 
+---
+
 ### Otazky na konzultaciu 20.3.2023
 - vieme stiahnut data z hipparcos a tycho katalogov?
   - tycho chyba jedna cast
@@ -136,12 +138,7 @@ prefix hd v katalogu
 - okrem data exportu a dotahovania dat z online katalogov, chyba tomu este nieco?
   - je zobrazovanie dat dostatocne interaktivne?
 
-
-
-lambda je dana
-amlit_eff = sa dopocitava
-
-### poznamky z konzultacie
+### poznamky z konzultacie 20.3.2023
 - cele katalogy nevie kde by sa dali stiahnut a podla neho to nie je dobry napad
 - data vymazat z reference a katalog, pozorovani nechat, v elementy, tam nic nie je
 - interaktivny graf - moznost zoom casti grafu a export potom len tych dak, ktore su zobrazene 
@@ -149,7 +146,13 @@ amlit_eff = sa dopocitava
   - datam z tycha vytvorit specialnu referenciu oznacujucu iba tycho
   - rovnako pre data z hipparcosu
 
-### otazky na konzultaciu
+- neviem k comu je toto:
+  lambda je dana
+  amlit_eff = sa dopocitava
+
+---
+
+### otazky na dalsiu konzultaciu
 - data/input/katalog.csv
   - line 232756 - mag_err value = `1 0.004` - is it 0 or 10?
 - data/input/reference_with_errors.csv
