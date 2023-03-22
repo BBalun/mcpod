@@ -4,7 +4,7 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import z from "zod";
-import { fetchHdNumber } from "./services/fetchHdNumber";
+import { fetchStarIds } from "./services/fetchHdNumber";
 
 // TODO: own file
 const prisma = new PrismaClient();
@@ -17,16 +17,16 @@ const appRouter = t.router({
   getObservations: t.procedure
     .input(
       z.object({
-        hdNumber: z.number(),
-        reference: z.string().min(1),
+        starId: z.string().min(1),
+        referenceId: z.string().min(1),
       })
     )
     .query(async ({ input }) => {
-      const { hdNumber, reference } = input;
+      const { starId, referenceId } = input;
       const data = await prisma.observation.findMany({
         where: {
-          hdNumber,
-          reference,
+          starId,
+          referenceId,
         },
       });
       return data;
@@ -34,14 +34,14 @@ const appRouter = t.router({
   getReferences: t.procedure
     .input(
       z.object({
-        hdNumber: z.number(),
+        starId: z.string().min(1),
       })
     )
     .query(async ({ input }) => {
-      const { hdNumber } = input;
+      const { starId } = input;
       const data = await prisma.reference.findMany({
         where: {
-          hdNumber,
+          starId,
         },
       });
       return data;
@@ -49,36 +49,34 @@ const appRouter = t.router({
   getPhasedData: t.procedure
     .input(
       z.object({
-        hdNumber: z.number().positive(),
+        starId: z.string().min(1),
         filters: z.array(z.string().trim().min(0)),
         startDate: z.number().optional(),
         endDate: z.number().optional(),
-        phase: z.number(),
+        epoch: z.number(),
         period: z.number(),
-        references: z.array(z.string()).optional(),
+        referenceIds: z.array(z.string().min(1)).optional(),
       })
     )
     .query(async ({ input }) => {
-      // TODO: rename phase to epoch
-      const { hdNumber, filters, startDate, endDate, phase, period, references } = input;
-      const data = await getData(hdNumber, filters, startDate, endDate, references);
+      const { starId, filters, startDate, endDate, epoch, period, referenceIds } = input;
+      const data = await getData(starId, filters, startDate, endDate, referenceIds);
 
       return groupByFilterCode(
         data.map(({ julianDate, filter, magnitude }) => ({
           filter,
           magnitude,
-          phase: calculatePhase(julianDate.toNumber(), period, phase),
+          phase: calculatePhase(julianDate.toNumber(), period, epoch),
         }))
-        // filters
+        // , filters
       );
     }),
   getPhaseAndEpoch: t.procedure.input(z.object({ starId: z.string().min(1) })).query(async ({ input }) => {
     const { starId } = input;
 
-    const data = await prisma.element.findFirst({
+    const data = await prisma.ephemeris.findFirst({
       where: {
-        // TODO: rename model
-        hdNumber: parseInt(starId),
+        starId,
       },
     });
 
@@ -89,11 +87,11 @@ const appRouter = t.router({
       };
     }
 
-    const ephemerids = await fetchEphemerids("HD " + starId);
+    const ephemerids = await fetchEphemerids(starId);
     if (ephemerids?.epoch) {
-      const epoch = z.string().trim().safeParse(ephemerids.epoch);
+      const epoch = z.string().trim().transform(parseFloat).safeParse(ephemerids.epoch);
       if (epoch.success) {
-        ephemerids.epoch = (parseFloat(epoch.data) - 2_400_000).toFixed(2);
+        ephemerids.epoch = (epoch.data - 2_400_000).toFixed(2);
       }
     }
     return ephemerids;
@@ -101,61 +99,37 @@ const appRouter = t.router({
   getData: t.procedure
     .input(
       z.object({
-        hdNumber: z.number().positive(),
+        starId: z.string().min(1),
         filters: z.array(z.string().trim().min(0)),
         startDate: z.number().optional(),
         endDate: z.number().optional(),
-        references: z.array(z.string()).optional(),
+        referenceIds: z.array(z.string().min(1)).optional(),
       })
     )
     .query(async ({ input }) => {
-      const { hdNumber, filters, startDate, endDate, references } = input;
-      const data = await getData(hdNumber, filters, startDate, endDate, references);
+      const { starId, filters, startDate, endDate, referenceIds } = input;
+      const data = await getData(starId, filters, startDate, endDate, referenceIds);
       // return groupByFilterCode(data, filters);
       return groupByFilterCode(data);
     }),
-  getStarHdNumber: t.procedure.input(z.string().min(1)).query(async ({ input }) => {
-    const hdNumberRes = await fetchHdNumber(input);
-    if (hdNumberRes.error) {
-      return hdNumberRes;
-    }
-    const hdNumber = hdNumberRes.data;
-
-    if (
-      await prisma.catalog.findFirst({
-        where: {
-          hdNumber,
-        },
-      })
-    ) {
-      return hdNumberRes;
-    }
-
-    return {
-      data: null,
-      error: {
-        msg: `Failed to find ${hdNumber} in a database`,
-      },
-    };
-  }),
 });
 
 async function getData(
-  hdNumber: number,
+  starId: string,
   filters: string[],
   startDate: number | undefined,
   endDate: number | undefined,
-  references: string[] | undefined
+  referenceIds: string[] | undefined
 ) {
   const data = await prisma.catalog.findMany({
     select: {
-      hdNumber: true,
+      starId: true,
       filter: true,
       magnitude: true,
       julianDate: true,
     },
     where: {
-      hdNumber,
+      starId,
       magnitude: {
         not: null,
       },
@@ -164,7 +138,7 @@ async function getData(
         gte: startDate,
         lte: endDate,
       },
-      reference: references?.length ? { in: references } : undefined,
+      referenceId: referenceIds?.length ? { in: referenceIds } : undefined,
     },
   });
   type DataT = typeof data[0];
