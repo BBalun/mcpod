@@ -36,7 +36,7 @@ ChartJS.register(
 
 const router = createBrowserRouter([
   {
-    path: "/star/:hdNumber",
+    path: "/star/:starId",
     element: <Star />,
   },
   {
@@ -44,11 +44,11 @@ const router = createBrowserRouter([
     element: <Search />,
   },
   {
-    path: "/references/:hdNumber",
+    path: "/references/:starId",
     element: <References />,
   },
   {
-    path: "/observations/:hdNumber/:reference",
+    path: "/observations/:starId/:reference",
     element: <Observations />,
   },
 ]);

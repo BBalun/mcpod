@@ -1,6 +1,7 @@
+import { TRPCError } from "@trpc/server";
 import fetch from "isomorphic-fetch";
 
-/// Fetch star IDs - HD, HIP, TYC numbers (result also includes input parameter)
+/// Fetch star IDs - HD, HIP, TYC numbers
 export async function fetchStarIds(input: string) {
   const options = {
     method: "POST",
@@ -17,19 +18,19 @@ export async function fetchStarIds(input: string) {
   };
 
   const res = await fetch("http://simbad.u-strasbg.fr/simbad/sim-tap/sync", options);
-  const data = await res.json();
 
   if (res.status !== 200) {
-    return {
-      error: {
-        msg: "Fetching of error number failed",
-        status: res.status,
-        data,
-      },
-      data: null,
-    };
-  }
+    const body = await res.text();
+    console.error(`Failed to fetch data from SIMBAD. Status code: ${res.status}`);
+    console.error(`Response body: ${body}`);
 
+    throw new TRPCError({
+      code: "INTERNAL_SERVER_ERROR",
+      message: `Failed to fetch data from SIMBAD. Status code: ${res.status}`,
+      cause: body,
+    });
+  }
+  const data = await res.json();
   const starIdsData = (data as any).data as Array<[string, number]>;
 
   // Query may return multiple stars (star identifiers), sort them and choose the smaller one
@@ -45,12 +46,7 @@ export async function fetchStarIds(input: string) {
     .filter((id) => id.startsWith("HD") || id.startsWith("HIP") || id.startsWith("TYC")) // for now, use only HD, HIP and TYC identifiers
     .map((id) => id.replace(" ", ""));
 
-  starIds.push(input); // include users input, this allows scientists to use custom star identifiers
-
-  return {
-    error: null,
-    data: starIds,
-  };
+  return starIds;
 
   // if (!starIds.length) {
   //   return {

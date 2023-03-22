@@ -1,28 +1,32 @@
 import { Button, Input } from "@chakra-ui/react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { System } from "../types/systems";
 import { trpc } from "../utils/trpc";
 import PhaseChart from "./PhaseCurveChart";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useMutation } from "@tanstack/react-query";
+import { System } from "../types/systems";
 
 interface PhaseChartProps {
-  hdNumber: number;
-  systems: System[];
+  starId: string;
+  initialEphemerids: {
+    period: number | null;
+    epoch: number | null;
+  };
   filters: string[];
   startDate?: number;
   endDate?: number;
-  references?: string[];
+  referenceIds?: string[];
+  allIdentifiers: string[];
+  initialData: Record<
+    string,
+    Array<{ phase: number; magnitude: number }>
+  > | null;
+  systems: System[];
 }
 
-type PhaseDataParamsType = {
-  phase?: number;
-  period?: number;
-};
-
 const schema = z.object({
-  phase: z
+  epoch: z
     .string()
     .trim()
     .min(1, "Phase is required")
@@ -51,69 +55,47 @@ const schema = z.object({
 type FormValues = z.infer<typeof schema>;
 
 const PhaseCurveChartSection = (props: PhaseChartProps) => {
-  // const [phase, setPhase] = useState("");
-  // const [period, setPeriod] = useState("");
   const {
     register,
-    setValue,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormValues>({ resolver: zodResolver(schema) });
-
-  const [phaseDataParams, setPhaseDataParams] = useState<PhaseDataParamsType>(
-    {}
-  );
-
-  const { data } = trpc.getPhasedData.useQuery(
-    {
-      hdNumber: props.hdNumber,
-      filters: props.filters,
-      startDate: props.startDate,
-      endDate: props.endDate,
-      period: phaseDataParams.period!,
-      phase: phaseDataParams.phase!,
-      references: props.references,
+  } = useForm<FormValues>({
+    resolver: zodResolver(schema),
+    defaultValues: {
+      period: props.initialEphemerids.period ?? undefined,
+      epoch: props.initialEphemerids.epoch ?? undefined,
     },
-    {
-      enabled:
-        phaseDataParams.period !== undefined &&
-        phaseDataParams.phase !== undefined,
-    }
-  );
+  });
 
-  const { error, isLoading } = trpc.getPhaseAndEpoch.useQuery(
-    {
-      starId: props.hdNumber.toString(),
-    },
-    {
-      onSuccess(data) {
-        setValue("period", data?.period ?? ("" as any));
-        setValue("phase", data?.epoch ?? ("" as any));
-        setPhaseDataParams({
-          // TODO: rename to epoch
-          phase: data?.epoch ? parseFloat(data.epoch) : undefined,
-          period: data?.period ? parseFloat(data.period) : undefined,
-        });
-      },
-    }
+  const { client } = trpc.useContext();
+  const { mutate, isLoading, error, data } = useMutation(
+    ["phaseCurveData"],
+    client.getPhasedData.query
   );
 
   function submit(values: FormValues) {
-    setPhaseDataParams(values);
-    // setPhaseDataParams({
-    //   phase: phase ? parseFloat(phase) : undefined,
-    //   period: period ? parseFloat(period) : undefined,
-    // });
+    mutate({
+      epoch: values.epoch,
+      period: values.period,
+      starIds: props.allIdentifiers,
+      filters: props.filters,
+      startDate: props.startDate,
+      endDate: props.endDate,
+      referenceIds: props.referenceIds,
+    });
   }
 
   if (isLoading) {
+    // TODO: show loading spinner
     return <div>Loading...</div>;
   }
 
   if (error) {
     console.error(error);
-    return <div>Failed to fetch phase and epoch for star {props.hdNumber}</div>;
+    return <div>Failed to fetch phase and epoch for star {props.starId}</div>;
   }
+
+  const chartData = data ?? props.initialData;
 
   return (
     <>
@@ -123,10 +105,10 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
       >
         <div>
           <div className="my-2 grid w-fit grid-cols-2 gap-2">
-            <label htmlFor="phaseInput">Phase:</label>
+            <label htmlFor="phaseInput">Epoch:</label>
             <div>
-              <Input id="phaseInput" className="!w-40" {...register("phase")} />
-              <p className="text-red-500">{errors.phase?.message}</p>
+              <Input id="phaseInput" className="!w-40" {...register("epoch")} />
+              <p className="text-red-500">{errors.epoch?.message}</p>
             </div>
             <label htmlFor="periodInput">Period (in days):</label>
             <div>
@@ -143,7 +125,13 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
           </Button>
         </div>
       </form>
-      {data && <PhaseChart {...props} data={data} />}
+      {chartData && (
+        <PhaseChart
+          starId={props.starId}
+          systems={props.systems}
+          data={chartData}
+        />
+      )}
     </>
   );
 };

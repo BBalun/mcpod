@@ -3,12 +3,12 @@ import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
 
 interface ChartProps {
-  hdNumber: string;
+  starId: string;
   systems: System[];
-  data: Record<string, Array<{ julianDate: string; magnitude: string | null }>>;
+  data: Record<string, Array<{ julianDate: string; magnitude: string }>>;
 }
 
-const DataChart = ({ data, systems, hdNumber }: ChartProps) => {
+const DataChart = ({ data, systems, starId }: ChartProps) => {
   return (
     <Scatter
       data={{
@@ -16,7 +16,7 @@ const DataChart = ({ data, systems, hdNumber }: ChartProps) => {
           label: findFilterUsingCode(filter, systems)?.name ?? "unknown",
           data: filterData.map((a) => ({
             x: Number(a.julianDate),
-            y: Number(a.magnitude ?? "0"),
+            y: Number(a.magnitude),
           })),
         })),
         // [
@@ -35,7 +35,7 @@ const DataChart = ({ data, systems, hdNumber }: ChartProps) => {
         plugins: {
           title: {
             display: true,
-            text: `mcPod data for start HD ${hdNumber}`,
+            text: `mcPod data for start ${starId}`,
           },
         },
         scales: {

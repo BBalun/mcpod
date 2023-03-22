@@ -3,12 +3,12 @@ import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
 
 export interface PhaseCurveChartProps {
-  hdNumber: number;
+  starId: string;
   systems: System[];
-  data: Record<string, Array<{ magnitude: string; phase: number }>>;
+  data: Record<string, Array<{ magnitude: number; phase: number }>>;
 }
 
-const PhaseCurveChart = ({ data, systems, hdNumber }: PhaseCurveChartProps) => {
+const PhaseCurveChart = ({ data, systems, starId }: PhaseCurveChartProps) => {
   return (
     <Scatter
       data={{
@@ -16,7 +16,7 @@ const PhaseCurveChart = ({ data, systems, hdNumber }: PhaseCurveChartProps) => {
           label: findFilterUsingCode(filter, systems)?.name ?? "unknown",
           data: filterData.map((a) => ({
             x: a.phase,
-            y: Number(a.magnitude),
+            y: a.magnitude,
           })),
         })),
       }}
@@ -24,7 +24,7 @@ const PhaseCurveChart = ({ data, systems, hdNumber }: PhaseCurveChartProps) => {
         plugins: {
           title: {
             display: true,
-            text: `mcPod phased light curve of start HD ${hdNumber}`,
+            text: `mcPod phased light curve of start ${starId}`,
           },
         },
         scales: {

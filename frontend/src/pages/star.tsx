@@ -10,14 +10,14 @@ import { useState } from "react";
 import { Button } from "@chakra-ui/react";
 
 const Star = () => {
-  const { hdNumber } = useParams();
+  const { starId } = useParams();
 
-  if (!hdNumber) {
+  if (!starId) {
     return <Navigate to="/" />;
   }
 
   const [searchParams, setSearchParams] = useSearchParams();
-  const references = searchParams.getAll("reference");
+  const referenceIds = searchParams.getAll("reference");
 
   const [filters, setFilters] = useState<string[]>([]);
 
@@ -30,32 +30,31 @@ const Star = () => {
 
   const {
     data: systems,
-    isLoading,
-    isError,
-    error,
+    isLoading: isSystemLoading,
+    isError: isErrorLoading,
+    error: systemError,
   } = useQuery(["systems"], fetchSystems);
 
-  const { data } = trpc.getData.useQuery(
+  const {
+    data,
+    isLoading: starDataLoading,
+    isError: isStarDataError,
+    error: starDataError,
+  } = trpc.getStarData.useQuery(
     {
-      hdNumber: parseInt(hdNumber),
+      starId,
       filters,
       startDate: dateFilters[0],
       endDate: dateFilters[1],
-      references,
+      referenceIds,
     },
     {
-      enabled: !!hdNumber && !!systems,
+      enabled: !!systems,
     }
   );
 
-  // TODO: use Suspense
-  if (isLoading) {
-    return <div>Loading systems...</div>;
-  }
-
-  // TODO: use error boundaries
-  if (isError) {
-    console.error(error);
+  if (isErrorLoading || isStarDataError) {
+    console.error(systemError || starDataError);
     return (
       <div>
         Unexpected error occurred while fetching systems. Please try again
@@ -64,12 +63,17 @@ const Star = () => {
     );
   }
 
+  if (isSystemLoading) {
+    // TODO: show loading spinner
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="flex w-full flex-row gap-1 px-7 pt-2">
       <section className="w-1/3">
         <h1 className="text-lg font-bold">
-          Database Query Result for HD {hdNumber}
-          {references.length > 0 && " for selected references"}
+          Database Query Result for {starId}
+          {referenceIds.length > 0 && " for selected references"}
         </h1>
         <hr className="my-3" />
         <Filters systems={systems} filters={filters} setFilters={setFilters} />
@@ -98,7 +102,7 @@ const Star = () => {
           </Button>
         </form>
         <hr className="my-3" />
-        <Link to={`/references/${hdNumber}`}>
+        <Link to={`/references/${starId}`}>
           <Button colorScheme="gray" variant="solid" w="full" className="mb-10">
             Go to references
           </Button>
@@ -109,19 +113,22 @@ const Star = () => {
         {data && (
           <>
             <DataChart
-              data={data}
-              hdNumber={hdNumber ?? ""}
+              data={data.chartData}
+              starId={starId}
               systems={systems}
             />
             <hr className="my-3" />
 
             <PhaseCurveChartSection
-              hdNumber={parseInt(hdNumber)}
+              starId={starId}
               systems={systems}
+              initialData={data.phasedLightCurveChartData}
               filters={filters}
+              initialEphemerids={data.ephemerids}
+              allIdentifiers={data.identifiers}
               startDate={dateFilters[0]}
               endDate={dateFilters[1]}
-              references={references}
+              referenceIds={referenceIds}
             />
           </>
         )}
