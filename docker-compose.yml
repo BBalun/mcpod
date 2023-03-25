@@ -7,7 +7,7 @@ services:
     restart: always
     volumes:
       - postgres_volume:/var/lib/postgresql/data
-      - ./data/data/output:/data/output
+      - ./data/data:/data
     environment:
       POSTGRES_PASSWORD: postgres
     ports:

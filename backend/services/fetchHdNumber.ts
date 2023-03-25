@@ -1,5 +1,17 @@
 import { TRPCError } from "@trpc/server";
-import fetch from "isomorphic-fetch";
+// import fetch from "isomorphic-fetch";
+import wretch from "wretch";
+import { retry } from "wretch/middlewares/retry";
+import FormUrlAddon from "wretch/addons/formUrl";
+
+const w = wretch()
+  .addon(FormUrlAddon)
+  .middlewares([
+    retry({
+      maxAttempts: 3,
+      retryOnNetworkError: true,
+    }),
+  ]);
 
 /// Fetch star IDs - HD, HIP, TYC numbers
 export async function fetchStarIds(input: string) {
@@ -13,7 +25,8 @@ export async function fetchStarIds(input: string) {
       PHASE: "RUN",
       FORMAT: "JSON",
       LANG: "ADQL",
-      query: `SELECT * FROM ident WHERE oidref IN  (SELECT ident.oidref FROM basic JOIN ident ON oidref = oid WHERE id = \'${input}\')`,
+      // query: `SELECT * FROM ident WHERE oidref IN  (SELECT ident.oidref FROM basic JOIN ident ON oidref = oid WHERE id = \'${input}\')`,
+      query: `SELECT oidref FROM ident WHERE id = \'${input}\'`,
     }),
   };
 
@@ -66,4 +79,43 @@ export async function fetchStarIds(input: string) {
   //   error: null,
   //   data: starIdVariants,
   // };
+}
+
+export async function fetchObjectId(input: string) {
+  // const options = {
+  //   method: "POST",
+  //   headers: {
+  //     "Content-Type": "application/x-www-form-urlencoded",
+  //   },
+  //   body: new URLSearchParams({
+  //     REQUEST: "doQuery",
+  //     PHASE: "RUN",
+  //     FORMAT: "JSON",
+  //     LANG: "ADQL",
+  //     // query: `SELECT * FROM ident WHERE oidref IN  (SELECT ident.oidref FROM basic JOIN ident ON oidref = oid WHERE id = \'${input}\')`,
+  //     query: `SELECT oidref FROM ident WHERE id = \'${input}\'`,
+  //   }),
+  // };
+
+  // const res = await fetch("https://simbad.harvard.edu/simbad/sim-tap/sync", options);
+
+  // if (res.status !== 200) {
+  //   const body = await res.text();
+  //   console.error(`Response body: ${body}`);
+  //   throw new Error(`Failed to fetch data from SIMBAD. Status code: ${res.status}`);
+  // }
+  const { data } = await w
+    .url("https://simbad.harvard.edu/simbad/sim-tap/sync")
+    .formUrl({
+      REQUEST: "doQuery",
+      PHASE: "RUN",
+      FORMAT: "JSON",
+      LANG: "ADQL",
+      // query: `SELECT * FROM ident WHERE oidref IN  (SELECT ident.oidref FROM basic JOIN ident ON oidref = oid WHERE id = \'${input}\')`,
+      query: `SELECT oidref FROM ident WHERE id = \'${input}\'`,
+    })
+    .post()
+    .json<any>();
+
+  return data.at(0)?.at(0) as string | undefined;
 }
