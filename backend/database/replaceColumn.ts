@@ -6,53 +6,42 @@ interface CsvData {
   [key: string]: string;
 }
 
-const cache = new Map<string, Promise<string>>();
-
 export async function replaceColumnValue(
   filePath: string,
   outputFilePath: string,
   columnName: string,
-  callback: (value: string) => Promise<string>
+  callback: (value: string) => Promise<string>,
+  cache: Map<string, string> = new Map<string, string>(),
+  concurrency: number = 200
 ): Promise<void> {
   const csvData = fs.readFileSync(filePath, "utf8");
   const parsedCsvData = parse<CsvData>(csvData, { header: true });
 
-  const queue = new PQueue({ concurrency: 200 });
+  const queue = new PQueue({ concurrency });
 
   if (parsedCsvData.errors.length) {
     console.warn(`Found errors during parsing of ${filePath}`);
     console.warn(parsedCsvData.errors);
   }
 
-  const length = parsedCsvData.data.length;
-  let progress = 0;
-  const interval = setInterval(() => {
-    console.log(`Progress: ${++progress}/${length}`);
-  }, 500);
-
-  const resultsPromise = parsedCsvData.data.map((data) =>
+  // First create set of unique values, then call callback (this way we do not call callback on same value twice)
+  const colValuesSet = new Set(parsedCsvData.data.map((data) => data[columnName]));
+  const mappedValuesPromise = [...colValuesSet].map((value) =>
     queue.add(async () => {
-      progress += 1;
-      const originalValue = data[columnName];
-
-      let newValue;
-      const cachedValue = cache.get(originalValue);
-      if (!cachedValue) {
-        const temp = callback(originalValue);
-        cache.set(originalValue, temp);
-        newValue = temp;
-      } else {
-        newValue = cachedValue;
+      const cachedResult = cache.get(value);
+      if (cachedResult) {
+        return;
       }
-
-      data[columnName] = await newValue;
-      return data;
+      const newValue = await callback(value);
+      cache.set(value, newValue);
     })
   );
 
-  const results = await Promise.all(resultsPromise);
-  clearInterval(interval);
+  await Promise.all(mappedValuesPromise);
+  parsedCsvData.data.forEach((data) => {
+    data[columnName] = cache.get(data[columnName])!;
+  });
 
-  const res = unparse(results);
+  const res = unparse(parsedCsvData.data);
   await fs.promises.writeFile(outputFilePath, res);
 }

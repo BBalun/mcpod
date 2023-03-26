@@ -11,15 +11,16 @@ const prisma = new PrismaClient();
 const csvFolderPath = "../data/data/output_without_tycho";
 
 async function main() {
+  const cache = new Map<string, string>();
   try {
-    // for (const file of ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"]) {
-    for (const file of ["ephemeris.csv", "reference.csv", "observation.csv", "catalog.csv"]) {
+    for (const file of ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"]) {
       console.log(`Converting star IDs from ${file} into SIMBAD IDs`);
       await replaceColumnValue(
         `${csvFolderPath}/${file}`,
         `${csvFolderPath}/out/${file}`,
         "starId",
-        async (id) => (await fetchObjectId(id))!
+        async (id) => (await fetchObjectId(id))!,
+        cache
       );
     }
   } catch (e) {
@@ -28,6 +29,8 @@ async function main() {
     console.error("See exception details above for more information.");
     process.exit(1);
   }
+
+  return;
 
   try {
     await prisma.$transaction([
