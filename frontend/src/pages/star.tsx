@@ -1,5 +1,5 @@
 import { trpc } from "../utils/trpc";
-import { useQuery } from "@tanstack/react-query";
+import { useQueries, useQuery } from "@tanstack/react-query";
 import { fetchSystems } from "../services/fetchSystems";
 import DateFilters from "../components/DateFilters";
 import Filters from "../components/Filters";
@@ -8,40 +8,56 @@ import PhaseCurveChartSection from "../components/PhaseCurveChartSection";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
-import { RouterOutput } from "../types/trpc";
 
 const Star = () => {
-  const { starId } = useParams();
+  const { starId: starIdString } = useParams();
+
+  const starId = /^[0-9]+$/.test(starIdString ?? "")
+    ? Number(starIdString)
+    : null;
 
   if (!starId) {
     return <Navigate to="/" />;
   }
 
+  const { client } = trpc.useContext();
+
   const [searchParams, setSearchParams] = useSearchParams();
   const referenceIds = searchParams.getAll("reference");
 
   const [filters, setFilters] = useState<string[]>([]);
-  const [data, setData] = useState<RouterOutput["getStarData"]>();
 
   const [startDate, setStartDate] = useState<number>();
   const [endDate, setEndDate] = useState<number>();
+
+  const [error, setError] = useState<string>();
 
   const [dateFilters, setDateFilters] = useState<
     [number | undefined, number | undefined]
   >([undefined, undefined]);
 
-  const {
-    data: systems,
-    isLoading: isSystemLoading,
-    isError: isErrorLoading,
-    error: systemError,
-  } = useQuery(["systems"], fetchSystems);
+  const { data: mainId } = trpc.getMainId.useQuery(
+    {
+      starId,
+    },
+    {
+      onError: (e) => {
+        console.error("Failed to fetch main id");
+        console.error(e);
+        setError("Failed to fetch star main identifier");
+      },
+    }
+  );
 
-  const {
-    isLoading: starDataLoading,
-    isError: isStarDataError,
-    error: starDataError,
-  } = trpc.getStarData.useQuery(
+  const { data: systems } = useQuery(["systems"], fetchSystems, {
+    onError(error) {
+      console.error("Fetching of systems failed");
+      console.error(error);
+      setError("Failed to fetch systems and filters");
+    },
+  });
+
+  const { data } = trpc.getData.useQuery(
     {
       starId,
       filters,
@@ -51,33 +67,36 @@ const Star = () => {
     },
     {
       enabled: !!systems,
-      onSuccess(data) {
-        setData(data);
+      onError(e) {
+        console.error("Failed to fetch data");
+        console.error(e);
+        setError("Failed to fetch data for star " + starId);
       },
     }
   );
 
-  if (isErrorLoading || isStarDataError) {
-    console.error(systemError || starDataError);
+  if (error) {
     return (
       <div>
-        Unexpected error occurred while fetching systems. Please try again
-        later.
+        <p>
+          Unexpected error occurred while fetching systems. Please try again
+          later.
+        </p>
+        <p>({error})</p>
       </div>
     );
   }
 
-  if (isSystemLoading) {
+  if (!systems || !mainId) {
     // TODO: show loading spinner
     return <div>Loading...</div>;
   }
-  console.log("is data undefiend", data === undefined);
 
   return (
     <div className="flex w-full flex-row gap-1 px-7 pt-2">
       <section className="w-1/3">
         <h1 className="text-lg font-bold">
-          Database Query Result for {starId}
+          Database Query Result for {mainId}
           {referenceIds.length > 0 && " for selected references"}
         </h1>
         <hr className="my-3" />
@@ -117,20 +136,14 @@ const Star = () => {
       <section className="flex w-2/3 flex-col">
         {data && (
           <>
-            <DataChart
-              data={data.chartData}
-              starId={starId}
-              systems={systems}
-            />
+            <DataChart data={data} mainId={mainId} systems={systems} />
             <hr className="my-3" />
 
             <PhaseCurveChartSection
               starId={starId}
+              mainId={mainId}
               systems={systems}
-              initialData={data.phasedLightCurveChartData}
               filters={filters}
-              initialEphemerids={data.ephemerids}
-              allIdentifiers={data.identifiers}
               startDate={dateFilters[0]}
               endDate={dateFilters[1]}
               referenceIds={referenceIds}

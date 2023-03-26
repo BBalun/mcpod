@@ -1,17 +1,28 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Input } from "@chakra-ui/react";
+import { useMutation } from "@tanstack/react-query";
+import { trpc } from "../utils/trpc";
 
 const search = () => {
   const [input, setInput] = useState("");
+  const [error, setError] = useState<string>();
 
   const navigate = useNavigate();
 
+  const { client } = trpc.useContext();
+  const { mutateAsync } = useMutation(["search", input], client.search.query);
+
   return (
     <form
-      onSubmit={(e) => {
+      onSubmit={async (e) => {
         e.preventDefault();
-        navigate("/star/" + input);
+        const starId = await mutateAsync(input);
+        if (!starId) {
+          setError(`Start '${input}' not found`);
+          return;
+        }
+        navigate("/star/" + starId);
       }}
     >
       <label htmlFor="starId">Star identifier:</label>
@@ -23,6 +34,7 @@ const search = () => {
         onChange={(e) => setInput(e.target.value)}
         required
       />
+      {error && <p className="text-red-500">{error}</p>}
 
       <Button type="submit">Search</Button>
     </form>

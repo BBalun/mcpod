@@ -6,23 +6,16 @@ import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMutation } from "@tanstack/react-query";
 import { System } from "../types/systems";
+import { useState } from "react";
 
 interface PhaseChartProps {
-  starId: string;
-  initialEphemerids: {
-    period: number | null;
-    epoch: number | null;
-  };
+  starId: number;
+  mainId: string;
+  systems: System[];
   filters: string[];
   startDate?: number;
   endDate?: number;
   referenceIds?: string[];
-  allIdentifiers: string[];
-  initialData: Record<
-    string,
-    Array<{ phase: number; magnitude: number }>
-  > | null;
-  systems: System[];
 }
 
 const schema = z.object({
@@ -54,35 +47,64 @@ const schema = z.object({
 
 type FormValues = z.infer<typeof schema>;
 
+type PhaseDataParamsType = {
+  epoch?: number;
+  period?: number;
+};
+
 const PhaseCurveChartSection = (props: PhaseChartProps) => {
+  const [error, setError] = useState<string>();
+  const [phaseDataParams, setPhaseDataParams] = useState<PhaseDataParamsType>(
+    {}
+  );
+
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isValid },
+    setValue,
   } = useForm<FormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      period: props.initialEphemerids.period ?? undefined,
-      epoch: props.initialEphemerids.epoch ?? undefined,
+  });
+
+  const { isLoading } = trpc.getEphemerids.useQuery(props.starId, {
+    onSuccess(data) {
+      setValue("epoch", (data.epoch?.toString() ?? "") as any);
+      setValue("period", (data.period?.toString() ?? "") as any);
+      setPhaseDataParams({
+        epoch: data.epoch ?? undefined,
+        period: data.period ?? undefined,
+      });
+    },
+    onError: (e) => {
+      console.error(
+        "Failed to fetch ephemerids for star with id",
+        props.starId
+      );
+      console.error(e);
+      setError(`Failed to fetch ephemerids for star with id ${props.starId}`);
     },
   });
 
-  const { client } = trpc.useContext();
-  const { mutate, isLoading, error, data } = useMutation(
-    ["phaseCurveData"],
-    client.getPhasedData.query
-  );
-
-  function submit(values: FormValues) {
-    mutate({
-      epoch: values.epoch,
-      period: values.period,
-      starIds: props.allIdentifiers,
+  const { data } = trpc.getPhasedData.useQuery(
+    {
+      starId: props.starId,
       filters: props.filters,
       startDate: props.startDate,
       endDate: props.endDate,
       referenceIds: props.referenceIds,
-    });
+      period: phaseDataParams.period!,
+      epoch: phaseDataParams.epoch!,
+    },
+    {
+      enabled:
+        phaseDataParams.period !== undefined &&
+        phaseDataParams.epoch !== undefined,
+    }
+  );
+
+  function submit(values: FormValues) {
+    setPhaseDataParams(values);
   }
 
   if (isLoading) {
@@ -91,11 +113,8 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
   }
 
   if (error) {
-    console.error(error);
-    return <div>Failed to fetch phase and epoch for star {props.starId}</div>;
+    return <div>Failed to fetch phase and epoch for star {props.mainId}</div>;
   }
-
-  const chartData = data ?? props.initialData;
 
   return (
     <>
@@ -120,17 +139,19 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
               <p className="text-red-500">{errors.period?.message}</p>
             </div>
           </div>
-          <Button type="submit" colorScheme="gray" variant="solid" width="full">
+          <Button
+            type="submit"
+            colorScheme="gray"
+            variant="solid"
+            width="full"
+            isDisabled={!isValid}
+          >
             Submit
           </Button>
         </div>
       </form>
-      {chartData && (
-        <PhaseChart
-          starId={props.starId}
-          systems={props.systems}
-          data={chartData}
-        />
+      {data && (
+        <PhaseChart starId={props.mainId} systems={props.systems} data={data} />
       )}
     </>
   );

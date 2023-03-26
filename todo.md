@@ -2,17 +2,18 @@
   (may not be necessary, because this should be run only once during development)
 - [x] create script to load data from `/data/data/output` to database
 - [ ] fix all type errors 
-  - [ ] change hdNumber to starId everywhere
-- [ ] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
+  - [x] change hdNumber to starId everywhere
+- [x] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
 - [ ] fetch data from external catalogues
-- [ ] figure out how to add artificial information about references for data from external catalogues
+- [ ] figure out how to add artificial information about references for data from external catalogues (WIP)
 - [ ] data export on chart page
 - [ ] data export page - for exporting data from multiple stars
-- [ ] make chart interactive
+- [ ] make chart interactive (WIP)
   - [ ] export only data that is visible on a chart
 - [ ] fix bibcode URL link (problem with `&`)
 - [ ] home page 
 - [ ] fix design
-- [ ] cache star ids after fetching them from simbad
+- [x] cache star ids after fetching them from simbad
 - [ ] cache data from hip and tyc
 - [ ] filtering on the client (julian data + filters)
+- [ ] chart colors based on filter type

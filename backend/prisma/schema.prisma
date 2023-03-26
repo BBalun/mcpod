@@ -11,7 +11,7 @@ datasource db {
 }
 
 model Ephemeris {
-  starId String   @id
+  starId Int      @id
   epoch  Decimal?
   period Decimal?
 }
@@ -19,7 +19,7 @@ model Ephemeris {
 model Catalog {
   id Int @id @default(autoincrement())
 
-  starId      String
+  starId      Int
   julianDate  Decimal
   magnitude   Decimal?
   magErr      Decimal?
@@ -33,9 +33,10 @@ model Catalog {
 model Observation {
   id Int @id @default(autoincrement())
 
-  starId      String
+  starId      Int
   filter      String
   referenceId String
+  count       Int    @default(0)
 
   lambdaEff    Decimal?
   magAverage   Decimal?
@@ -51,22 +52,37 @@ model Reference {
   id Int @id @default(autoincrement())
 
   referenceId String
-  starId      String
+  starId      Int
 
   author           String?
   bibcode          String?
   referenceStarIds String?
 
+  details String @default("") // TODO: is it required or will it be calculated on a fly
+
   @@unique([referenceId, starId])
 }
 
-model Measurement {
-  id Int @id @default(autoincrement())
+model Identifier {
+  starId Int     @id
+  mainId String
+  tyc    String?
+  hip    String?
 
-  starId      String
-  referenceId String
-  filter      String
-  count       Int
-
-  @@unique([starId, filter, referenceId])
+  @@index([tyc])
+  @@index([hip])
 }
+
+// model ExternalData {
+//   id Int @id @default(autoincrement())
+
+//   starId      Int
+//   julianDate  Decimal
+//   magnitude   Decimal?
+//   magErr      Decimal?
+//   filter      String
+//   referenceId String
+
+//   @@index([starId])
+//   @@index([referenceId])
+// }

@@ -3,12 +3,12 @@ import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
 
 interface ChartProps {
-  starId: string;
+  mainId: string;
   systems: System[];
   data: Record<string, Array<{ julianDate: string; magnitude: string }>>;
 }
 
-const DataChart = ({ data, systems, starId }: ChartProps) => {
+const DataChart = ({ data, systems, mainId }: ChartProps) => {
   return (
     <Scatter
       data={{
@@ -35,7 +35,7 @@ const DataChart = ({ data, systems, starId }: ChartProps) => {
         plugins: {
           title: {
             display: true,
-            text: `mcPod data for start ${starId}`,
+            text: `mcPod data for start ${mainId}`,
           },
         },
         scales: {

@@ -4,7 +4,7 @@ import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import z from "zod";
-import { fetchStarIds } from "./services/fetchHdNumber";
+import { fetchObjectId, fetchObjectIds, fetchStarIds } from "./services/fetchHdNumber";
 
 // TODO: own file
 const prisma = new PrismaClient();
@@ -12,20 +12,10 @@ const prisma = new PrismaClient();
 // TODO: own file
 const t = initTRPC.create();
 
-async function getEphemerids(starIds: string[]) {
-  if (starIds.length === 0) {
-    console.error("getEphemerids function requires parameter 'starIds' to be non empty");
-    throw new TRPCError({
-      code: "BAD_REQUEST",
-      message: "getEphemerids function requires parameter 'starIds' to be non empty",
-    });
-  }
-
+async function getEphemerids(starId: number) {
   const data = await prisma.ephemeris.findFirst({
     where: {
-      starId: {
-        in: starIds,
-      },
+      starId,
     },
   });
 
@@ -36,11 +26,22 @@ async function getEphemerids(starIds: string[]) {
     };
   }
 
-  // Which starIds should be used?
-  // For now, use primarily HD number, secondarily HIP number, tertiary TYC number, and lastly any identifier that comes next
-  const starId = starIds.find((id) => id.startsWith("HD") || id.startsWith("HIP") || id.startsWith("TYC") || true)!;
+  const identifier = await prisma.identifier.findUnique({
+    where: {
+      starId,
+    },
+  });
 
-  const ephemerids = await fetchEphemerids(starId);
+  if (!identifier) {
+    console.error(`getEphemerids failed. Parameter starId ${starId} is not present in identifiers table`);
+    return {
+      period: null,
+      epoch: null,
+    };
+  }
+
+  // TODO: mainId is probably enough
+  const ephemerids = await fetchEphemerids(identifier.hip ?? identifier.tyc ?? identifier.mainId);
   if (ephemerids?.epoch) {
     ephemerids.epoch = ephemerids.epoch - 2_400_000;
   }
@@ -52,29 +53,24 @@ const appRouter = t.router({
   getStarData: t.procedure
     .input(
       z.object({
-        starId: z.string().min(1),
+        starId: z.number(),
         filters: z.array(z.string().trim().min(0)),
         startDate: z.number().optional(),
         endDate: z.number().optional(),
         referenceIds: z.array(z.string().min(1)).optional(),
+        ephemerids: z
+          .object({
+            period: z.number().nullable(),
+            epoch: z.number().nullable(),
+          })
+          .optional(),
       })
     )
     .query(async ({ input }) => {
-      const { starId, filters, startDate, endDate, referenceIds } = input;
-      const starIds = await fetchStarIds(starId);
+      const { starId, filters, startDate, endDate, referenceIds, ephemerids } = input;
 
-      const starIdsWithInput = starIds.includes(starId) ? starIds : [...starIds, starId];
-
-      const starData = await getData(starIdsWithInput, filters, startDate, endDate, referenceIds);
-      if (starData.length === 0) {
-        // TODO: how to handle no data
-        // return {
-        //   error: `No data found for star '${starId}'`,
-        // };
-      }
+      const starData = await getData(starId, filters, startDate, endDate, referenceIds);
       const chartData = groupByFilterCode(starData); // data for main chart
-
-      const ephemerids = await getEphemerids(starIdsWithInput); // epoch and period
 
       let phasedLightCurveChartData; // second chart data
       if (ephemerids && ephemerids.period !== null && ephemerids.epoch !== null) {
@@ -89,15 +85,16 @@ const appRouter = t.router({
 
       return {
         chartData,
-        ephemerids,
         phasedLightCurveChartData: phasedLightCurveChartData ?? null,
-        identifiers: starIds,
       };
     }),
+  getEphemerids: t.procedure.input(z.number()).query(async ({ input: starId }) => {
+    return await getEphemerids(starId);
+  }),
   getObservations: t.procedure
     .input(
       z.object({
-        starId: z.string().min(1),
+        starId: z.number(),
         referenceId: z.string().min(1),
       })
     )
@@ -114,7 +111,7 @@ const appRouter = t.router({
   getReferences: t.procedure
     .input(
       z.object({
-        starId: z.string().min(1),
+        starId: z.number(),
       })
     )
     .query(async ({ input }) => {
@@ -126,76 +123,86 @@ const appRouter = t.router({
       });
       return data;
     }),
-  getPhasedData: t.procedure
+  getData: t.procedure
     .input(
       z.object({
-        starIds: z.array(z.string().min(1)),
-        filters: z.array(z.string().trim().min(0)),
+        starId: z.number(),
+        filters: z.array(z.string().trim().min(1)),
         startDate: z.number().optional(),
         endDate: z.number().optional(),
-        epoch: z.number(),
-        period: z.number(),
         referenceIds: z.array(z.string().min(1)).optional(),
       })
     )
     .query(async ({ input }) => {
-      // TODO: using starIds (instead of starId - singular) is not a nice solution
-      const { starIds, filters, startDate, endDate, epoch, period, referenceIds } = input;
-      const data = await getData(starIds, filters, startDate, endDate, referenceIds);
+      const { starId, filters, startDate, endDate, referenceIds } = input;
+      const data = await getData(starId, filters, startDate, endDate, referenceIds);
 
-      return groupByFilterCode(
-        data.map(({ julianDate, filter, magnitude }) => ({
-          filter,
-          magnitude: magnitude.toNumber(),
-          phase: calculatePhase(julianDate.toNumber(), period, epoch),
-        }))
-      );
+      return groupByFilterCode(data);
     }),
-  // getPhaseAndEpoch: t.procedure.input(z.object({ starId: z.string().min(1) })).query(async ({ input }) => {
-  //   const { starId } = input;
+  getPhasedData: t.procedure
+    .input(
+      z.object({
+        starId: z.number(),
+        filters: z.array(z.string().trim().min(1)),
+        startDate: z.number().optional(),
+        endDate: z.number().optional(),
+        referenceIds: z.array(z.string().min(1)).optional(),
+        period: z.number(),
+        epoch: z.number(),
+      })
+    )
+    .query(async ({ input }) => {
+      const { starId, filters, startDate, endDate, epoch, period, referenceIds } = input;
+      const data = await getData(starId, filters, startDate, endDate, referenceIds);
 
-  //   const data = await prisma.ephemeris.findFirst({
-  //     where: {
-  //       starId,
-  //     },
-  //   });
+      const phasedData = data.map(({ julianDate, filter, magnitude }) => ({
+        filter,
+        magnitude: magnitude.toNumber(),
+        phase: calculatePhase(julianDate.toNumber(), period, epoch),
+      }));
 
-  //   if (data) {
-  //     return {
-  //       period: data?.period?.toString() ?? null,
-  //       epoch: data?.epoch?.toString() ?? null,
-  //     };
-  //   }
+      return groupByFilterCode(phasedData);
+    }),
+  search: t.procedure.input(z.string().min(1)).query(async ({ input }) => {
+    const starIds = await fetchObjectIds(input);
+    if (!starIds) {
+      return null;
+    }
 
-  //   const ephemerids = await fetchEphemerids(starId);
-  //   if (ephemerids?.epoch) {
-  //     const epoch = z.string().trim().transform(parseFloat).safeParse(ephemerids.epoch);
-  //     if (epoch.success) {
-  //       ephemerids.epoch = (epoch.data - 2_400_000).toFixed(2);
-  //     }
-  //   }
-  //   return ephemerids;
-  // }),
-  // getData: t.procedure
-  //   .input(
-  //     z.object({
-  //       starId: z.string().min(1),
-  //       filters: z.array(z.string().trim().min(0)),
-  //       startDate: z.number().optional(),
-  //       endDate: z.number().optional(),
-  //       referenceIds: z.array(z.string().min(1)).optional(),
-  //     })
-  //   )
-  //   .query(async ({ input }) => {
-  //     const { starId, filters, startDate, endDate, referenceIds } = input;
-  //     const data = await getData(starId, filters, startDate, endDate, referenceIds);
-  //     // return groupByFilterCode(data, filters);
-  //     return groupByFilterCode(data);
-  //   }),
+    const identifier = await prisma.identifier.findUnique({
+      where: {
+        starId: starIds.oid,
+      },
+    });
+
+    // Make sure that identifier is in the DB
+    if (!identifier) {
+      await prisma.identifier.create({
+        data: {
+          starId: starIds.oid,
+          mainId: starIds.mainId,
+          hip: starIds.hip,
+          tyc: starIds.tyc,
+        },
+      });
+    }
+
+    return starIds.oid;
+  }),
+  getMainId: t.procedure.input(z.object({ starId: z.number() })).query(async ({ input }) => {
+    const { starId } = input;
+    const identifiers = await prisma.identifier.findUnique({
+      where: {
+        starId,
+      },
+    });
+
+    return identifiers?.mainId ?? null;
+  }),
 });
 
 async function getData(
-  starIds: string[],
+  starId: number,
   filters: string[],
   startDate: number | undefined,
   endDate: number | undefined,
@@ -209,9 +216,7 @@ async function getData(
       julianDate: true,
     },
     where: {
-      starId: {
-        in: starIds,
-      },
+      starId,
       magnitude: {
         not: null,
       },
