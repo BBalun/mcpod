@@ -16,33 +16,58 @@ function generateLinkToAds(bibCode: string) {
 }
 
 const references = () => {
-  const { hdNumber } = useParams();
+  const { starId: starIdString } = useParams();
   const navigate = useNavigate();
 
   const [selectedRefs, setSelectedRefs] = useState([] as string[]);
+  const [error, setError] = useState<string>();
 
-  if (!hdNumber || isNaN(Number(hdNumber))) {
-    console.error("Invalid hdNumber param:", hdNumber);
+  const starId = /^[0-9]+$/.test(starIdString ?? "")
+    ? Number(starIdString)
+    : null;
+
+  if (!starId) {
+    console.error("Invalid starId param:", starIdString);
     return <Navigate to="/" />;
   }
 
-  const { data, error } = trpc.getReferences.useQuery({
-    hdNumber: Number(hdNumber),
-  });
+  const { data } = trpc.getReferences.useQuery(
+    {
+      starId,
+    },
+    {
+      onError: (e) => {
+        console.error(`Failed to fetch references for star with id ${starId}`);
+        console.error(e);
+        setError(`Failed to fetch references for star with id ${starId}`);
+      },
+    }
+  );
 
-  if (!data && !error) {
-    return <div>Loading...</div>;
-  }
+  const { data: mainId } = trpc.getMainId.useQuery(
+    { starId },
+    {
+      onError: (e) => {
+        console.error(`Failed to fetch main id for star with id ${starId}`);
+        console.error(e);
+        setError(`Failed to fetch main id for star with id ${starId}`);
+      },
+    }
+  );
 
   if (error) {
     console.error(error);
     return <div>Error ocurred. Try again later.</div>;
   }
 
+  if (!data || !mainId) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <main className="container flex h-full w-full flex-col items-center justify-center gap-3 lg:p-20">
       <div className="w-full text-left">
-        <h1 className="text-lg font-bold ">References for HD {hdNumber}</h1>
+        <h1 className="text-lg font-bold ">References for {mainId}</h1>
       </div>
       <table className={"table w-full " + styles.table}>
         <thead>
@@ -63,38 +88,43 @@ const references = () => {
               <td>
                 <input
                   type="checkbox"
-                  checked={selectedRefs.includes(reference.reference)}
+                  checked={selectedRefs.includes(reference.referenceId)}
                   onChange={(e) => {
                     if (e.target.checked) {
-                      setSelectedRefs((refs) => [...refs, reference.reference]);
+                      setSelectedRefs((refs) => [
+                        ...refs,
+                        reference.referenceId,
+                      ]);
                     } else {
                       setSelectedRefs((refs) =>
-                        refs.filter((r) => r !== reference.reference)
+                        refs.filter((r) => r !== reference.referenceId)
                       );
                     }
                   }}
                 />
               </td>
-              <td>{reference.reference}</td>
-              <td>{reference.hdNumber}</td>
+              <td>{reference.referenceId}</td>
+              <td>{reference.starId}</td>
               <td>{reference.author}</td>
               <td>
-                {reference.bibCode}
-                {reference.bibCode && (
+                {reference.bibcode}
+                {reference.bibcode && (
                   <span>
                     (
-                    <a href={generateLinkToAds(reference.bibCode)}>
+                    <a href={generateLinkToAds(reference.bibcode)}>
                       Link to ADS
                     </a>
                     )
                   </span>
                 )}
               </td>
-              <td>{reference.sStar}</td>
-              <td>{reference.description}</td>
+              <td>{reference.referenceStarIds}</td>
+              {/* TODO: what to do with description */}
+              {/* <td>{reference.description}</td> */}
+
               <td>
                 <Link
-                  to={`/observations/${hdNumber}/${reference.reference}`}
+                  to={`/observations/${starId}/${reference.referenceId}`}
                   className="a-link"
                 >
                   Get statistics
@@ -105,7 +135,7 @@ const references = () => {
         </tbody>
       </table>
       <div className="flex w-full flex-row justify-end gap-3">
-        <Link to={`/star/${hdNumber}`}>
+        <Link to={`/star/${starId}`}>
           <Button colorScheme="blackAlpha">Go back to star data</Button>
         </Link>
         <Button
@@ -113,7 +143,7 @@ const references = () => {
           isDisabled={selectedRefs.length === 0}
           onClick={() =>
             navigate(
-              `/star/${hdNumber}?${selectedRefs
+              `/star/${starId}?${selectedRefs
                 .map((r) => `reference=${r}`)
                 .join("&")}`
             )

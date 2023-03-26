@@ -20,8 +20,6 @@ const Star = () => {
     return <Navigate to="/" />;
   }
 
-  const { client } = trpc.useContext();
-
   const [searchParams, setSearchParams] = useSearchParams();
   const referenceIds = searchParams.getAll("reference");
 
