@@ -104,14 +104,20 @@ const references = () => {
                 />
               </td>
               <td>{reference.referenceId}</td>
+              {/* TODO: another issue, what should be now displayed here */}
+              {/* Ideal solution: remove this column. Name of the star (main id) is displayed as page heading */}
               <td>{reference.starId}</td>
               <td>{reference.author}</td>
               <td>
                 {reference.bibcode}
                 {reference.bibcode && (
                   <span>
+                    {" "}
                     (
-                    <a href={generateLinkToAds(reference.bibcode)}>
+                    <a
+                      href={generateLinkToAds(reference.bibcode)}
+                      className="a-link"
+                    >
                       Link to ADS
                     </a>
                     )
@@ -120,6 +126,7 @@ const references = () => {
               </td>
               <td>{reference.referenceStarIds}</td>
               {/* TODO: what to do with description */}
+              {/* One option is to calculate it on a fly on a server and include results in the response */}
               {/* <td>{reference.description}</td> */}
 
               <td>

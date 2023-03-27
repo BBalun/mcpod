@@ -15,5 +15,5 @@
 - [ ] fix design
 - [x] cache star ids after fetching them from simbad
 - [ ] cache data from hip and tyc
-- [ ] filtering on the client (julian data + filters)
+- [ ] filtering on the client (julian data + filters) (optional)
 - [ ] chart colors based on filter type

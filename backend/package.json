@@ -4,8 +4,9 @@
   "description": "mcpod2 backend",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev index.ts",
-    "db:seed": "ts-node ./database/seed.ts"
+    "dev": "cross-env NODE_OPTIONS='--insecure-http-parser' ts-node-dev index.ts",
+    "db:seed": "ts-node ./database/seed.ts",
+    "test": "cross-env NODE_OPTIONS='--insecure-http-parser' ts-node ./services/vizierService.ts"
   },
   "author": "",
   "license": "ISC",
@@ -23,6 +24,7 @@
     "@types/isomorphic-fetch": "^0.0.36",
     "@types/node": "^18.14.0",
     "@types/papaparse": "^5.3.7",
+    "cross-env": "^7.0.3",
     "p-queue": "^3.1.0",
     "papaparse": "^5.4.1",
     "prisma": "^4.10.1",

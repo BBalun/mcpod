@@ -67,4 +67,5 @@ fetch('http://simbad.u-strasbg.fr/simbad/sim-tap/sync', options)
 - `# m = -3` -> Hp
 - `# m = -2` -> Bt
 - first part -> Vt
+- https://cdsarc.cds.unistra.fr/viz-bin/nph-Plot/Vgraph/txt?I%2f239%2f.%2f${hip}&${tyc}&P=0&-Y&mag&-y&-&-&-
 
