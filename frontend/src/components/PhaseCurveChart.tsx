@@ -27,6 +27,17 @@ const PhaseCurveChart = ({ data, systems, starId }: PhaseCurveChartProps) => {
             display: true,
             text: `mcPod phased light curve of start ${starId}`,
           },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: "xy",
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+            },
+          },
         },
         scales: {
           x: {

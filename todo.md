@@ -1,16 +1,16 @@
 - [ ] rewrite scripts in `/data/data` to use Node instead of Deno 
   (may not be necessary, because this should be run only once during development)
 - [x] create script to load data from `/data/data/output` to database
-- [ ] fix all type errors 
+- [x] fix all type errors 
   - [x] change hdNumber to starId everywhere
 - [x] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
 - [x] fetch data from external catalogues
-- [ ] figure out how to add artificial information about references for data from external catalogues (WIP)
+- [x] figure out how to add artificial information about references for data from external catalogues (WIP)
 - [ ] data export on chart page
 - [ ] data export page - for exporting data from multiple stars
 - [ ] make chart interactive (WIP)
   - [ ] export only data that is visible on a chart
-- [ ] fix bibcode URL link (problem with `&`)
+- [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [ ] home page 
 - [ ] fix design
 - [x] cache star ids after fetching them from simbad
@@ -19,3 +19,4 @@
 - [ ] chart colors based on filter type
 - [ ] loading spinners
 - [ ] fix chart performance
+- [ ] show toasts for error messages (..)

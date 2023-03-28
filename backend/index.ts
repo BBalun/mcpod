@@ -78,8 +78,8 @@ const appRouter = t.router({
         phasedLightCurveChartData = groupByFilterCode(
           starData.map(({ julianDate, filter, magnitude }) => ({
             filter,
-            magnitude: magnitude.toNumber(),
-            phase: calculatePhase(julianDate.toNumber(), ephemerids.period!, ephemerids.epoch!), // ! required, because TS is making stuff up
+            magnitude,
+            phase: calculatePhase(julianDate, ephemerids.period!, ephemerids.epoch!), // ! required, because TS is making stuff up
           }))
         );
       }
@@ -158,8 +158,8 @@ const appRouter = t.router({
 
       const phasedData = data.map(({ julianDate, filter, magnitude }) => ({
         filter,
-        magnitude: magnitude.toNumber(),
-        phase: calculatePhase(julianDate.toNumber(), period, epoch),
+        magnitude,
+        phase: calculatePhase(julianDate, period, epoch),
       }));
 
       return groupByFilterCode(phasedData);
@@ -276,7 +276,14 @@ const appRouter = t.router({
       },
     });
 
-    return identifiers?.mainId ?? null;
+    if (!identifiers?.mainId) {
+      throw new TRPCError({
+        code: "BAD_REQUEST",
+        message: "Failed to get main id for star " + starId,
+      });
+    }
+
+    return identifiers.mainId;
   }),
 });
 
@@ -306,9 +313,14 @@ async function getData(
       referenceId: referenceIds?.length ? { in: referenceIds } : undefined,
     },
   });
-  type DataT = typeof data[0];
-  type DataWithMagnitudeRequired = Array<{ [K in keyof DataT]: NonNullable<DataT[K]> }>;
-  return data as DataWithMagnitudeRequired;
+  // type DataT = typeof data[0];
+  // type DataWithMagnitudeRequired = Array<{ [K in keyof DataT]: NonNullable<DataT[K]> }>;
+  return data.map((x) => ({
+    filter: x.filter,
+    magnitude: x.magnitude!.toNumber(),
+    julianDate: x.julianDate.toNumber(),
+  }));
+  // as DataWithMagnitudeRequired;
 }
 
 function groupByFilterCode<T extends { filter: string }>(data: T[], filters: string[] = []) {

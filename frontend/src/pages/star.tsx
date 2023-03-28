@@ -1,14 +1,15 @@
 import { trpc } from "../utils/trpc";
-import { useQueries, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { fetchSystems } from "../services/fetchSystems";
 import DateFilters from "../components/DateFilters";
 import Filters from "../components/Filters";
 import DataChart from "../components/Chart";
 import PhaseCurveChartSection from "../components/PhaseCurveChartSection";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-import { Button } from "@chakra-ui/react";
-import { RouterOutput } from "../types/trpc";
+import { ForwardedRef, useRef, useState } from "react";
+import { Button, Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
+import { ChevronDownIcon, DownloadIcon } from "@chakra-ui/icons";
+import { Chart } from "chart.js";
 
 const Star = () => {
   const { starId: starIdString } = useParams();
@@ -35,6 +36,8 @@ const Star = () => {
     [number | undefined, number | undefined]
   >([undefined, undefined]);
 
+  const dataChartRef = useRef<Chart<"scatter", any, any>>();
+
   const { data: mainId } = trpc.getMainId.useQuery(
     {
       starId,
@@ -56,7 +59,7 @@ const Star = () => {
     },
   });
 
-  const { data, isLoading } = trpc.getData.useQuery(
+  const { data } = trpc.getData.useQuery(
     {
       starId,
       filters,
@@ -75,8 +78,6 @@ const Star = () => {
     }
   );
 
-  // const [temp, setTemp] = useState(data);
-
   if (error) {
     return (
       <div>
@@ -92,6 +93,23 @@ const Star = () => {
   if (!systems || !mainId) {
     // TODO: show loading spinner
     return <div>Loading...</div>;
+  }
+
+  function download(format: "png" | "csv") {
+    const xRange = dataChartRef.current!.scales.x.getMinMax(true);
+    const yRange = dataChartRef.current!.scales.y.getMinMax(true);
+    const visibleData = Object.values(data!)
+      .flatMap((x) => x)
+      .filter(
+        ({ julianDate, magnitude }) =>
+          julianDate >= xRange.min &&
+          julianDate <= xRange.max &&
+          magnitude >= yRange.min &&
+          magnitude <= yRange.max
+      );
+    console.log(visibleData);
+
+    // console.log(dataChartRef.current);
   }
 
   return (
@@ -129,15 +147,37 @@ const Star = () => {
         </form>
         <hr className="my-3" />
         <Link to={`/references/${starId}`}>
-          <Button colorScheme="gray" variant="solid" w="full" className="mb-10">
+          <Button colorScheme="gray" variant="solid" w="full">
             Go to references
           </Button>
         </Link>
+        <Menu>
+          <MenuButton
+            as={Button}
+            rightIcon={<ChevronDownIcon />}
+            w={"full"}
+            className="mb-10 mt-2"
+          >
+            Download
+          </MenuButton>
+          <MenuList>
+            <MenuItem onClick={() => download("csv")}>Download as CSV</MenuItem>
+            {/* <MenuItem onClick={}>Download as TXT</MenuItem> */}
+            <MenuItem onClick={() => download("png")}>Download as PNG</MenuItem>
+          </MenuList>
+        </Menu>
       </section>
 
       <section className="flex w-2/3 flex-col">
         {/* TODO: show loading skeleton */}
-        {data && <DataChart data={data} mainId={mainId} systems={systems} />}
+        {data && (
+          <DataChart
+            ref={dataChartRef}
+            data={data}
+            mainId={mainId}
+            systems={systems}
+          />
+        )}
         <hr className="my-3" />
 
         <PhaseCurveChartSection

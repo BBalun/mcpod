@@ -21,6 +21,7 @@ import { ChakraProvider } from "@chakra-ui/react";
 import Search from "./pages/search";
 import References from "./pages/references";
 import Observations from "./pages/observations";
+import zoomPlugin from "chartjs-plugin-zoom";
 
 ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
 ChartJS.register(autocolors);
@@ -33,6 +34,7 @@ ChartJS.register(
   Tooltip,
   Legend
 );
+ChartJS.register(zoomPlugin);
 
 const router = createBrowserRouter([
   {

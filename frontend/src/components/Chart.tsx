@@ -1,3 +1,4 @@
+import { forwardRef } from "react";
 import { Scatter } from "react-chartjs-2";
 import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
@@ -5,12 +6,13 @@ import { findFilterUsingCode } from "../utils/system";
 interface ChartProps {
   mainId: string;
   systems: System[];
-  data: Record<string, Array<{ julianDate: string; magnitude: string }>>;
+  data: Record<string, Array<{ julianDate: number; magnitude: number }>>;
 }
 
-const DataChart = ({ data, systems, mainId }: ChartProps) => {
+const DataChart = ({ data, systems, mainId }: ChartProps, ref: any) => {
   return (
     <Scatter
+      ref={ref}
       data={{
         datasets: Object.entries(data).map(([filter, filterData]) => ({
           label: findFilterUsingCode(filter, systems)?.name ?? "unknown",
@@ -38,6 +40,17 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
             display: true,
             text: `mcPod data for start ${mainId}`,
           },
+          zoom: {
+            pan: {
+              enabled: true,
+              mode: "xy",
+            },
+            zoom: {
+              wheel: {
+                enabled: true,
+              },
+            },
+          },
         },
         scales: {
           x: {
@@ -59,4 +72,4 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
   );
 };
 
-export default DataChart;
+export default forwardRef(DataChart);
