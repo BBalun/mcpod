@@ -3,34 +3,64 @@ import { trpc } from "../utils/trpc";
 
 import styles from "../styles/table.module.css";
 import { Button } from "@chakra-ui/react";
+import { useState } from "react";
 
 const observations = () => {
-  const { hdNumber, reference } = useParams();
+  const { starId: starIdString, referenceId } = useParams();
 
-  if (!hdNumber || !reference || isNaN(Number(hdNumber))) {
-    console.error("Invalid parameters received", { hdNumber, reference });
+  const starId = /^[0-9]+$/.test(starIdString ?? "")
+    ? Number(starIdString)
+    : null;
+
+  if (starId === null || referenceId === undefined) {
+    console.error("Invalid parameters received", {
+      starIdString,
+      referenceId,
+    });
     return <Navigate to="/" />;
   }
 
-  const { data, error } = trpc.getObservations.useQuery({
-    hdNumber: Number(hdNumber),
-    reference: Number(reference).toString(), // TODO: not an ideal solution
-  });
+  const [error, setError] = useState<string>();
 
-  if (!data && !error) {
-    return <div>Loading ...</div>;
-  }
+  const { data } = trpc.getObservations.useQuery(
+    {
+      starId,
+      referenceId,
+    },
+    {
+      onError: (e) => {
+        console.error(e);
+        console.error("Failed to fetch observations");
+        setError("Failed to fetch observations");
+      },
+    }
+  );
+
+  const { data: mainId } = trpc.getMainId.useQuery(
+    { starId },
+    {
+      onError: (e) => {
+        console.error(e);
+        console.error("Failed to fetch mainId");
+        setError("Failed to fetch star data");
+      },
+    }
+  );
 
   if (error) {
     console.error(error);
     return <div>Something went wrong. Try again later</div>;
   }
 
+  if (!data || !mainId) {
+    return <div>Loading ...</div>;
+  }
+
   if (data.length === 0) {
     return (
       <div>
-        No data found for star HD {hdNumber} in references No. {reference}
-        <Link to={`/references/${hdNumber}`}>
+        No data found for star {mainId} in references {referenceId}
+        <Link to={`/references/${starId}`}>
           <Button>Go back to references</Button>
         </Link>
       </div>
@@ -41,7 +71,7 @@ const observations = () => {
     <main className="container flex h-full w-full flex-col items-center justify-center gap-3 lg:p-20">
       <div className="w-full text-left">
         <h1 className="text-lg font-bold">
-          Dataset statistics for star HD {hdNumber} in reference No. {reference}
+          Dataset statistics for star {mainId} in references {referenceId}
         </h1>
       </div>
 
@@ -62,17 +92,17 @@ const observations = () => {
             <tr key={observation.id}>
               <td>{observation.filter}</td>
               <td>{observation.count}</td>
-              <td>{observation.magnitudeAverage}</td>
-              <td>{observation.magnitudeError}</td>
-              <td>{observation.stdErr}</td>
-              <td>{observation.amlitEff}</td>
+              <td>{observation.magAverage}</td>
+              <td>{observation.magError}</td>
+              <td>{observation.stdError}</td>
+              <td>{observation.amplitudeEff}</td>
               <td>{observation.lambdaEff}</td>
             </tr>
           ))}
         </tbody>
       </table>
       <div className="flex w-full justify-end">
-        <Link to={`/references/${hdNumber}`}>
+        <Link to={`/references/${starId}`}>
           <Button colorScheme="blackAlpha">Go back to references</Button>
         </Link>
       </div>
