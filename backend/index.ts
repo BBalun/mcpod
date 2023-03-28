@@ -5,6 +5,7 @@ import cors from "cors";
 import { PrismaClient } from "@prisma/client";
 import z from "zod";
 import { fetchObjectId, fetchObjectIds, fetchStarIds } from "./services/fetchHdNumber";
+import { fetchExternalPhotometryData } from "./services/vizierService";
 
 // TODO: own file
 const prisma = new PrismaClient();
@@ -177,14 +178,92 @@ const appRouter = t.router({
 
     // Make sure that identifier is in the DB
     if (!identifier) {
-      await prisma.identifier.create({
-        data: {
-          starId: starIds.oid,
-          mainId: starIds.mainId,
-          hip: starIds.hip,
-          tyc: starIds.tyc,
-        },
-      });
+      // TODO: move to global scope
+      const hipparcosRef = {
+        referenceId: "hip",
+        starId: starIds.oid,
+        author: "The Hipparcos Catalogues (ESA 1997)",
+        bibcode: "1997yCat.1239....0E",
+      };
+      const tychoRef = {
+        referenceId: "tyc",
+        starId: starIds.oid,
+        author: "The Tycho Catalogues (ESA 1997)",
+        bibcode: "1997yCat.1239....0E",
+      };
+
+      const hip = starIds.hip?.toLocaleLowerCase().replace("hip", "") ?? null;
+      const tyc = starIds.tyc?.toLocaleLowerCase().replace("tyc", "") ?? null;
+      console.debug("hip", hip, "tyc", tyc);
+      const externalData = await fetchExternalPhotometryData(hip, tyc);
+      console.debug(
+        `Fetched photometry data: Hp - ${externalData.Hp.length}, Bt - ${externalData.Bt.length}, Vt - ${externalData.Vt.length}`
+      );
+
+      try {
+        await prisma.$transaction([
+          prisma.identifier.create({
+            data: {
+              starId: starIds.oid,
+              mainId: starIds.mainId,
+              hip: starIds.hip,
+              tyc: starIds.tyc,
+            },
+          }),
+          prisma.reference.createMany({
+            data: [hipparcosRef, tychoRef],
+          }),
+          prisma.observation.createMany({
+            data: [
+              {
+                starId: hipparcosRef.starId,
+                referenceId: hipparcosRef.referenceId,
+                filter: "30", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                count: externalData.Hp.length,
+              },
+              {
+                starId: tychoRef.starId,
+                referenceId: tychoRef.referenceId,
+                filter: "31", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                count: externalData.Bt.length,
+              },
+              {
+                starId: tychoRef.starId,
+                referenceId: tychoRef.referenceId,
+                filter: "32", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                count: externalData.Vt.length,
+              },
+            ],
+          }),
+          prisma.catalog.createMany({
+            data: [
+              ...externalData.Hp.map((data) => ({
+                ...data,
+                filter: "30", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                starId: hipparcosRef.starId,
+                referenceId: hipparcosRef.referenceId,
+              })),
+              ...externalData.Bt.map((data) => ({
+                ...data,
+                filter: "31", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                starId: tychoRef.starId,
+                referenceId: tychoRef.referenceId,
+              })),
+              ...externalData.Vt.map((data) => ({
+                ...data,
+                filter: "32", // TODO: this probably should be fetched from `systems.json`, and use "30" as a default value
+                starId: tychoRef.starId,
+                referenceId: tychoRef.referenceId,
+              })),
+            ],
+          }),
+        ]);
+      } catch (e) {
+        console.error(e);
+        console.error("Failed insertion of external photometry data to the DB.");
+        console.error("Request continues, but no data will be displayed");
+      }
+      console.debug("External photometry data inserted into DB successfully");
     }
 
     return starIds.oid;
@@ -210,7 +289,6 @@ async function getData(
 ) {
   const data = await prisma.catalog.findMany({
     select: {
-      starId: true,
       filter: true,
       magnitude: true,
       julianDate: true,

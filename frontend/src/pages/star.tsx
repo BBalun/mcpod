@@ -8,6 +8,7 @@ import PhaseCurveChartSection from "../components/PhaseCurveChartSection";
 import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "@chakra-ui/react";
+import { RouterOutput } from "../types/trpc";
 
 const Star = () => {
   const { starId: starIdString } = useParams();
@@ -55,7 +56,7 @@ const Star = () => {
     },
   });
 
-  const { data } = trpc.getData.useQuery(
+  const { data, isLoading } = trpc.getData.useQuery(
     {
       starId,
       filters,
@@ -70,8 +71,11 @@ const Star = () => {
         console.error(e);
         setError("Failed to fetch data for star " + starId);
       },
+      staleTime: Infinity,
     }
   );
+
+  // const [temp, setTemp] = useState(data);
 
   if (error) {
     return (
@@ -132,22 +136,19 @@ const Star = () => {
       </section>
 
       <section className="flex w-2/3 flex-col">
-        {data && (
-          <>
-            <DataChart data={data} mainId={mainId} systems={systems} />
-            <hr className="my-3" />
+        {/* TODO: show loading skeleton */}
+        {data && <DataChart data={data} mainId={mainId} systems={systems} />}
+        <hr className="my-3" />
 
-            <PhaseCurveChartSection
-              starId={starId}
-              mainId={mainId}
-              systems={systems}
-              filters={filters}
-              startDate={dateFilters[0]}
-              endDate={dateFilters[1]}
-              referenceIds={referenceIds}
-            />
-          </>
-        )}
+        <PhaseCurveChartSection
+          starId={starId}
+          mainId={mainId}
+          systems={systems}
+          filters={filters}
+          startDate={dateFilters[0]}
+          endDate={dateFilters[1]}
+          referenceIds={referenceIds}
+        />
       </section>
     </div>
   );

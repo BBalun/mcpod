@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import styles from "../styles/table.module.css";
 import { useRef, useState } from "react";
 import { Button } from "@chakra-ui/button";
+import { useQuery } from "@tanstack/react-query";
+import { fetchSystems } from "../services/fetchSystems";
 
 function generateLinkToAds(bibCode: string) {
   return `https://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=ALL&PRE=YES&warnings=YES&version=1&bibcode=${bibCode}&nr_to_return=100&start_nr=1`;
@@ -31,7 +33,7 @@ const references = () => {
     return <Navigate to="/" />;
   }
 
-  const { data } = trpc.getReferences.useQuery(
+  const { data: references } = trpc.getReferences.useQuery(
     {
       starId,
     },
@@ -41,6 +43,7 @@ const references = () => {
         console.error(e);
         setError(`Failed to fetch references for star with id ${starId}`);
       },
+      staleTime: Infinity,
     }
   );
 
@@ -52,6 +55,7 @@ const references = () => {
         console.error(e);
         setError(`Failed to fetch main id for star with id ${starId}`);
       },
+      staleTime: Infinity,
     }
   );
 
@@ -60,7 +64,7 @@ const references = () => {
     return <div>Error ocurred. Try again later.</div>;
   }
 
-  if (!data || !mainId) {
+  if (!references || !mainId) {
     return <div>Loading...</div>;
   }
 
@@ -73,8 +77,10 @@ const references = () => {
         <thead>
           <tr>
             <th></th>
-            <th className="font-semibold">Ref. No.</th>
-            <th className="font-semibold">Star HD No.</th>
+            <th className="font-semibold">Ref. ID</th>
+            {/* <th className="font-semibold">Ref. No.</th> */}
+            <th className="font-semibold">Star ID</th>
+            {/* <th className="font-semibold">Star HD No.</th> */}
             <th className="font-semibold">Source</th>
             <th className="font-semibold">Bibcode</th>
             <th className="font-semibold">Comp HD No.</th>
@@ -83,7 +89,7 @@ const references = () => {
           </tr>
         </thead>
         <tbody>
-          {data.map((reference) => (
+          {references.map((reference) => (
             <tr key={reference.id}>
               <td>
                 <input
@@ -127,7 +133,12 @@ const references = () => {
               <td>{reference.referenceStarIds}</td>
               {/* TODO: what to do with description */}
               {/* One option is to calculate it on a fly on a server and include results in the response */}
-              {/* <td>{reference.description}</td> */}
+              <td>
+                <ReferenceObservations
+                  starId={starId}
+                  referenceId={reference.referenceId}
+                />
+              </td>
 
               <td>
                 <Link
@@ -162,5 +173,38 @@ const references = () => {
     </main>
   );
 };
+
+function ReferenceObservations({
+  starId,
+  referenceId,
+}: {
+  starId: number;
+  referenceId: string;
+}) {
+  const { data } = trpc.getObservations.useQuery(
+    { starId, referenceId },
+    { suspense: true }
+  );
+
+  const { data: systems } = useQuery(["systems"], fetchSystems, {
+    suspense: true,
+    staleTime: Infinity,
+  });
+
+  const filters = systems?.flatMap((system) => system.filters);
+
+  return (
+    <span>
+      {data
+        ?.map(
+          (o) =>
+            `${filters?.find((filter) => filter.code === o.filter)?.name}(${
+              o.count
+            })`
+        )
+        .join(", ")}
+    </span>
+  );
+}
 
 export default references;

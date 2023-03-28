@@ -21,6 +21,7 @@ const PhaseCurveChart = ({ data, systems, starId }: PhaseCurveChartProps) => {
         })),
       }}
       options={{
+        animation: false,
         plugins: {
           title: {
             display: true,

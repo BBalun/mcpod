@@ -7,7 +7,7 @@ import { TRPCError } from "@trpc/server";
 // Standard fetch API doesn't work.
 import fetch from "isomorphic-fetch";
 
-type PhotometricData = { julianDate: number; mag: number; err: number };
+type PhotometricData = { julianDate: number; magnitude: number; magErr: number };
 
 export async function fetchExternalPhotometryData(hip: string | null, tyc: string | null) {
   const res = {
@@ -69,16 +69,9 @@ export async function fetchExternalPhotometryData(hip: string | null, tyc: strin
       continue;
     }
 
-    const [julianDate, mag, err] = parts;
-    sections[currentSectionIndex].push({ julianDate: Number((julianDate + 40_000).toFixed(5)), mag, err });
+    const [julianDate, magnitude, magErr] = parts;
+    sections[currentSectionIndex].push({ julianDate: Number((julianDate + 40_000).toFixed(5)), magnitude, magErr });
   }
 
   return res;
 }
-
-async function main() {
-  const data = await fetchExternalPhotometryData("123", null);
-  console.log(data);
-}
-
-main();

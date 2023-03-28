@@ -4,7 +4,7 @@
 - [ ] fix all type errors 
   - [x] change hdNumber to starId everywhere
 - [x] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
-- [ ] fetch data from external catalogues
+- [x] fetch data from external catalogues
 - [ ] figure out how to add artificial information about references for data from external catalogues (WIP)
 - [ ] data export on chart page
 - [ ] data export page - for exporting data from multiple stars
@@ -14,6 +14,8 @@
 - [ ] home page 
 - [ ] fix design
 - [x] cache star ids after fetching them from simbad
-- [ ] cache data from hip and tyc
+- [x] cache data from hip and tyc
 - [ ] filtering on the client (julian data + filters) (optional)
 - [ ] chart colors based on filter type
+- [ ] loading spinners
+- [ ] fix chart performance

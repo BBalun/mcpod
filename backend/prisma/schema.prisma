@@ -58,7 +58,7 @@ model Reference {
   bibcode          String?
   referenceStarIds String?
 
-  details String @default("") // TODO: is it required or will it be calculated on a fly
+  // details String @default("") // TODO: is it required or will it be calculated on a fly
 
   @@unique([referenceId, starId])
 }

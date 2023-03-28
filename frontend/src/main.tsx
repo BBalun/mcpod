@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -45,7 +45,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/references/:starId",
-    element: <References />,
+    element: (
+      <Suspense fallback={<div>Loading suspense</div>}>
+        <References />,
+      </Suspense>
+    ),
   },
   {
     path: "/observations/:starId/:reference",

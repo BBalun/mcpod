@@ -32,6 +32,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
         // ],
       }}
       options={{
+        animation: false,
         plugins: {
           title: {
             display: true,

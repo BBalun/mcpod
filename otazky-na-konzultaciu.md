@@ -164,3 +164,5 @@ prefix hd v katalogu
   - line 455, 456, 457 - same starId and referenceId
   - line 469, 470 - same starId and referenceId
   - line 636, 637 - same starId and referenceId
+- data/input/pozorovani - starId, filter, referenceId are not unique
+- reference page - what should be displayed in Star HD No. column?
