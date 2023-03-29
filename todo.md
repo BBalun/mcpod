@@ -8,8 +8,8 @@
 - [x] figure out how to add artificial information about references for data from external catalogues (WIP)
 - [ ] data export on chart page
 - [ ] data export page - for exporting data from multiple stars
-- [ ] make chart interactive (WIP)
-  - [ ] export only data that is visible on a chart
+- [x] make chart interactive (WIP)
+  - [x] export only data that is visible on a chart
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [ ] home page 
 - [ ] fix design
@@ -17,6 +17,8 @@
 - [x] cache data from hip and tyc
 - [ ] filtering on the client (julian data + filters) (optional)
 - [ ] chart colors based on filter type
-- [ ] loading spinners
-- [ ] fix chart performance
+- [x] loading spinners
+- [x] fix chart performance (swap for plotly.js)
 - [ ] show toasts for error messages (..)
+- [x] reset zoom for each chart buttons
+- [ ] add filter colors to systems.json file

@@ -151,7 +151,7 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
         </div>
       </form>
       {data && (
-        <PhaseChart starId={props.mainId} systems={props.systems} data={data} />
+        <PhaseChart mainId={props.mainId} systems={props.systems} data={data} />
       )}
     </>
   );

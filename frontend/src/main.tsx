@@ -4,42 +4,21 @@ import { QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { queryClient, trpc, trpcClient } from "./utils/trpc";
 import "./global.css";
-import {
-  Chart as ChartJS,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Tooltip,
-  Legend,
-  CategoryScale,
-  Title,
-} from "chart.js";
-import autocolors from "chartjs-plugin-autocolors";
-
 import Star from "./pages/star";
 import { ChakraProvider } from "@chakra-ui/react";
 import Search from "./pages/search";
 import References from "./pages/references";
 import Observations from "./pages/observations";
-import zoomPlugin from "chartjs-plugin-zoom";
-
-ChartJS.register(LinearScale, PointElement, LineElement, Tooltip, Legend);
-ChartJS.register(autocolors);
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  PointElement,
-  LineElement,
-  Title,
-  Tooltip,
-  Legend
-);
-ChartJS.register(zoomPlugin);
+import LoadingLayout from "./components/LoadingLayout";
 
 const router = createBrowserRouter([
   {
     path: "/star/:starId",
-    element: <Star />,
+    element: (
+      <LoadingLayout>
+        <Star />
+      </LoadingLayout>
+    ),
   },
   {
     path: "/",

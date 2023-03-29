@@ -5,3 +5,12 @@
 .a-link {
   @apply text-blue-600 underline visited:text-purple-600 hover:text-blue-800;
 }
+
+.modebar-group {
+  display: contents !important;
+}
+
+.modebar {
+  display: flex;
+  padding-top: 0.5rem !important;
+}
