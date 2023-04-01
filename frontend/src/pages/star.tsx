@@ -21,7 +21,7 @@ const Star = () => {
     return <Navigate to="/" />;
   }
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, _setSearchParams] = useSearchParams();
   const referenceIds = searchParams.getAll("reference");
 
   const [filters, setFilters] = useState<string[]>([]);
@@ -35,7 +35,7 @@ const Star = () => {
     [number | undefined, number | undefined]
   >([undefined, undefined]);
 
-  const { data: mainId } = trpc.getMainId.useQuery(
+  const { data: mainId, isLoading: isMainIdLoading } = trpc.getMainId.useQuery(
     {
       starId,
     },
@@ -45,16 +45,22 @@ const Star = () => {
         console.error(e);
         setError("Failed to fetch star main identifier");
       },
+      staleTime: Infinity,
     }
   );
 
-  const { data: systems } = useQuery(["systems"], fetchSystems, {
-    onError(error) {
-      console.error("Fetching of systems failed");
-      console.error(error);
-      setError("Failed to fetch systems and filters");
-    },
-  });
+  const { data: systems, isLoading: areSystemsLoading } = useQuery(
+    ["systems"],
+    fetchSystems,
+    {
+      onError(error) {
+        console.error("Fetching of systems failed");
+        console.error(error);
+        setError("Failed to fetch systems and filters");
+      },
+      staleTime: Infinity,
+    }
+  );
 
   const { data: trpcData, isLoading: isDataLoading } = trpc.getData.useQuery(
     {
@@ -78,8 +84,8 @@ const Star = () => {
   const { setSpinnerVisibility } = useGlobalLoadingSpinner();
 
   useEffect(() => {
-    setSpinnerVisibility(isDataLoading);
-  }, [isDataLoading]);
+    setSpinnerVisibility(isDataLoading || isMainIdLoading || areSystemsLoading);
+  }, [isDataLoading, isMainIdLoading, areSystemsLoading]);
 
   const [data, setData] = useState(trpcData);
   useEffect(() => {
@@ -101,8 +107,7 @@ const Star = () => {
   }
 
   if (!systems || !mainId) {
-    // TODO: show loading spinner
-    return <div>Loading...</div>;
+    return null;
   }
 
   return (
