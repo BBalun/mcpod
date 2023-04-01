@@ -29,3 +29,4 @@
 - [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
 - [ ] send an email with invalid data
 - [ ] deploy somewhere
+- [ ] make charts responsive

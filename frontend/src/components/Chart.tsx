@@ -64,7 +64,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
           "magErr",
         ],
       });
-      var blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
       saveAs(blob, `${mainId}.csv`);
     }
   };

@@ -5,11 +5,22 @@ import { findFilterUsingCode } from "../utils/system";
 import Plotly from "plotly.js-dist-min";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
+import papaparse from "papaparse";
+import { saveAs } from "file-saver";
 
 export interface PhaseCurveChartProps {
   mainId: string;
   systems: System[];
-  data: Record<string, Array<{ magnitude: number; phase: number }>>;
+  data: Record<
+    string,
+    Array<{
+      magnitude: number;
+      phase: number;
+      filter: string;
+      magErr?: number;
+      referenceId: string;
+    }>
+  >;
 }
 
 const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
@@ -24,7 +35,35 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
         height: 750,
       });
     } else {
-      // TODO:
+      const [minPhase, maxPhase] = ref.current.el.layout.xaxis.range;
+      const [maxMag, minMag] = ref.current.el.layout.yaxis.range; // y axis is reversed
+
+      const visibleData = Object.values(data)
+        .flatMap((data) => data)
+        .filter(
+          (data) =>
+            data.phase >= minPhase &&
+            data.phase <= maxPhase &&
+            data.magnitude >= minMag &&
+            data.magnitude <= maxMag
+        )
+        .map((data) => ({ ...data, star: mainId }));
+
+      const csv = papaparse.unparse(visibleData, {
+        header: true,
+        delimiter: ",",
+        columns: [
+          "star",
+          "referenceId",
+          "phase",
+          "filter",
+          "magnitude",
+          "magErr",
+        ],
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, `${mainId}.csv`);
     }
   };
 
@@ -44,7 +83,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
             title: `mcPod phased light curve of start ${mainId}`,
             xaxis: {
               title: {
-                text: "HJD - 2400000",
+                text: "Phase",
               },
             },
             yaxis: {
@@ -68,7 +107,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
           }}
           config={{
             displaylogo: false,
-            responsive: true,
+            responsive: false,
             scrollZoom: true,
             modeBarButtonsToRemove: ["lasso2d", "select2d", "toImage"],
             displayModeBar: true,
@@ -90,7 +129,6 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
               <MenuItem onClick={() => download("csv")}>
                 Download as CSV
               </MenuItem>
-              {/* <MenuItem onClick={}>Download as TXT</MenuItem> */}
               <MenuItem onClick={() => download("png")}>
                 Download as PNG
               </MenuItem>

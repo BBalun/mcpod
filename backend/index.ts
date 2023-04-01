@@ -156,9 +156,9 @@ const appRouter = t.router({
       const { starId, filters, startDate, endDate, epoch, period, referenceIds } = input;
       const data = await getData(starId, filters, startDate, endDate, referenceIds);
 
-      const phasedData = data.map(({ julianDate, filter, magnitude }) => ({
-        filter,
-        magnitude,
+      // replaces julianDate with phase
+      const phasedData = data.map(({ julianDate, ...rest }) => ({
+        ...rest,
         phase: calculatePhase(julianDate, period, epoch),
       }));
 
@@ -285,6 +285,34 @@ const appRouter = t.router({
 
     return identifiers.mainId;
   }),
+  exportDataToCsv: t.procedure
+    .input(
+      z.object({
+        starIds: z.array(z.number()),
+        filters: z.array(z.string().trim().min(1)),
+        startDate: z.number().optional(),
+        endDate: z.number().optional(),
+        referenceIds: z.array(z.string().min(1)).optional(),
+        magMin: z.number().optional(),
+        magMax: z.number().optional(),
+      })
+    )
+    .query(async ({ input }) => {}),
+  exportPhasedDataToCsv: t.procedure
+    .input(
+      z.object({
+        starIds: z.array(z.number()),
+        filters: z.array(z.string().trim().min(1)),
+        startDate: z.number().optional(),
+        endDate: z.number().optional(),
+        referenceIds: z.array(z.string().min(1)).optional(),
+        magMin: z.number().optional(),
+        magMax: z.number().optional(),
+        epoch: z.number(),
+        period: z.number(),
+      })
+    )
+    .query(async ({ input }) => {}),
 });
 
 async function getData(
@@ -296,6 +324,8 @@ async function getData(
 ) {
   const data = await prisma.catalog.findMany({
     select: {
+      magErr: true,
+      referenceId: true,
       filter: true,
       magnitude: true,
       julianDate: true,
@@ -319,6 +349,8 @@ async function getData(
     filter: x.filter,
     magnitude: x.magnitude!.toNumber(),
     julianDate: x.julianDate.toNumber(),
+    magErr: x.magErr?.toNumber(),
+    referenceId: x.referenceId,
   }));
   // as DataWithMagnitudeRequired;
 }
