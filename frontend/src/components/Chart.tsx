@@ -5,11 +5,22 @@ import { findFilterUsingCode } from "../utils/system";
 import Plotly from "plotly.js-dist-min";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { useRef } from "react";
+import papaparse from "papaparse";
+import { saveAs } from "file-saver";
 
 interface ChartProps {
   mainId: string;
   systems: System[];
-  data: Record<string, Array<{ julianDate: number; magnitude: number }>>;
+  data: Record<
+    string,
+    Array<{
+      julianDate: number;
+      magnitude: number;
+      filter: string;
+      magErr?: number;
+      referenceId: string;
+    }>
+  >;
 }
 
 const DataChart = ({ data, systems, mainId }: ChartProps) => {
@@ -24,7 +35,37 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
         height: 750,
       });
     } else {
-      // TODO:
+      const [minDate, maxDate] = ref.current.el.layout.xaxis.range;
+      const [maxMag, minMag] = ref.current.el.layout.yaxis.range; // y axis is reversed
+      // const [minFilterDate, maxFilterDate] = dateFilters;
+      // const minDate = Math.min(minChartDate, minFilterDate ?? Infinity);
+      // const maxDate = Math.max(maxChartDate, maxFilterDate ?? -Infinity);
+
+      const visibleData = Object.values(data)
+        .flatMap((data) => data)
+        .filter(
+          (data) =>
+            data.julianDate >= minDate &&
+            data.julianDate <= maxDate &&
+            data.magnitude >= minMag &&
+            data.magnitude <= maxMag
+        )
+        .map((data) => ({ ...data, star: mainId }));
+
+      const csv = papaparse.unparse(visibleData, {
+        header: true,
+        delimiter: ",",
+        columns: [
+          "star",
+          "referenceId",
+          "julianDate",
+          "filter",
+          "magnitude",
+          "magErr",
+        ],
+      });
+      var blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+      saveAs(blob, `${mainId}.csv`);
     }
   };
 
@@ -68,7 +109,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
           }}
           config={{
             displaylogo: false,
-            responsive: true,
+            responsive: false, // true breaks the chart sometimes
             scrollZoom: true,
             modeBarButtonsToRemove: ["lasso2d", "select2d", "toImage"],
             displayModeBar: true,

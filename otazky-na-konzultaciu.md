@@ -152,9 +152,28 @@ prefix hd v katalogu
 
 ---
 
+## co ukazat
+- dotahovanie dat z externeho catalogu funguje 
+  - ako to funguje - pri vyhladavani sa cisti HIP a TYC cislo zo SIMBADU
+    - SIMBAD oid sa pouziva na identifikovanie objektov u nas v DB na pozadi
+    - vo vstupnom subore sa lubovolny identifikator pocas seedovania zameni za SIMBAD oid
+    - pri prvom vyhladani sa zarovane nacitaju data z externych katalogov
+    - data sa upravia a ulozia sa potrebne zaznamy do tabulike catalog, references a observations
+- nova kniznica na vykreslovanie grafov - stara bola pomala s datami s externych zdrojov
+- stahovanie obrazkov - png a svg
+- dotahuje sa aj mainId zo SIMBADu
+
+
+- podstatne otazky
+  - chyby v suboroch
+  - reference page - moze byt starId ako stlpec alebo to nahradzovat s mainId zo SIMBADu
+  - export csv - co vsetko by tam malo byt za stplce
+  - exportovanie dat z viacerych hviezd - staci vsetky alebo si vediet vybrat ktore
+
 ### otazky na dalsiu konzultaciu
 - data/input/katalog.csv
   - line 232756 - mag_err value = `1 0.004` - is it 0 or 10?
+  - only 0
 - data/input/reference_with_errors.csv
   - line 126, 127 - same starId and referenceId
   - line 148, 149 - same starId and referenceId
@@ -164,5 +183,20 @@ prefix hd v katalogu
   - line 455, 456, 457 - same starId and referenceId
   - line 469, 470 - same starId and referenceId
   - line 636, 637 - same starId and referenceId
+  - send email with all data and where the duplicate line 
 - data/input/pozorovani - starId, filter, referenceId are not unique
-- reference page - what should be displayed in Star HD No. column?
+
+- reference page - what should be displayed in **Star HD No. column**?
+  - primarne hd cislo potom to je jedno
+
+- export data for multiple stars
+  - what data formats should be supported - is csv enough?
+  - can it be separate page?
+
+- export csv data from star page
+  - what columns should exported data contain? - is filter, mag and 
+
+---
+
+### dalsie otazky
+- export dat na star page (CSV, PNG a SVG format) ma byt iba data co su prave na grafe, alebo vsetky data

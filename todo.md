@@ -6,19 +6,26 @@
 - [x] delete data from tycho catalog (referenceId = 0) - from tables `reference` and `catalog`
 - [x] fetch data from external catalogues
 - [x] figure out how to add artificial information about references for data from external catalogues (WIP)
-- [ ] data export on chart page
+- [x] data export on chart page
 - [ ] data export page - for exporting data from multiple stars
-- [x] make chart interactive (WIP)
+- [x] make chart interactive 
   - [x] export only data that is visible on a chart
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [ ] home page 
 - [ ] fix design
 - [x] cache star ids after fetching them from simbad
 - [x] cache data from hip and tyc
-- [ ] filtering on the client (julian data + filters) (optional)
-- [ ] chart colors based on filter type
+- [ ] filtering and calculation on the client 
+  - [ ] fetch data from the BE as it is stored
 - [x] loading spinners
 - [x] fix chart performance (swap for plotly.js)
 - [ ] show toasts for error messages (..)
 - [x] reset zoom for each chart buttons
+- [ ] chart colors based on filter type
 - [ ] add filter colors to systems.json file
+- [x] get HD number identifier when data is requested from SIMBAD and use it as a mainId if available
+- [x] investigate usage of named tuples to optimize network usage ---> bad idea
+- [ ] static content - pdfs in refer folder
+- [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
+- [ ] send an email with invalid data
+- [ ] deploy somewhere
