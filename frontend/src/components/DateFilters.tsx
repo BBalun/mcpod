@@ -6,9 +6,10 @@ interface DateFilterProps {
     startDate: number | undefined,
     endDate: number | undefined
   ) => void;
+  heading?: string;
 }
 
-const DateFilters = ({ onDateChange }: DateFilterProps) => {
+const DateFilters = ({ onDateChange, heading }: DateFilterProps) => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
 
@@ -24,7 +25,7 @@ const DateFilters = ({ onDateChange }: DateFilterProps) => {
 
   return (
     <section>
-      <h2 className="font-semibold">Filter by Julian Date</h2>
+      <h2 className="font-semibold">{heading ?? "Filter by Julian Date"}</h2>
 
       <label htmlFor="dateFrom">Start date (2400000+):</label>
       <Input

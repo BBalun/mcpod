@@ -17,12 +17,12 @@ const search = () => {
     <form
       onSubmit={async (e) => {
         e.preventDefault();
-        const starId = await mutateAsync(input);
-        if (!starId) {
+        const searchRes = await mutateAsync(input);
+        if (!searchRes) {
           setError(`Start '${input}' not found`);
           return;
         }
-        navigate("/star/" + starId);
+        navigate("/star/" + searchRes.oid);
       }}
     >
       <label htmlFor="starId">Star identifier:</label>

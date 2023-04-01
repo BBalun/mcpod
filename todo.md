@@ -1,5 +1,3 @@
-- [ ] rewrite scripts in `/data/data` to use Node instead of Deno 
-  (may not be necessary, because this should be run only once during development)
 - [x] create script to load data from `/data/data/output` to database
 - [x] fix all type errors 
   - [x] change hdNumber to starId everywhere
@@ -7,7 +5,9 @@
 - [x] fetch data from external catalogues
 - [x] figure out how to add artificial information about references for data from external catalogues (WIP)
 - [x] data export on chart page
-- [ ] data export page - for exporting data from multiple stars
+- [x] data export page - for exporting data from multiple stars
+  - [x] for multiple stars
+  - [x] for all stars
 - [x] make chart interactive 
   - [x] export only data that is visible on a chart
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
@@ -15,8 +15,6 @@
 - [ ] fix design
 - [x] cache star ids after fetching them from simbad
 - [x] cache data from hip and tyc
-- [ ] filtering and calculation on the client 
-  - [ ] fetch data from the BE as it is stored
 - [x] loading spinners
 - [x] fix chart performance (swap for plotly.js)
 - [ ] show toasts for error messages (..)
@@ -25,8 +23,13 @@
 - [ ] add filter colors to systems.json file
 - [x] get HD number identifier when data is requested from SIMBAD and use it as a mainId if available
 - [x] investigate usage of named tuples to optimize network usage ---> bad idea
-- [ ] static content - pdfs in refer folder
+- [ ] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
 - [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
 - [ ] send an email with invalid data
 - [ ] deploy somewhere
 - [ ] make charts responsive
+- [ ] 404 page
+- [ ] filtering and calculation on the client 
+  - [ ] fetch data from the BE as it is stored
+- [ ] rewrite scripts in `/data/data` to use Node instead of Deno 
+  (may not be necessary, because this should be run only once during development)

@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { fetchObjectId } from "../services/fetchHdNumber";
+import { fetchObjectId, fetchObjectIds } from "../services/fetchHdNumber";
 import { replaceColumnValue } from "./replaceColumn";
 
 const prisma = new PrismaClient();
@@ -12,7 +12,8 @@ const csvFolderPath = "../data/data/output_without_tycho";
 
 async function main() {
   const cache = new Map<string, string>();
-  // const objectIdsMap = new Map<string, { oid: number; mainId: string; hip?: string; tyc?: string }>();
+  const objectIdsCache = new Map<string, { oid: number; mainId: string; hip?: string; tyc?: string }>();
+
   try {
     for (const file of ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"]) {
       console.log(`Converting star IDs from ${file} into SIMBAD IDs`);
@@ -21,19 +22,19 @@ async function main() {
         `${csvFolderPath}/out/${file}`,
         "starId",
         async (starId) => {
-          const oid = await fetchObjectId(starId);
-          if (!oid) {
+          // const oid = await fetchObjectId(starId);
+          // if (!oid) {
+          //   console.error(`starId ${starId} could not be converted into simbad object id`);
+          //   process.exit(1);
+          // }
+          // return oid.toString();
+          const identifiers = await fetchObjectIds(starId);
+          if (!identifiers) {
             console.error(`starId ${starId} could not be converted into simbad object id`);
             process.exit(1);
           }
-          return oid.toString();
-          // const objectIds = await fetchObjectIds(id);
-          // if (!objectIds) {
-          //   console.error(`starId ${id} could not be converted into simbad object id`);
-          //   process.exit(1);
-          // }
-          // objectIdsMap.set(id, objectIds);
-          // return objectIds.oid.toString();
+          objectIdsCache.set(starId, identifiers);
+          return identifiers.oid.toString();
         },
         cache
       );
@@ -51,6 +52,7 @@ async function main() {
       prisma.$executeRawUnsafe(`TRUNCATE public."Ephemeris" RESTART IDENTITY;`),
       prisma.$executeRawUnsafe(`TRUNCATE public."Observation" RESTART IDENTITY;`),
       prisma.$executeRawUnsafe(`TRUNCATE public."Reference" RESTART IDENTITY;`),
+      prisma.$executeRawUnsafe(`TRUNCATE public."Identifier" RESTART IDENTITY;`),
 
       // path to CSV files is specified in docker-compose.yml file
       // TODO: synchronize with a csvFolderPath variable
@@ -87,13 +89,16 @@ async function main() {
         CSV HEADER;
       `),
       // Insert all identifiers
-      // prisma.identifier.createMany({
-      //   data: [...objectIdsMap.values()].map((identifiers) => ({
-      //     starId: identifiers.oid,
-      //     ...identifiers,
-      //   })),
-      //   skipDuplicates: true,
-      // }),
+      prisma.identifier.createMany({
+        data: [...objectIdsCache.values()].map((identifiers) => ({
+          starId: identifiers.oid,
+          mainId: identifiers.mainId,
+          tyc: identifiers.tyc,
+          hip: identifiers.hip,
+          isFetched: false,
+        })),
+        skipDuplicates: true,
+      }),
     ]);
   } catch (e) {
     console.error(e);

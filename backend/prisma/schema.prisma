@@ -58,31 +58,14 @@ model Reference {
   bibcode          String?
   referenceStarIds String?
 
-  // details String @default("") // TODO: is it required or will it be calculated on a fly
-
   @@unique([referenceId, starId])
 }
 
 model Identifier {
-  starId Int     @id
-  mainId String
-  tyc    String?
-  hip    String?
+  starId    Int     @id
+  mainId    String
+  isFetched Boolean @default(false)
 
-  @@index([tyc])
-  @@index([hip])
+  tyc String?
+  hip String?
 }
-
-// model ExternalData {
-//   id Int @id @default(autoincrement())
-
-//   starId      Int
-//   julianDate  Decimal
-//   magnitude   Decimal?
-//   magErr      Decimal?
-//   filter      String
-//   referenceId String
-
-//   @@index([starId])
-//   @@index([referenceId])
-// }

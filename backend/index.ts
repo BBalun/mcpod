@@ -2,10 +2,11 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import express from "express";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import cors from "cors";
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient, Prisma } from "@prisma/client";
 import z from "zod";
-import { fetchObjectId, fetchObjectIds, fetchStarIds } from "./services/fetchHdNumber";
+import { fetchObjectIds } from "./services/fetchHdNumber";
 import { fetchExternalPhotometryData } from "./services/vizierService";
+import papaparse from "papaparse";
 
 // TODO: own file
 const prisma = new PrismaClient();
@@ -41,7 +42,7 @@ async function getEphemerids(starId: number) {
     };
   }
 
-  // TODO: mainId is probably enough
+  // TODO: is there a possibility that both hip & tyc will be undefined and mainId won't exist in VSX?
   const ephemerids = await fetchEphemerids(identifier.hip ?? identifier.tyc ?? identifier.mainId);
   if (ephemerids?.epoch) {
     ephemerids.epoch = ephemerids.epoch - 2_400_000;
@@ -176,25 +177,26 @@ const appRouter = t.router({
       },
     });
 
-    // Make sure that identifier is in the DB
-    if (!identifier) {
-      // TODO: move to global scope
-      const hipparcosRef = {
-        referenceId: "hip",
-        starId: starIds.oid,
-        author: "The Hipparcos Catalogues (ESA 1997)",
-        bibcode: "1997yCat.1239....0E",
-      };
-      const tychoRef = {
-        referenceId: "tyc",
-        starId: starIds.oid,
-        author: "The Tycho Catalogues (ESA 1997)",
-        bibcode: "1997yCat.1239....0E",
-      };
+    const hipparcosRef = {
+      referenceId: "hip",
+      starId: starIds.oid,
+      author: "The Hipparcos Catalogues (ESA 1997)",
+      bibcode: "1997yCat.1239....0E",
+    };
 
+    const tychoRef = {
+      referenceId: "tyc",
+      starId: starIds.oid,
+      author: "The Tycho Catalogues (ESA 1997)",
+      bibcode: "1997yCat.1239....0E",
+    };
+
+    // Make sure that identifier is in the DB and data is fetched
+    if (!identifier || !identifier.isFetched) {
       const hip = starIds.hip?.toLocaleLowerCase().replace("hip", "") ?? null;
       const tyc = starIds.tyc?.toLocaleLowerCase().replace("tyc", "") ?? null;
       console.debug("hip", hip, "tyc", tyc);
+
       const externalData = await fetchExternalPhotometryData(hip, tyc);
       console.debug(
         `Fetched photometry data: Hp - ${externalData.Hp.length}, Bt - ${externalData.Bt.length}, Vt - ${externalData.Vt.length}`
@@ -202,12 +204,21 @@ const appRouter = t.router({
 
       try {
         await prisma.$transaction([
-          prisma.identifier.create({
-            data: {
+          prisma.identifier.upsert({
+            where: {
+              starId: starIds.oid,
+            },
+            update: {
+              mainId: starIds.mainId,
+              hip: starIds.hip,
+              tyc: starIds.tyc,
+            },
+            create: {
               starId: starIds.oid,
               mainId: starIds.mainId,
               hip: starIds.hip,
               tyc: starIds.tyc,
+              isFetched: false,
             },
           }),
           prisma.reference.createMany({
@@ -257,16 +268,24 @@ const appRouter = t.router({
               })),
             ],
           }),
+          prisma.identifier.update({
+            where: {
+              starId: starIds.oid,
+            },
+            data: {
+              isFetched: true,
+            },
+          }),
         ]);
       } catch (e) {
         console.error(e);
         console.error("Failed insertion of external photometry data to the DB.");
-        console.error("Request continues, but no data will be displayed");
+        console.error("Request continues, but no external data will be displayed");
       }
       console.debug("External photometry data inserted into DB successfully");
     }
 
-    return starIds.oid;
+    return starIds;
   }),
   getMainId: t.procedure.input(z.object({ starId: z.number() })).query(async ({ input }) => {
     const { starId } = input;
@@ -288,31 +307,42 @@ const appRouter = t.router({
   exportDataToCsv: t.procedure
     .input(
       z.object({
-        starIds: z.array(z.number()),
-        filters: z.array(z.string().trim().min(1)),
+        starIds: z.array(z.number()).min(1).optional(),
+        filters: z.array(z.string().trim().min(1)).min(1).optional(),
         startDate: z.number().optional(),
         endDate: z.number().optional(),
-        referenceIds: z.array(z.string().min(1)).optional(),
-        magMin: z.number().optional(),
-        magMax: z.number().optional(),
+        // referenceIds: z.array(z.string().min(1)).optional(),
       })
     )
-    .query(async ({ input }) => {}),
-  exportPhasedDataToCsv: t.procedure
-    .input(
-      z.object({
-        starIds: z.array(z.number()),
-        filters: z.array(z.string().trim().min(1)),
-        startDate: z.number().optional(),
-        endDate: z.number().optional(),
-        referenceIds: z.array(z.string().min(1)).optional(),
-        magMin: z.number().optional(),
-        magMax: z.number().optional(),
-        epoch: z.number(),
-        period: z.number(),
-      })
-    )
-    .query(async ({ input }) => {}),
+    .query(async ({ input }) => {
+      const { filters, starIds, startDate, endDate } = input;
+
+      type Result = {
+        star: string;
+        referenceId: string;
+        julianDate: number;
+        filter: string;
+        magnitude: number;
+        magErr: number | undefined;
+      };
+      const sql = Prisma.sql`
+        SELECT coalesce("Identifier"."mainId", "Identifier"."starId"::TEXT) as "star", "referenceId", "julianDate", "filter", "magnitude", "magErr"
+        FROM "Catalog" JOIN "Identifier" ON "Catalog"."starId" = "Identifier"."starId"
+        WHERE 1=1
+        ${starIds ? Prisma.sql`AND "Catalog"."starId" IN (${Prisma.join(starIds)})` : Prisma.empty} 
+        ${filters ? Prisma.sql`AND "Catalog"."filter" IN (${Prisma.join(filters)})` : Prisma.empty}
+        ${startDate !== undefined ? Prisma.sql`AND "Catalog"."julianDate" >= ${startDate}` : Prisma.empty}
+        ${endDate !== undefined ? Prisma.sql`AND "Catalog"."julianDate" <= ${endDate}` : Prisma.empty}
+      `;
+
+      const res = await prisma.$queryRaw<Result[]>(sql);
+
+      return papaparse.unparse(res, {
+        delimiter: ",",
+        header: true,
+        columns: ["star", "referenceId", "julianDate", "filter", "magnitude", "magErr"],
+      });
+    }),
 });
 
 async function getData(
