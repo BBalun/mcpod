@@ -123,7 +123,8 @@ export async function fetchObjectIds(input: string) {
   }
   const tyc = data.find(([_, id]) => id.toLocaleLowerCase().startsWith("tyc"))?.[1].replaceAll(" ", "");
   const hip = data.find(([_, id]) => id.toLocaleLowerCase().startsWith("hip"))?.[1].replaceAll(" ", "");
-  const mainId = data[0][2];
+  const hd = data.find(([_, id]) => id.toLocaleLowerCase().startsWith("hd"))?.[1].replaceAll(" ", "");
+  const mainId = hd ?? data[0][2];
   return {
     oid,
     tyc,
