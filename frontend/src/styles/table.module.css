@@ -1,6 +1,6 @@
 .table th,
 .table td {
-  @apply border-2 border-solid border-white p-1;
+  @apply border-2 border-solid border-slate-100 p-1;
 }
 
 .table tr {
