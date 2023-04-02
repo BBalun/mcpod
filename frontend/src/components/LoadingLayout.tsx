@@ -7,10 +7,8 @@ const LoadingLayout = ({ children }: { children: React.ReactNode }) => {
 
   return (
     <Suspense fallback={<FullPageSpinner />}>
-      <div>
-        {isSpinnerVisible && <FullPageSpinner />}
-        {children}
-      </div>
+      {isSpinnerVisible && <FullPageSpinner />}
+      {children}
     </Suspense>
   );
 };

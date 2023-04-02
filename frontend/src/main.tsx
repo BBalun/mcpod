@@ -8,11 +8,11 @@ import Star from "./pages/star";
 import { ChakraProvider } from "@chakra-ui/react";
 import References from "./pages/references";
 import Observations from "./pages/observations";
-import LoadingLayout from "./components/LoadingLayout";
 import ExportPage from "./pages/export";
 import Layout from "./components/Layout";
 import Home from "./pages/home";
 import Contact from "./pages/contact";
+import ErrorPage from "./pages/error-page";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +60,11 @@ const router = createBrowserRouter([
     element: (
       <Layout>
         <Home />
+      </Layout>
+    ),
+    errorElement: (
+      <Layout>
+        <ErrorPage />
       </Layout>
     ),
   },

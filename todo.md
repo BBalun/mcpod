@@ -11,10 +11,10 @@
 - [x] make chart interactive 
   - [x] export only data that is visible on a chart
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
-- [ ] home page 
+- [x] home page 
 - [ ] fix design
 - [ ] make charts responsive (or at least look nice)
-- [ ] 404 page
+- [x] 404 page
 - [ ] show toasts for error messages (..)
 - [ ] add filter colors to systems.json file
 - [ ] chart colors based on filter type
