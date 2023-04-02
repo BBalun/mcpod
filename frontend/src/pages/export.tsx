@@ -159,13 +159,14 @@ const ExportPage = () => {
                 onChange={(e) => setInput(e.target.value)}
                 required
               />
-              <Button type="submit" className="w-1/5">
+              <Button colorScheme="facebook" type="submit" className="w-1/5">
                 {isLoading ? <Spinner size="sm" /> : "Add"}
               </Button>
             </div>
             {error && <p className="text-red-500">{error}</p>}
           </form>
           <Button
+            colorScheme="facebook"
             className="mt-1"
             onClick={exportData}
             isDisabled={isExportLoading || isLoading}
@@ -176,12 +177,6 @@ const ExportPage = () => {
               "Export data to CSV file"
             )}
           </Button>
-          {/* <div className="flex flex-row justify-end gap-3">
-            <Button onClick={exportCsv} isDisabled={stars.length === 0}>
-              Export Data For Selected Stars
-            </Button>
-            <Button onClick={exportAll}>Export All</Button>
-          </div> */}
         </section>
       </div>
     </main>

@@ -69,7 +69,11 @@ export default function Filters({
           </div>
         );
       })}
-      <Button className="mt-1" onClick={() => setFilters([])}>
+      <Button
+        colorScheme="facebook"
+        className="mt-1"
+        onClick={() => setFilters([])}
+      >
         Clear all filters
       </Button>
     </section>

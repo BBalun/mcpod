@@ -4,7 +4,14 @@ import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
 import Plotly from "plotly.js-dist-min";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { Menu, MenuButton, Button, MenuList, MenuItem } from "@chakra-ui/react";
+import {
+  Menu,
+  MenuButton,
+  Button,
+  MenuList,
+  MenuItem,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import papaparse from "papaparse";
 import { saveAs } from "file-saver";
 
@@ -25,6 +32,14 @@ export interface PhaseCurveChartProps {
 
 const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
   const ref = useRef<any>();
+  const chartWidth = useBreakpointValue({
+    xs: 300,
+    sm: 500,
+    md: 700,
+    lg: 700,
+    xl: 800,
+    "2xl": 900,
+  });
 
   const download = async (format: "svg" | "png" | "csv") => {
     if (format !== "csv") {
@@ -97,7 +112,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
             modebar: {
               orientation: "h",
             },
-            width: 700,
+            width: chartWidth,
             height: 700,
             margin: {
               t: 80,
@@ -119,6 +134,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
           <Menu>
             <MenuButton
               as={Button}
+              colorScheme="facebook"
               rightIcon={<ChevronDownIcon />}
               w={"full"}
               className="mb-10 mt-2"

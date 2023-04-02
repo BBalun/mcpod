@@ -154,10 +154,10 @@ const references = () => {
       </table>
       <div className="flex w-full flex-row justify-end gap-3">
         <Link to={`/star/${starId}`}>
-          <Button colorScheme="blackAlpha">Go back to star data</Button>
+          <Button colorScheme="facebook">Go back to star data</Button>
         </Link>
         <Button
-          colorScheme="blackAlpha"
+          colorScheme="facebook"
           isDisabled={selectedRefs.length === 0}
           onClick={() =>
             navigate(

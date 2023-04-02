@@ -1,4 +1,11 @@
-import { Button, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react";
+import {
+  Button,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Plot from "react-plotly.js";
 import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
@@ -25,6 +32,14 @@ interface ChartProps {
 
 const DataChart = ({ data, systems, mainId }: ChartProps) => {
   const ref = useRef<any>();
+  const chartWidth = useBreakpointValue({
+    xs: 300,
+    sm: 500,
+    md: 700,
+    lg: 700,
+    xl: 800,
+    "2xl": 900,
+  });
 
   const download = async (format: "svg" | "png" | "csv") => {
     if (format !== "csv") {
@@ -37,9 +52,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
     } else {
       const [minDate, maxDate] = ref.current.el.layout.xaxis.range;
       const [maxMag, minMag] = ref.current.el.layout.yaxis.range; // y axis is reversed
-      // const [minFilterDate, maxFilterDate] = dateFilters;
-      // const minDate = Math.min(minChartDate, minFilterDate ?? Infinity);
-      // const maxDate = Math.max(maxChartDate, maxFilterDate ?? -Infinity);
 
       const visibleData = Object.values(data)
         .flatMap((data) => data)
@@ -70,7 +82,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
   };
 
   return (
-    <div className="w-full flex-col">
+    <div className="">
       <div className="flex w-full justify-center">
         <Plot
           ref={ref}
@@ -99,7 +111,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
             modebar: {
               orientation: "h",
             },
-            width: 700,
+            width: chartWidth,
             height: 700,
             margin: {
               t: 80,
@@ -121,6 +133,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
           <Menu>
             <MenuButton
               as={Button}
+              colorScheme="facebook"
               rightIcon={<ChevronDownIcon />}
               w={"full"}
               className="mb-10 mt-2"

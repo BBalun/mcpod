@@ -61,7 +61,7 @@ const observations = () => {
       <div>
         No data found for star {mainId} in references {referenceId}
         <Link to={`/references/${starId}`}>
-          <Button>Go back to references</Button>
+          <Button colorScheme="facebook">Go back to references</Button>
         </Link>
       </div>
     );
@@ -103,7 +103,7 @@ const observations = () => {
       </table>
       <div className="flex w-full justify-end">
         <Link to={`/references/${starId}`}>
-          <Button colorScheme="blackAlpha">Go back to references</Button>
+          <Button colorScheme="facebook">Go back to references</Button>
         </Link>
       </div>
     </main>

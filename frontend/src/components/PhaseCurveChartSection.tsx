@@ -1,12 +1,12 @@
-import { Button, Input } from "@chakra-ui/react";
+import { Button, Input, useToast } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import { trpc } from "../utils/trpc";
 import PhaseChart from "./PhaseCurveChart";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation } from "@tanstack/react-query";
 import { System } from "../types/systems";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useGlobalLoadingSpinner } from "../atoms/globalLoadingSpinner";
 
 interface PhaseChartProps {
   starId: number;
@@ -53,10 +53,11 @@ type PhaseDataParamsType = {
 };
 
 const PhaseCurveChartSection = (props: PhaseChartProps) => {
-  const [error, setError] = useState<string>();
   const [phaseDataParams, setPhaseDataParams] = useState<PhaseDataParamsType>(
     {}
   );
+  const { setSpinnerVisibility } = useGlobalLoadingSpinner();
+  const toast = useToast();
 
   const {
     register,
@@ -82,9 +83,17 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
         props.starId
       );
       console.error(e);
-      setError(`Failed to fetch ephemerids for star with id ${props.starId}`);
+      toast({
+        description: `Failed to fetch ephemerids for star with id ${props.starId}`,
+        status: "error",
+        position: "bottom-right",
+      });
     },
   });
+
+  useEffect(() => {
+    setSpinnerVisibility(isLoading);
+  }, [isLoading]);
 
   const { data } = trpc.getPhasedData.useQuery(
     {
@@ -108,12 +117,7 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
   }
 
   if (isLoading) {
-    // TODO: show loading spinner
-    return <div>Loading...</div>;
-  }
-
-  if (error) {
-    return <div>Failed to fetch phase and epoch for star {props.mainId}</div>;
+    return null;
   }
 
   return (
@@ -141,7 +145,7 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
           </div>
           <Button
             type="submit"
-            colorScheme="gray"
+            colorScheme="facebook"
             variant="solid"
             width="full"
             isDisabled={!isValid}
