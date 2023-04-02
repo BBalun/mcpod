@@ -1,11 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Input, useToast } from "@chakra-ui/react";
+import { Input, useToast } from "@chakra-ui/react";
 import { useMutation } from "@tanstack/react-query";
 import { trpc } from "../utils/trpc";
+import { useGlobalLoadingSpinner } from "../atoms/globalLoadingSpinner";
 
 const Search = () => {
   const [input, setInput] = useState("");
+  const { setSpinnerVisibility } = useGlobalLoadingSpinner();
 
   const navigate = useNavigate();
   const toast = useToast();
@@ -27,7 +29,10 @@ const Search = () => {
       className="flex flex-row gap-3"
       onSubmit={async (e) => {
         e.preventDefault();
-        const searchRes = await mutateAsync(input);
+        setSpinnerVisibility(true);
+        const searchRes = await mutateAsync(input).finally(() =>
+          setSpinnerVisibility(false)
+        );
         if (!searchRes) {
           // setError(`Start '${input}' not found`);
           console.warn(`Start '${input}' not found`);

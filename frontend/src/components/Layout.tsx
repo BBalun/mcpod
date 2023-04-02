@@ -4,10 +4,12 @@ import LoadingLayout from "./LoadingLayout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="min-w-screen min-h-screen bg-slate-100">
+    // pb-12 to offset height of the footer
+    <div className="min-w-screen min-h-screen bg-slate-100 pb-12">
       <LoadingLayout>
         <NavBar />
         {children}
+        <Footer />
       </LoadingLayout>
     </div>
   );
@@ -26,6 +28,14 @@ function NavBar() {
         <Link to="/contact">Contact</Link>
       </div>
     </nav>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="absolute left-0 bottom-0 flex h-12  w-full items-center justify-center bg-slate-800 text-sm font-extralight text-slate-100">
+      Copyright © 2007-{new Date().getFullYear()}, DTPA FSc MU
+    </footer>
   );
 }
 

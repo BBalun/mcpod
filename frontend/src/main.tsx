@@ -12,14 +12,47 @@ import LoadingLayout from "./components/LoadingLayout";
 import ExportPage from "./pages/export";
 import Layout from "./components/Layout";
 import Home from "./pages/home";
+import Contact from "./pages/contact";
 
 const router = createBrowserRouter([
   {
     path: "/star/:starId",
     element: (
-      <LoadingLayout>
+      <Layout>
         <Star />
-      </LoadingLayout>
+      </Layout>
+    ),
+  },
+  {
+    path: "/references/:starId",
+    element: (
+      <Layout>
+        <References />,
+      </Layout>
+    ),
+  },
+  {
+    path: "/observations/:starId/:referenceId",
+    element: (
+      <Layout>
+        <Observations />
+      </Layout>
+    ),
+  },
+  {
+    path: "/export",
+    element: (
+      <Layout>
+        <ExportPage />
+      </Layout>
+    ),
+  },
+  {
+    path: "/contact",
+    element: (
+      <Layout>
+        <Contact />
+      </Layout>
     ),
   },
   {
@@ -28,28 +61,6 @@ const router = createBrowserRouter([
       <Layout>
         <Home />
       </Layout>
-    ),
-  },
-  {
-    path: "/references/:starId",
-    element: (
-      // TODO: use loading spinner
-      <Suspense fallback={<div>Loading suspense</div>}>
-        <References />,
-      </Suspense>
-    ),
-  },
-  {
-    path: "/observations/:starId/:referenceId",
-    element: <Observations />,
-  },
-  {
-    path: "/export",
-    element: (
-      // TODO: use loading spinner
-      <Suspense fallback={<div>Loading suspense</div>}>
-        <ExportPage />{" "}
-      </Suspense>
     ),
   },
 ]);

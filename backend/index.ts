@@ -343,6 +343,14 @@ const appRouter = t.router({
         columns: ["star", "referenceId", "julianDate", "filter", "magnitude", "magErr"],
       });
     }),
+  getHomepageStatistics: t.procedure.input(z.object({}).optional()).query(async () => {
+    const [numOfMeasurements, numOfStars] = await Promise.all([prisma.catalog.count(), prisma.identifier.count()]);
+
+    return {
+      numOfMeasurements,
+      numOfStars,
+    };
+  }),
 });
 
 async function getData(
