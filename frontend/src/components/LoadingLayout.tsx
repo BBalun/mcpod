@@ -1,19 +1,17 @@
-import React from "react";
-import { Spinner } from "@chakra-ui/react";
+import React, { Suspense } from "react";
 import { useGlobalLoadingSpinner } from "../atoms/globalLoadingSpinner";
+import FullPageSpinner from "./FullPageSpinner";
 
 const LoadingLayout = ({ children }: { children: React.ReactNode }) => {
   const { isSpinnerVisible } = useGlobalLoadingSpinner();
 
   return (
-    <div>
-      {isSpinnerVisible && (
-        <div className="fixed top-0 left-0 z-50 flex h-screen w-screen items-center justify-center bg-slate-300 bg-opacity-50">
-          <Spinner size="xl" />
-        </div>
-      )}
-      {children}
-    </div>
+    <Suspense fallback={<FullPageSpinner />}>
+      <div>
+        {isSpinnerVisible && <FullPageSpinner />}
+        {children}
+      </div>
+    </Suspense>
   );
 };
 

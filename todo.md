@@ -13,22 +13,24 @@
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [ ] home page 
 - [ ] fix design
+- [ ] make charts responsive (or at least look nice)
+- [ ] 404 page
+- [ ] show toasts for error messages (..)
+- [ ] add filter colors to systems.json file
+- [ ] chart colors based on filter type
 - [x] cache star ids after fetching them from simbad
 - [x] cache data from hip and tyc
 - [x] loading spinners
 - [x] fix chart performance (swap for plotly.js)
-- [ ] show toasts for error messages (..)
 - [x] reset zoom for each chart buttons
-- [ ] chart colors based on filter type
-- [ ] add filter colors to systems.json file
 - [x] get HD number identifier when data is requested from SIMBAD and use it as a mainId if available
 - [x] investigate usage of named tuples to optimize network usage ---> bad idea
 - [ ] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
-- [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
 - [ ] send an email with invalid data
+
+## Nice to have:
+- [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
 - [ ] deploy somewhere
-- [ ] make charts responsive
-- [ ] 404 page
 - [ ] filtering and calculation on the client 
   - [ ] fetch data from the BE as it is stored
 - [ ] rewrite scripts in `/data/data` to use Node instead of Deno 

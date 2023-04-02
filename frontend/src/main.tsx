@@ -6,11 +6,12 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { queryClient, trpc, trpcClient } from "./utils/trpc";
 import Star from "./pages/star";
 import { ChakraProvider } from "@chakra-ui/react";
-import Search from "./pages/search";
 import References from "./pages/references";
 import Observations from "./pages/observations";
 import LoadingLayout from "./components/LoadingLayout";
 import ExportPage from "./pages/export";
+import Layout from "./components/Layout";
+import Home from "./pages/home";
 
 const router = createBrowserRouter([
   {
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/",
-    element: <Search />,
+    element: (
+      <Layout>
+        <Home />
+      </Layout>
+    ),
   },
   {
     path: "/references/:starId",
