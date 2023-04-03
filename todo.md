@@ -18,12 +18,11 @@
   - [x] scroll to about page
   - [x] add titles to each page and favicon
 - [x] change reference pages star id column to use mainId from identifiers table
-- [ ] add database references (foreign keys) between tables
 - [x] make charts responsive (or at least look nice)
 - [x] 404 page
 - [x] show toasts for error messages (..)
-- [ ] add filter colors to systems.json file
-- [ ] chart colors based on filter type
+- [x] add filter colors to systems.json file
+- [x] chart colors based on filter type
 - [x] cache star ids after fetching them from simbad
 - [x] cache data from hip and tyc
 - [x] loading spinners
@@ -33,6 +32,7 @@
 - [x] investigate usage of named tuples to optimize network usage ---> bad idea
 - [ ] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
 - [ ] send an email with invalid data
+- [ ] add database references (foreign keys) between tables
 
 ## Nice to have:
 - [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)

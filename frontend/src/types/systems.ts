@@ -8,4 +8,5 @@ export type Filter = {
   name: string;
   displayName: string;
   code: string;
+  color: string;
 };

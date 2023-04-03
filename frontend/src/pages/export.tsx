@@ -87,10 +87,10 @@ const ExportPage = () => {
   }
 
   return (
-    <main className="mb-12 flex w-full flex-col items-center">
+    <main className="mb-12 mt-7 flex w-full flex-col items-center">
       <div className="flex w-full flex-col gap-3 lg:w-1/2">
         <section>
-          <h2 className="text-md font-semibold">
+          <h2 className="mb-3 text-lg font-semibold">
             Step 1: Choose filters (leave empty to select all):
           </h2>
           <div className="ml-2 mt-1">
@@ -103,7 +103,7 @@ const ExportPage = () => {
         </section>
         <hr />
         <section>
-          <h2 className="text-md font-semibold">
+          <h2 className="mb-3 text-lg font-semibold">
             Step 2: Select start end date (leave empty to select all)
           </h2>
           <div className="ml-2 mt-1">
@@ -119,7 +119,7 @@ const ExportPage = () => {
         <hr />
         <section className="flex flex-col justify-end gap-4">
           <div>
-            <h2 className="text-md font-semibold">
+            <h2 className="mb-3 text-lg font-semibold">
               Step 3: Select stars(leave empty to select all)
             </h2>
             <div className="ml-2 mt-1">

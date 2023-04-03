@@ -87,13 +87,20 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
       <div className="flex w-full justify-center">
         <Plot
           ref={ref}
-          data={Object.entries(data).map(([filter, filterData]) => ({
-            x: filterData.map((a) => a.phase),
-            y: filterData.map((a) => a.magnitude),
-            mode: "markers",
-            type: "scattergl",
-            name: findFilterUsingCode(filter, systems)?.name ?? "unknown",
-          }))}
+          data={Object.entries(data).map(([filterCode, filterData]) => {
+            const filter = findFilterUsingCode(filterCode, systems);
+            return {
+              x: filterData.map((a) => a.phase),
+              y: filterData.map((a) => a.magnitude),
+              mode: "markers",
+              type: "scattergl",
+              name: filter?.name ?? "unknown",
+              // TODO: uncomment to use colors from systems.json file
+              // marker: {
+              //   color: filter?.color,
+              // },
+            };
+          })}
           layout={{
             title: `mcPod phased light curve of start ${mainId}`,
             xaxis: {
