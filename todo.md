@@ -14,8 +14,9 @@
 - [x] home page 
 - [ ] fix design
   - [x] observation page
-  - [ ] contact page
-  - [ ] scroll to about page
+  - [x] contact page
+  - [x] scroll to about page
+  - [ ] add titles to each page and favicon
 - [ ] change reference pages star id column to use mainId from identifiers table
 - [ ] add references between tables
 - [x] make charts responsive (or at least look nice)

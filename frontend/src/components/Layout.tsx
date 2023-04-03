@@ -1,5 +1,5 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useLocation } from "react-router-dom";
 import LoadingLayout from "./LoadingLayout";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -16,6 +16,18 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 };
 
 function NavBar() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash === "#about") {
+      scrollToAbout();
+    }
+  }, [location.hash]);
+
+  function scrollToAbout() {
+    document.getElementById("about")?.scrollIntoView();
+  }
+
   return (
     <nav className="flex h-16 w-full overflow-hidden bg-slate-800 px-3 text-slate-100">
       <div className="container mx-auto flex h-full flex-row items-center gap-9">
@@ -24,7 +36,9 @@ function NavBar() {
         </Link>
         <Link to="/">Search</Link>
         <Link to="/export">Export</Link>
-        <Link to="/#about">About</Link>
+        <Link to="/#about" onClick={scrollToAbout}>
+          About
+        </Link>
         <Link to="/contact">Contact</Link>
       </div>
     </nav>
