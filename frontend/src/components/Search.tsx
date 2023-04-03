@@ -34,11 +34,10 @@ const Search = () => {
           setSpinnerVisibility(false)
         );
         if (!searchRes) {
-          // setError(`Start '${input}' not found`);
           console.warn(`Start '${input}' not found`);
           toast({
             description: `Start '${input}' not found`,
-            status: "info",
+            status: "warning",
             position: "bottom-right",
           });
           return;

@@ -12,16 +12,16 @@
   - [x] export only data that is visible on a chart
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [x] home page 
-- [ ] fix design
+- [x] fix design
   - [x] observation page
   - [x] contact page
   - [x] scroll to about page
   - [x] add titles to each page and favicon
-- [ ] change reference pages star id column to use mainId from identifiers table
-- [ ] add references between tables
+- [x] change reference pages star id column to use mainId from identifiers table
+- [ ] add database references (foreign keys) between tables
 - [x] make charts responsive (or at least look nice)
 - [x] 404 page
-- [ ] show toasts for error messages (..)
+- [x] show toasts for error messages (..)
 - [ ] add filter colors to systems.json file
 - [ ] chart colors based on filter type
 - [x] cache star ids after fetching them from simbad

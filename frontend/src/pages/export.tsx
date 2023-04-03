@@ -22,7 +22,11 @@ const ExportPage = () => {
     onError(error) {
       console.error("Fetching of systems failed");
       console.error(error);
-      setError("Failed to fetch systems and filters");
+      toast({
+        description: "Failed to fetch systems and filters",
+        status: "error",
+        position: "bottom-right",
+      });
     },
     staleTime: Infinity,
     suspense: true,
