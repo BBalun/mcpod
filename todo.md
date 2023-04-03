@@ -13,12 +13,12 @@
 - [x] fix bibcode URL link (problem with `&`) (this issue was fixed by removing tycho catalog data from dataset)
 - [x] home page 
 - [ ] fix design
-  - [ ] observation page
+  - [x] observation page
   - [ ] contact page
   - [ ] scroll to about page
 - [ ] change reference pages star id column to use mainId from identifiers table
 - [ ] add references between tables
-- [ ] make charts responsive (or at least look nice)
+- [x] make charts responsive (or at least look nice)
 - [x] 404 page
 - [ ] show toasts for error messages (..)
 - [ ] add filter colors to systems.json file

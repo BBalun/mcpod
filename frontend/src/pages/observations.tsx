@@ -2,11 +2,11 @@ import { Link, Navigate, useParams } from "react-router-dom";
 import { trpc } from "../utils/trpc";
 
 import styles from "../styles/table.module.css";
-import { Button } from "@chakra-ui/react";
-import { useState } from "react";
+import { Button, useToast } from "@chakra-ui/react";
 
 const observations = () => {
   const { starId: starIdString, referenceId } = useParams();
+  const toast = useToast();
 
   const starId = /^[0-9]+$/.test(starIdString ?? "")
     ? Number(starIdString)
@@ -20,8 +20,6 @@ const observations = () => {
     return <Navigate to="/" />;
   }
 
-  const [error, setError] = useState<string>();
-
   const { data } = trpc.getObservations.useQuery(
     {
       starId,
@@ -31,8 +29,13 @@ const observations = () => {
       onError: (e) => {
         console.error(e);
         console.error("Failed to fetch observations");
-        setError("Failed to fetch observations");
+        toast({
+          description: "Failed to fetch observations",
+          status: "info",
+          position: "bottom-right",
+        });
       },
+      suspense: true,
     }
   );
 
@@ -42,18 +45,20 @@ const observations = () => {
       onError: (e) => {
         console.error(e);
         console.error("Failed to fetch mainId");
-        setError("Failed to fetch star data");
+        toast({
+          description: "Failed to fetch mainId",
+          status: "info",
+          position: "bottom-right",
+        });
       },
+      suspense: true,
+      staleTime: Infinity,
     }
   );
 
-  if (error) {
-    console.error(error);
-    return <div>Something went wrong. Try again later</div>;
-  }
-
   if (!data || !mainId) {
-    return <div>Loading ...</div>;
+    // error ocurred
+    return null;
   }
 
   if (data.length === 0) {
@@ -68,39 +73,40 @@ const observations = () => {
   }
 
   return (
-    <main className="container flex h-full w-full flex-col items-center justify-center gap-3 lg:p-20">
-      <div className="w-full text-left">
-        <h1 className="text-lg font-bold">
-          Dataset statistics for star {mainId} in references {referenceId}
-        </h1>
+    <main className="container mx-auto h-full w-full items-center justify-center gap-3 p-3 lg:p-20">
+      <h1 className="mb-3 text-3xl font-light">
+        Dataset statistics for star {mainId} in references {referenceId}
+      </h1>
+
+      <div className="mb-4 overflow-x-auto rounded-xl">
+        <table className={"table w-full " + styles.table}>
+          <thead>
+            <tr>
+              <th>Filter</th>
+              <th>No.&nbsp;measurements</th>
+              <th>magavg</th>
+              <th>magerr</th>
+              <th>stderr</th>
+              <th>eff.&nbsp;amplitude</th>
+              <th>lambda&nbsp;eff</th>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((observation) => (
+              <tr key={observation.id}>
+                <td>{observation.filter}</td>
+                <td>{observation.count}</td>
+                <td>{observation.magAverage}</td>
+                <td>{observation.magError}</td>
+                <td>{observation.stdError}</td>
+                <td>{observation.amplitudeEff}</td>
+                <td>{observation.lambdaEff}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
       </div>
 
-      <table className={"table w-full " + styles.table}>
-        <thead>
-          <tr>
-            <th>Filter</th>
-            <th>No. measurements</th>
-            <th>magavg</th>
-            <th>magerr</th>
-            <th>stderr</th>
-            <th>eff. amplitude</th>
-            <th>lambda eff</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((observation) => (
-            <tr key={observation.id}>
-              <td>{observation.filter}</td>
-              <td>{observation.count}</td>
-              <td>{observation.magAverage}</td>
-              <td>{observation.magError}</td>
-              <td>{observation.stdError}</td>
-              <td>{observation.amplitudeEff}</td>
-              <td>{observation.lambdaEff}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
       <div className="flex w-full justify-end">
         <Link to={`/references/${starId}`}>
           <Button colorScheme="facebook">Go back to references</Button>

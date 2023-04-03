@@ -70,19 +70,19 @@ const references = () => {
   }
 
   return (
-    <main className="container mx-auto h-full w-full items-center  justify-center gap-3 p-3 lg:p-20">
+    <main className="container mx-auto h-full w-full items-center justify-center gap-3 p-3 lg:p-20">
       <h1 className="mb-3 text-3xl font-light">References for {mainId}</h1>
 
-      <div className="mb-4 overflow-x-auto rounded-xl ">
-        <table className={"table min-w-fit  " + styles.table}>
+      <div className="mb-4 overflow-x-auto rounded-xl">
+        <table className={"table w-full " + styles.table}>
           <thead>
             <tr>
               <th></th>
               <th className="font-semibold">Ref.&nbsp;ID</th>
-              <th className="font-semibold">Star ID</th>
+              <th className="font-semibold">Star&nbsp;ID</th>
               <th className="font-semibold">Source</th>
               <th className="font-semibold">Bibcode</th>
-              <th className="font-semibold">Comp HD No.</th>
+              <th className="font-semibold">Comp&nbsp;HD&nbsp;No.</th>
               <th className="font-semibold">Other</th>
               <th></th>
             </tr>
@@ -109,7 +109,7 @@ const references = () => {
                   />
                 </td>
                 <td className="text-center">{reference.referenceId}</td>
-                <td>{reference.starId}</td>
+                <td>{mainId}</td>
                 <td>{reference.author}</td>
                 <td>
                   {reference.bibcode}
