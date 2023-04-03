@@ -30,7 +30,7 @@
 - [x] reset zoom for each chart buttons
 - [x] get HD number identifier when data is requested from SIMBAD and use it as a mainId if available
 - [x] investigate usage of named tuples to optimize network usage ---> bad idea
-- [ ] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
+- [x] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
 - [ ] send an email with invalid data
 - [ ] add database references (foreign keys) between tables
 
