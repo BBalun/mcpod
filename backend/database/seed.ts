@@ -1,14 +1,13 @@
 import { PrismaClient } from "@prisma/client";
-import { fetchObjectId, fetchObjectIds } from "../services/fetchHdNumber";
+import { fetchObjectIds } from "../services/fetchHdNumber";
 import { replaceColumnValue } from "./replaceColumn";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const prisma = new PrismaClient();
 
-// TODO:
-// This should be loaded from env variable that will be specified in docker compose file
-// Same path should be passed also to a postgres container
-// Both containers should have this data folder mounted
-const csvFolderPath = "../data/data/output_without_tycho";
+const pathToDataDir = process.env.PATH_TO_DATA_DIR ?? "../../data";
 
 async function main() {
   const cache = new Map<string, string>();
@@ -18,8 +17,8 @@ async function main() {
     for (const file of ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"]) {
       console.log(`Converting star IDs from ${file} into SIMBAD IDs`);
       await replaceColumnValue(
-        `${csvFolderPath}/${file}`,
-        `${csvFolderPath}/out/${file}`,
+        `${pathToDataDir}/${file}`,
+        `${pathToDataDir}/out/${file}`,
         "starId",
         async (starId) => {
           // const oid = await fetchObjectId(starId);
@@ -54,23 +53,22 @@ async function main() {
       prisma.$executeRawUnsafe(`TRUNCATE public."Reference" RESTART IDENTITY;`),
       prisma.$executeRawUnsafe(`TRUNCATE public."Identifier" RESTART IDENTITY;`),
 
-      // path to CSV files is specified in docker-compose.yml file
-      // TODO: synchronize with a csvFolderPath variable
+      // path to CSV files depends on how is data file mounted in docker-compose.yml
       prisma.$executeRawUnsafe(`
         COPY public."Catalog"("starId", "julianDate", "magnitude", "magErr", "filter", "referenceId")
-        FROM '/data/output_without_tycho/out/catalog.csv' 
+        FROM '/data/out/catalog.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
       prisma.$executeRawUnsafe(`
         COPY public."Ephemeris"("starId", "epoch", "period")
-        FROM '/data/output_without_tycho/out/ephemeris.csv' 
+        FROM '/data/out/ephemeris.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
       prisma.$executeRawUnsafe(`
         COPY public."Observation"("starId", "lambdaEff", "filter", "referenceId", "magAverage", "magError", "stdError", "amplitudeEff")
-        FROM '/data/output_without_tycho/out/observation.csv' 
+        FROM '/data/out/observation.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
@@ -84,7 +82,7 @@ async function main() {
       `),
       prisma.$executeRawUnsafe(`
         COPY public."Reference"("referenceId", "starId", "author", "bibcode", "referenceStarIds")
-        FROM '/data/output_without_tycho/out/reference.csv' 
+        FROM '/data/out/reference.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),

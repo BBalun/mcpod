@@ -1,0 +1,480 @@
+referenceId,starId,author,bibcode,referenceStarIds
+1,1512443,"Catalano, F. A.; Leone, F.",1990A&AS...83..491C,"HD1439,HD952"
+1,560666,"Catalano, F. A.; Leone, F.",1990A&AS...83..491C,"HD71844,HD70273"
+1,1096072,"Catalano, F. A.; Leone, F.",1990A&AS...83..491C,"HD73451,HD73997"
+1,2256037,"Catalano, F. A.; Leone, F.",1990A&AS...83..491C,"HD127167,HD125489"
+2,1512443,"Wolff, S. C. ",1975ApJ...202..127W,?
+2,132281,"Wolff, S. C.",1975ApJ...202..127W,HD5380
+2,1634860,"Wolff, S. C.",1975ApJ...202..127W,HD80447
+2,2102052,"Wolff, S. C.",1975ApJ...202..127W,HD114520
+3,1512443,"Winzer, J. E.",1974AJ.....79..124W,HD1439
+3,2851647,"Winzer, J. E.",1974AJ.....79..124W,HD191747
+4,3231473,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,2981659,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,772305,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,827032,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,3206422,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,3363292,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,2256037,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+4,3350860,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
+5,3231473,"Maitzen, H. M.; Weiss, W. W.; Wood, H. J.","1980A&A....81..323M ",HD4150
+6,3231473,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1246073,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1298708,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,666094,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,677544,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,684210,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,722159,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,722478,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,3024532,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,772382,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,827499,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,871077,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,930623,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,928364,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1096072,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,3032676,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1113054,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1604872,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1634860,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1712363,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,3206422,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1779210,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1811341,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1992754,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,2236380,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,11584640,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,3471517,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,2400277,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+6,1150019,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
+7,756054,"Preston, George W.; Stepien, Kazimierz",1968ApJ...151..577P,
+9,8278,"Rakos, Karl D.",1968PASP...80..324R,"HD4335,HD4364"
+12,1212237,"Strohmeier, W",1965IBVS...89....1S,
+13,1212237,"Sterken, C.; Manfroid, J.; Beele, D.; et al.",1995A&AS..113...31S,
+13,2630671,"Sterken, C.; Manfroid, J.; Beele, D.; et al.",1995A&AS..113...31S,
+14,1212237,"Manfroid, J.; Sterken, C.; Cunow, B.; et al.",1995A&AS..109..329M,
+14,2630671,"Manfroid, J.; Sterken, C.; Cunow, B.; et al.",1995A&AS..109..329M,
+16,85374,"Adelman, S. J.; Knox, J. R., Jr.",1994A&AS..103....1A,HD14212
+16,2851647,"Adelman, S. J.; Knox, J. R., Jr.",1994A&AS..103....1A,HD191747
+16,1497887,"Adelman, S. J.; Knox, J. R., Jr.",1994A&AS..103....1A,HD205420
+16,1295077,"Adelman, S. J.; Knox, J. R., Jr.",1994A&AS..103....1A,HD222847
+17,10680,"Adelman, Saul J.",1999A&AS..134...53A,HD16219
+17,2102052,"Adelman, Saul J.",1999A&AS..134...53A,HD116233
+17.1,227979,"Adelman, Saul J.",1999A&AS..134...53A,HD23383
+17.1,921413,"Adelman, Saul J.",1999A&AS..134...53A,HD48097
+17.2,227979,"Adelman, Saul J.",1999A&AS..134...53A,HD21447
+17.2,921413,"Adelman, Saul J.",1999A&AS..134...53A,HD47863
+19,109142,"Adelman, S. J.; Boyce, P. W.",1995A&AS..114..253A,HD11335
+19,1298708,"Adelman, S. J.; Boyce, P. W.",1995A&AS..114..253A,HD15130
+19,666094,"Adelman, S. J.; Boyce, P. W.",1995A&AS..114..253A,HD23055
+19,1501079,"Adelman, S. J.; Boyce, P. W.",1995A&AS..114..253A,HD220933
+20,666094,"Adelman, Saul J.",2000A&AS..146...13A,HD23055
+20,698910,"Adelman, Saul J.",2000A&AS..146...13A,HD27176
+20,930623,"Adelman, Saul J.",2000A&AS..146...13A,HD47703
+20,2543469,"Adelman, Saul J.",2000A&AS..146...13A,HD132230
+21,698910,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD27176
+21,745846,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD33276
+21,335750,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD40626
+21,953004,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD57744
+21.1,1131707,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD76543
+21.2,1131707,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD74873
+22,707870,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD27176
+22,1992754,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD109860
+22,2256037,"North, P.; Adelman, S. J.",1995A&AS..111...41N,"HD127167,HD125489"
+22,101981,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD215501
+23,707870,"Nikolov, A. S.",1974IBVS..942....1N,HD27176
+24,707870,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD27176
+24,934473,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD50973
+24,530581,"Musielok, B.; Lange, D.; Schoenich, W.; and co.",1980AN....301...71M,HD106591
+24,500796,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD120874
+24,194506,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD184787
+24,2630671,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD189359
+24.1,2851647,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD192518
+24.2,2851647,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD191747
+26,722159,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+26,827499,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+26,930623,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+26,2994943,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+26,3471517,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+26,2400277,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
+27,2981659,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD31640
+27,827032,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD38856
+27,2963260,"Hensberge, H.; Deridder, G.; Doom, C.; and co.",1981A&AS...46..151H,HD56456
+27,1634860,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD80447
+27.1,1334974,"Hensberge, H.; Deridder, G.; Doom, C.; and co.",1981A&AS...46..151H,HD31640
+27.2,1334974,"Hensberge, H.; Deridder, G.; Doom, C.; and co.",1981A&AS...46..151H,
+29,2981659,"Hensberge, H.; Weiss, W. W.; et al.",1982IBVS.2170....1H,HD31640
+30,756054,"Adelman, S. J.",1997A&AS..122..249A,HD32608
+30,1717685,"Adelman, S. J.",1997A&AS..122..249A,HD90882
+30,299644,"Adelman, S. J.",1997A&AS..122..249A,HD179933
+30,32337,"Adelman, S. J.",1997A&AS..122..249A,HD200030
+31,1493452,"Adelman, Saul J.; Meadows, S. A.",2002A&A...390.1023A,HD1439
+31,772305,"Adelman, Saul J.; Meadows, S. A.",2002A&A...390.1023A,HD31726
+31,2671669,"Adelman, Saul J.; Meadows, S. A.",2002A&A...390.1023A,HD170200
+31,31219,"Adelman, Saul J.; Meadows, S. A.",2002A&A...390.1023A,HD197392
+32,798842,"Adelman, Saul J.",2000A&A...357..548A,HD33647
+32,576631,"Adelman, Saul J.",2000A&A...357..548A,HD79763
+32,1679453,"Adelman, Saul J.",2000A&A...357..548A,HD88182
+32,5542,"Adelman, Saul J.",2000A&A...357..548A,HD219891
+33,827499,"Adelman, S. J.",1997A&AS..125...65A,HD36591
+33,871077,"Adelman, S. J.",1997A&AS..125...65A,HD43153
+33,2671296,"Adelman, S. J.",1997A&AS..125...65A,HD169578
+33,1295077,"Adelman, S. J.",1997A&AS..125...65A,HD222847
+34,934473,"Gulliver, A. F.; Winzer, J. E.",1973ApJ...183..701G,HD50037
+35,934473,"Pyper, D. M.; Adelman, S. J.",1983A&AS...51..365P,HD50037
+36,394588,"Bonsack, W. K.; Pilachowski, C. A.; Wolff",1974ApJ...187..265B,
+37,306083,"Adelman, Saul J.",1997PASP..109....9A,HD33541
+37,836292,"Adelman, Saul J.",1997PASP..109....9A,HD39182
+37,394588,"Adelman, Saul J.",1997PASP..109....9A,HD61497
+37,1634860,"Adelman, Saul J.",1997PASP..109....9A,HD80447
+38,2976986,"Renson, P.; Manfroid, J.",1978A&AS...34..445R,HD65211
+38,3044458,"Renson, P.; Manfroid, J.",1978A&AS...34..445R,"HD82578,HD84552"
+38,1797581,"Renson, P.; Manfroid, J.",1978A&AS...34..445R,"HD98176,HD95370"
+39,3024532,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD24863
+39,772382,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD34816,HD35337"
+39,804754,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD36342
+39,925913,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD50040,50405"
+39,928375,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD50672,50936"
+39,945511,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD49229,56405"
+39,965817,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD55719,53704"
+39,2963260,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD53704,56456"
+39,2978477,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD53704,56456"
+39,980398,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD58377
+39,974627,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD59154,59692"
+39,3048873,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD64507,65663"
+39,2994446,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD66192,66210"
+39,2976986,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD67363
+39,1096072,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD70574,73997"
+39,3019740,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD71043,HD73127"
+39,3044458,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD82578
+39,3062573,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD82856,84461"
+39,3206422,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD88981,90874"
+40,560666,"Jarzebowski, T.",1960AcA....10..191J,HD71844
+41,1038867,"Stepien, K.",1968ApJ...154..945S,
+41,560666,"Stepien, K.",1968ApJ...154..945S,
+41,1113054,"Stepien, K.",1968ApJ...154..945S,
+41,216432,"Stepien, K.",1968ApJ...154..945S,
+41,101981,"Stepien, K.",1968ApJ...154..945S,
+43,1096072,"Wolff, S. C.; Wolff, R. J.",1971AJ.....76..422W,HD73431
+43,11584640,"Wolff, S. C.; Wolff, R. J.",1971AJ.....76..422W,"HD124683,HD127964"
+45,1113054,"Adelman, Saul J.",1998A&AS..128..245A,HD72359
+45,515847,"Adelman, Saul J.",1998A&AS..128..245A,HD133962
+45.1,777950,"Adelman, Saul J.",1998A&AS..128..245A,HD34499
+45.1,1096072,"Adelman, Saul J.",1998A&AS..128..245A,HD73997
+45.2,777950,"Adelman, Saul J.",1998A&AS..128..245A,HD34499
+45.2,1096072,"Adelman, Saul J.",1998A&AS..128..245A,HD73997
+46,722159,"Waelkens, C.",1985A&AS...61..127W,
+46,1634860,"Waelkens, C.",1985A&AS...61..127W,
+48,3044458,"Catalano, F. A.; Leone, F.",1994A&AS..108..595C,HD82578
+48,1811341,"Catalano, F. A.; Leone, F.",1994A&AS..108..595C,HD96620
+49,1679453,"Babel, J.; North, P.",1997A&A...325..195B,
+50,1717685,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1991A&AS...87..481M,
+50,2630671,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1991A&AS...87..481M,
+51,1717685,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1993A&AS..102...79S,
+51,2630671,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1993A&AS..102...79S,
+52,1712363,"Adelman, S. J.; Rayle, K. E.; Pi, C.-L. M.",1999A&AS..136..379A,HD89774
+52,448360,"Adelman, S. J.; Rayle, K. E.; Pi, C.-L. M.",1999A&AS..136..379A,HD97138
+52,2729819,"Adelman, S. J.; Rayle, K. E.; Pi, C.-L. M.",1999A&AS..136..379A,HD151862
+52,322510,"Adelman, S. J.; Rayle, K. E.; Pi, C.-L. M.",1999A&AS..136..379A,HD162132
+53,1797581,"Manfroid, J.; Renson, P.",1983A&AS...51..267M,
+53,3339856,"Manfroid, J.; Renson, P.",1983A&AS...51..267M,
+53,3363292,"Manfroid, J.; Renson, P.",1983A&AS...51..267M,
+54.1,1811341,"Maitzen, H. M.",1973A&AS...11..327M,HD97037
+54.2,1811341,"Maitzen, H. M.",1973A&AS...11..327M,HD98853
+55,500796,"Wolff, S. C.; Morrison, N. D.",1975PASP...87..231W,"HD120874 "
+56,3312102,"Olsen, E. H.",1977IBVS.1367....1O,
+57,500796,"Mikulasek, Z.; Harmanec, P.; et al.",1978BAICz..29...44M,
+58,1474350,"Winzer, John Ernest",1974PhDT........61W,HD1083
+58,1493452,"Winzer, John Ernest",1974PhDT........61W,HD2924
+58,8278,"Winzer, John Ernest",1974PhDT........61W,HD4335
+58,1464101,"Winzer, John Ernest",1974PhDT........61W,HD6397
+58,24704,"Winzer, John Ernest",1974PhDT........61W,HD6564
+58,223672,"Winzer, John Ernest",1974PhDT........61W,HD6829
+58,84363,"Winzer, John Ernest",1974PhDT........61W,HD11335
+58,6373490,"Winzer, John Ernest",1974PhDT........61W,HD13467
+58,85374,"Winzer, John Ernest",1974PhDT........61W,HD14212
+58,11035,"Winzer, John Ernest",1974PhDT........61W,HD15683
+58,676846,"Winzer, John Ernest",1974PhDT........61W,HD23753
+58,677544,"Winzer, John Ernest",1974PhDT........61W,HD23538
+58,689954,"Winzer, John Ernest",1974PhDT........61W,HD23753
+58,689655,"Winzer, John Ernest",1974PhDT........61W,HD27176
+58,698910,"Winzer, John Ernest",1974PhDT........61W,HD27176
+58,707901,"Winzer, John Ernest",1974PhDT........61W,HD27176
+58,707870,"Winzer, John Ernest",1974PhDT........61W,HD27176
+58,763543,"Winzer, John Ernest",1974PhDT........61W,HD33276
+58,306083,"Winzer, John Ernest",1974PhDT........61W,HD31590
+58,308746,"Winzer, John Ernest",1974PhDT........61W,HD38179
+58,824140,"Winzer, John Ernest",1974PhDT........61W,HD37147
+58,842177,"Winzer, John Ernest",1974PhDT........61W,HD38899
+58,836292,"Winzer, John Ernest",1974PhDT........61W,HD38104
+58,335750,"Winzer, John Ernest",1974PhDT........61W,HD38179
+58,851721,"Winzer, John Ernest",1974PhDT........61W,HD40588
+58,871077,"Winzer, John Ernest",1974PhDT........61W,HD43153
+58,900183,"Winzer, John Ernest",1974PhDT........61W,HD46553
+58,918493,"Winzer, John Ernest",1974PhDT........61W,HD50037
+58,953004,"Winzer, John Ernest",1974PhDT........61W,HD57744
+58,439973,"Winzer, John Ernest",1974PhDT........61W,HD60652
+58,394588,"Winzer, John Ernest",1974PhDT........61W,HD58971
+58,346573,"Winzer, John Ernest",1974PhDT........61W	HD67934,U(9)B(9)V(9)
+58,1038867,"Winzer, John Ernest",1974PhDT........61W,HD69897
+58,1113054,"Winzer, John Ernest",1974PhDT........61W,HD74783
+58,1602611,"Winzer, John Ernest",1974PhDT........61W	HD77190,
+58,1604872,"Winzer, John Ernest",1974PhDT........61W,HD78661
+58,463937,"Winzer, John Ernest",1974PhDT........61W	HD93427,
+58,1712363,"Winzer, John Ernest",1974PhDT........61W,HD89774
+58,448360,"Winzer, John Ernest",1974PhDT........61W,HD93427
+58,25243,"Winzer, John Ernest",1974PhDT........61W,HD11031
+58,533178,"Winzer, John Ernest",1974PhDT........61W,HD99859
+58,500796,"Winzer, John Ernest",1974PhDT........61W,HD118214
+58,529163,"Winzer, John Ernest",1974PhDT........61W,HD121409
+58,2236380,"Winzer, John Ernest",1974PhDT........61W,HD122408
+58,515847,"Winzer, John Ernest",1974PhDT........61W,HD133962
+58,2729819,"Winzer, John Ernest",1974PhDT........61W,HD151862
+58,322510,"Winzer, John Ernest",1974PhDT........61W,HD165358
+58,2671296,"Winzer, John Ernest",1974PhDT........61W,HD171802
+58,299644,"Winzer, John Ernest",1974PhDT........61W,HD179933
+58,2844419,"Winzer, John Ernest",1974PhDT........61W,HD180613
+58,115626,"Winzer, John Ernest",1974PhDT........61W,HD192514
+58,116540,"Winzer, John Ernest",1974PhDT........61W,HD194684
+58,1427458,"Winzer, John Ernest",1974PhDT........61W,HD202275
+58,63839,"Winzer, John Ernest",1974PhDT........61W,HD205314
+58,63845,"Winzer, John Ernest",1974PhDT........61W,HD205314
+58,1497887,"Winzer, John Ernest",1974PhDT........61W,HD205541
+58,120277,"Winzer, John Ernest",1974PhDT........61W,HD209124
+58,1501079,"Winzer, John Ernest",1974PhDT........61W,HD221605
+58,202582,"Winzer, John Ernest",1974PhDT........61W,HD225289
+59,500796,"Pavlovski, K.",1979A&A....76..362P,
+60,500796,"Jetsu, L.; Kokko, M.; Tuominen, I.",1992A&A...265..547J,
+61,500796,"Pyper, D. M.; Adelman, S. J.",1985A&AS...59..369P,
+61,2236380,"Pyper, D. M.; Adelman, S. J.",1985A&AS...59..369P,
+61,11584640,"Pyper, D. M.; Adelman, S. J.",1985A&AS...59..369P,
+61,2855814,"Pyper, D. M.; Adelman, S. J.",1985A&AS...59..369P,
+62,529163,"Wade, G. A.; Hill, G. M.; et al.",1998A&A...335..973W,HD121409
+63,11584640,"Stibbs, D. W. N.",1950MNRAS.110..395S,HD124683
+64,11584640,"Maitzen, H. M.; Rakosch, K. D.",1970A&A.....7...10M,HD124683
+66,11584640,"Maitzen, H. M.; Moffat, A. F. J.",1972A&A....16..385M,HD124683
+67,11584640,"Catalano, F. A.; Kroll, R.; Leone, F.",1992A&A...263..203C,HD124683
+68,688319,"Burke, Edward W., Jr.; and co.",1970JRASC..64..353B,HD25643
+68,1038867,"Burke, Edward W., Jr.; and co.",1970JRASC..64..353B,HD68254
+68,1602611,"Burke, Edward W., Jr.; and co.",1970JRASC..64..353B,HD76333
+68,1712363,"Burke, Edward W., Jr.; and co.",1970JRASC..64..353B,HD90123
+68,2855814,"Burke, Edward W., Jr.; et al.",1970JRASC..64..353B,HD136512
+68,194506,"Burke, Edward W., Jr.; et al.",1970JRASC..64..353B,HD184875
+69,2855814,"Brodskaya, Ă„â€šĂ˘â‚¬ĹľÄ‚ËĂ˘â€šÂ¬ÄąË‡Ă„â€šĂ‹ÂÄ‚ËĂ˘â‚¬ĹˇĂ‚Â¬Ä‚â€šĂ‚Â°. S.",1970SvA....14..529B,HD140436
+70,2261235,"Adelman, Saul J.",2001A&A...368..225A,HD124850
+70,2634359,"Adelman, Saul J.",2001A&A...368..225A,HD141851
+70,2686149,"Adelman, Saul J.",2001A&A...368..225A,HD171975
+70,120277,"Adelman, Saul J.",2001A&A...368..225A,HD209124
+74,194506,"Burke, E. W., Jr.; Thompson, S. K.",1987PASP...99..852B,HD184787
+75,194506,"Morrison, Nancy D.; Wolff, Sidney C.",1971PASP...83..474M,"HD186307 "
+75,3486687,"Morrison, Nancy D.; Wolff, Sidney C.",1971PASP...83..474M,HD201772
+76,194506,"Adelman, S. J.; Brown, B. H.; et al.",1994A&AS..106..333A,HD184875
+76,63845,"Adelman, S. J.; Brown, B. H.; et al.",1994A&AS..106..333A,HD205314
+76,120277,"Adelman, S. J.; Brown, B. H.; et al.",1994A&AS..106..333A,HD209124
+77,1425819,"van Genderen, A. M.",1971A&A....14...48V,HD10262
+77,1298708,"van Genderen, A. M.",1971A&A....14...48V,HD15798
+77,2630671,"van Genderen, A. M.",1971A&A....14...48V,HD189359
+77,1427458,"van Genderen, A. M.",1971A&A....14...48V,HD201616
+77,1150019,"van Genderen, A. M.",1971A&A....14...48V,HD221736
+78,2630671,"Jones, Terry J.; Wolff, Sidney C.",1973PASP...85..760J,
+79,689954,"Adelman, S. J.; Pi, C.-L. M.; Rayle, K. E.",1998A&AS..133..197A,HD23753
+79,925913,"Adelman, S. J.; Pi, C.-L. M.; Rayle, K. E.",1998A&AS..133..197A,HD50040
+79,115626,"Adelman, S. J.; Pi, C.-L. M.; Rayle, K. E.",1998A&AS..133..197A,HD192514
+81,1427458,"Deul, E. R.; van Genderen, A. M.",1983A&A...118..289D,HD201616
+81,3486687,"Deul, E. R.; van Genderen, A. M.",1983A&A...118..289D,HD203585
+82,63845,"Adelman, S. J.",2003A&A...401..357A,HD205314
+82,78615,"Adelman, S. J.",2003A&A...401..357A,HD217348
+83,500796,"Burke, E. W., Jr.; Howard, J. T.",1972ApJ...178..491B,HD119992
+84,500796,"Mikulasek, Z.; Ziznovsky, J.",2001IBVS.5188....1M,HD120874
+85,827499,"Adelman, S. J.; Pyper, D. M.",1985A&AS...62..279A,HD37744
+86,871077,"Adelman, S. J.; Young, K. J.",2005A&A...429..317A,HD43153
+86,2851647,"Adelman, S. J.; Young, K. J.",2005A&A...429..317A,HD191747
+86,1322712,"Adelman, S. J.; Young, K. J.",2005A&A...429..317A,HD213320
+86,202582,"Adelman, S. J.; Young, K. J.",2005A&A...429..317A,HD223624
+87,756054,"Adelman, S. J.; Kaewkornmaung, P.",2005A&A...435.1099A,HD32068
+87,836292,"Adelman, S. J.; Kaewkornmaung, P.",2005A&A...435.1099A,HD39182
+87,394588,"Adelman, S. J.; Kaewkornmaung, P.",2005A&A...435.1099A,HD61497
+87,1096072,"Adelman, S. J.; Kaewkornmaung, P.",2005A&A...435.1099A,HD73997
+88.1,1096072,"Maitzen, H. M.; Albrecht, R.; Heck, A.",1978A&A....62..199M,HD73400
+88.2,1096072,"Maitzen, H. M.; Albrecht, R.; Heck, A.",1978A&A....62..199M,HD73997
+88.3,1096072,"Maitzen, H. M.; Albrecht, R.; Heck, A.",1978A&A....62..199M,"HD73997,HD70574"
+89,3019740,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1976A&A....48..383H,
+90,2976986,"Breger, M.",1979IBVS.1659....1B,
+90,3044458,"Breger, M.",1979IBVS.1659....1B,
+91.1,630338,"Fried, R. E.; Adelman, S. J.",2003JAD.....9....2F,HD19600
+91.2,630338,"Fried, R. E.; Adelman, S. J.",2003JAD.....9....2F,HD19600
+91.3,630338,"Fried, R. E.; Adelman, S. J.",2003JAD.....9....2F,HD19600
+91.4,630338,"Fried, R. E.; Adelman, S. J.",2003JAD.....9....2F,HD19600
+91.5,630338,"Fried, R. E.; Adelman, S. J.",2003JAD.....9....2F,HD19600
+92,1226565,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,722159,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,722478,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,785381,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,811516,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,867173,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,3021861,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,1779210,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,1875429,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,3316721,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,2312837,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,2531914,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,2351555,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,2323074,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,2323323,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,1427458,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,1272517,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92,1150019,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92.1,1246073,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+92.2,1246073,"Manfroid, J.; Sterken, C.; Bruch, A.; et al.",1995yCat.2170....0M,
+93,1246073,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1226565,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,722159,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,722478,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,785381,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,811516,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,867173,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,3021861,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1779210,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1875429,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,3316721,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,2312837,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,2531914,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,2351555,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,2323074,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,2323323,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1427458,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1272517,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+93,1150019,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
+94,1246073,"Kurtz, D. W.; Marang, F.",1987MNRAS.228..141K,HD7259
+94,1259863,"Kurtz, D. W.; Marang, F.",1987MNRAS.228..141K,HD7259
+94,1260043,"Kurtz, D. W.; Marang, F.",1987MNRAS.228..141K,HD7259
+95,1992754,"Wolff, Sidney C.; Wolff, Richard J.",1972ApJ...176..433W,HD109860
+96,1992754,"Buchholz, M.; Maitzen, H. M.",1979A&A....73..222B,
+97,1226565,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,722159,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,811516,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,1779210,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,3316721,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,2400277,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,2312837,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,2323074,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,1427458,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+97,1272517,"Manfroid, J.; Sterken, C.; et al.",1995yCat.2200....0M,
+98,1226565,"Sterken, C.; Manfroid, J.; et al.",1996yCat.2202....0S,
+100,3032676,"Jakate, Sh. M.",1979IBVS.1536....1J,HD74535
+102,785381,"Adelman, S. J.; Rice, R. H.",1999A&AS..136..111A,HD33647
+102,2844419,"Adelman, S. J.; Rice, R. H.",1999A&AS..136..111A,HD181119
+102,216432,"Adelman, S. J.; Rice, R. H.",1999A&AS..136..111A,HD194668
+102,63845,"Adelman, S. J.; Rice, R. H.",1999A&AS..136..111A,HD205314
+103,827499,"Bartolini, C.; Bonifazi, A.; et al.",1982Ap&SS..83..287B,"HD37674,HD37393"
+104,9205,"Wolff, Sidney C.; Morrison, Nancy D.",1973PASP...85..141W,"HD8710,HD8862"
+104,240974,"Wolff, Sidney C.; Morrison, Nancy D.",1973PASP...85..141W,"HD8710,HD8862"
+104,684210,"Wolff, Sidney C.; Morrison, Nancy D.",1973PASP...85..141W,"HD8710,HD8862"
+104,123728,"Wolff, Sidney C.; Morrison, Nancy D.",1973PASP...85..141W,"HD8710,HD8862"
+105,1272517,"Cuypers, J.; Balona, L. A.; Marang, F.",1989A&AS...81..151C,
+106,1490374,"Hildebrandt, G.; Sch  neich, W.",1974AN....295..217H,HD220694
+107,529163,"Burke, E. W., Jr.; Barr, T. H.",1981PASP...93..344,HD119024
+107,322510,"Burke, E. W., Jr.; Barr, T. H.",1981PASP...93..344,HD162132
+107,2671296,"Burke, E. W., Jr.; Barr, T. H.",1981PASP...93..344,HD170200
+107,2844419,"Burke, E. W., Jr.; Barr, T. H.",1981PASP...93..344,HD180613
+107,202582,"Burke, E. W., Jr.; Barr, T. H.",1981PASP...93..344,HD224893
+108,515847,"Hill, G.; Hilditch, R.W.; Pfannenschmidt, F.L.",1976PDAO...15....1H,HD136729
+108,455755,"Hill, G.; Hilditch, R.W.; Pfannenschmidt, F.L.",1976PDAO...15....1H,HD136729
+109,216432,"Panov, K.",1978IBVS.1392....1P,HD192200
+110,631113,"Adelman, Saul J.",2006PASP..118...77A,HD21050
+110,1634860,"Adelman, Saul J.",2006PASP..118...77A,HD80447
+110,1712363,"Adelman, Saul J.",2006PASP..118...77A,HD89774
+110,216432,"Adelman, Saul J.",2006PASP..118...77A,HD194668
+111,1493452,"Pojmanski, G.",2002AcA....52..397P,
+111,630338,"Pojmanski, G.",2002AcA....52..397P,
+111,666094,"Pojmanski, G.",2002AcA....52..397P,
+111,698910,"Pojmanski, G.",2002AcA....52..397P,
+111,707870,"Pojmanski, G.",2002AcA....52..397P,
+111,827499,"Pojmanski, G.",2002AcA....52..397P,
+111,871077,"Pojmanski, G.",2002AcA....52..397P,
+111,1113054,"Pojmanski, G.",2002AcA....52..397P,
+111,1712363,"Pojmanski, G.",2002AcA....52..397P,
+111,2478638,"Pojmanski, G.",2002AcA....52..397P,
+111,2630671,"Pojmanski, G.",2002AcA....52..397P,
+111,1427458,"Pojmanski, G.",2002AcA....52..397P,
+111,3486687,"Pojmanski, G.",2002AcA....52..397P,
+111,1497887,"Pojmanski, G.",2002AcA....52..397P,
+111,1272517,"Pojmanski, G.",2002AcA....52..397P,
+111,3350860,"Pojmanski, G.",2002AcA....52..397P,
+111,1282440,"Pojmanski, G.",2002AcA....52..397P,
+111,1273922,"Pojmanski, G.",2002AcA....52..397P,
+111,1490374,"Pojmanski, G.",2002AcA....52..397P,
+111,1150019,"Pojmanski, G.",2002AcA....52..397P,
+111,1295077,"Pojmanski, G.",2002AcA....52..397P,
+112,48810,"Adelman, Saul J.",2007PASP..119..980A,HD16004
+112,1758295,"Adelman, Saul J.",2007PASP..119..980A,HD92245
+112,2630671,"Adelman, Saul J.",2007PASP..119..980A,HD189359
+112,63839,"Adelman, Saul J.",2007PASP..119..980A,HD205314
+113,306083,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD33541
+113,1992754,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD109860
+113,2256037,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD127167
+113,194506,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD184875
+114,928364,"Pilachowski, C.A.; Bonsack, W.K.; Wolff, S.C.",1974A&A....37..275P,
+115,6373490,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD12573
+115,1298708,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD15130
+115,10680,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD16219
+115,455755,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD139493
+115,2654323,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD163624
+115,1497887,"Adelman, Saul J.; Woodrow, Stephanie L.",2007PASP..119.1256A,HD205420
+116,335750,"Adelman, Saul J.",2005PASP..117..476A,HD40626
+116,953004,"Adelman, Saul J.",2005PASP..117..476A,HD57744
+116,162655,"Adelman, Saul J.",2005PASP..117..476A,HD217348
+116,1587583,"Adelman, Saul J.",2005PASP..117..476A,HD222109
+117,1287453,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD4622
+117,2396222,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD190285
+117,2479223,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD187578
+117,3350860,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD205348
+117,1282440,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD205705
+117,1273922,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD210931
+118,707901,"Adelman, Saul J.",1993A&A...269..411A,HD27176
+118,463937,"Adelman, Saul J.",1993A&A...269..411A,HD88983
+119,1287453,"Hensberge, H.; Sterken, C.; van der Linden, T.",1978A&AS...34...67H,HD4622
+119,2479223,"Hensberge, H.; Sterken, C.; van der Linden, T.",1978A&AS...34...67H,HD187578
+119,1273922,"Hensberge, H.; Sterken, C.; van der Linden, T.",1978A&AS...34...67H,HD210931
+120,1679453,"Adelman, Saul J.",2008PASP..120..367A,HD88182
+120,448360,"Adelman, Saul J.",2008PASP..120..367A,HD97138
+120,2671296,"Adelman, Saul J.",2008PASP..120..367A,HD169578
+120,115626,"Adelman, Saul J.",2008PASP..120..367A,HD192514
+121,698910,"Adelman, Saul J.",2008PASP..120..595A,HD27176
+121,1717685,"Adelman, Saul J.",2008PASP..120..595A,HD90882
+121,515847,"Adelman, Saul J.",2008PASP..120..595A,HD133962
+121,2729819,"Adelman, Saul J.",2008PASP..120..595A,HD151862
+122,1427458,"Gruberbauer, M.; Saio, H.; Huber, D.; and co.",2008A&A...480..223G,
+123.1,827499,"Mikulášek, Z.; Krtička, J.; Henry, G.W.; and co.",2008A&A...485..585M,HD37788
+123.2,827499,"Mikulášek, Z.; Krtička, J.; Henry, G.W.; and co.",2008A&A...485..585M,HD36166
+123.3,827499,"Mikulášek, Z.; Krtička, J.; Henry, G.W.; and co.",2008A&A...485..585M,HD36591
+124,530581,"Srivastava, R. K.",1989Ap&SS.154..333S,HD103287
+125,530581,"Provin, Sanford S.",1953ApJ...118..489P,HD106591
+126,688319,"Rakos, Karl D.",1962LowOB...5..227R,HD25411
+126,689655,"Rakos, Karl D.",1962LowOB...5..227R,HD25626
+128,777950,"Johansen, K. T.",1970A&A.....4....1J,HD34334
+129.1,2478638,"Mikulášek, Z.; Krtička, J. et al.",2010A&A...511L...7M,HD179520
+129.2,2478638,"Mikulášek, Z.; Krtička, J. et al.",2010A&A...511L...7M,HD179520
+130,1282440,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
+130,1273922,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
+130,101981,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
+130,123728,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
+131,2236380,"Pyper, D. M.; Ryabchikova, T.; and co.",1998A&A...339..822P,HD
+132,2236380,"Hardie, Robert",1958ApJ...127..620H,
+136,25243,"Rakosch, K. D.; Fiedler, W.",1978A&AS...31...83R,HD10072
+137,777950,Žižňovský J.,Skalnaté Pleso,HD34578
+137,827499,"Mikulášek, Z.; Krtička, J; and co.",2011A&A...534L...5M,HD37788
+137.1,2236380,"Mikulášek, Z.; Krtička, J; and co.",2011A&A...534L...5M,
+137.2,2236380,"Mikulášek, Z.; Krtička, J; and co.",2011A&A...534L...5M,"HD,HD"
+137.3,2236380,"Mikulášek, Z.; Krtička, J; and co.",2011A&A...534L...5M,HD
+137.4,2236380,"Mikulášek, Z.; Krtička, J; and co.",2011A&A...534L...5M,HD
+139,2236380,"Pyper, D.M.; Stevens, I.R.; Adelman, S.J.",2013MNRAS.431.2106P,HD122408
+140,2994943,"Krtička, J.; Janík, J.; Marková, H.; and co.",2013A&A...556A..18K,
+142,132281,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD5408
+142,257278,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD26553
+142,707870,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD27176
+142,925898,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD47964
+142,1113054,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD72359
+142,529163,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD121409
+142,2686623,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD173495
+142,101981,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,

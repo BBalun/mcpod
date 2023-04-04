@@ -158,7 +158,6 @@ const Star = () => {
           </section>
 
           <section className="flex w-full flex-col lg:w-2/3">
-            {/* TODO: show loading skeleton */}
             {data && (
               <DataChart data={data} mainId={mainId} systems={systems} />
             )}

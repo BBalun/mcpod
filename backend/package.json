@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "cross-env NODE_OPTIONS='--insecure-http-parser' ts-node-dev index.ts",
+    "start": "cross-env NODE_OPTIONS='--insecure-http-parser' ts-node --transpileOnly index.ts",
     "db:seed": "ts-node ./database/seed.ts",
-    "test": "cross-env NODE_OPTIONS='--insecure-http-parser' ts-node ./services/vizierService.ts"
+    "db:migrate": "npx prisma migrate deploy"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "@prisma/client": "^4.10.1",
     "@trpc/server": "^10.11.1",
     "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "isomorphic-fetch": "^3.0.0",
     "zod": "^3.20.6"
