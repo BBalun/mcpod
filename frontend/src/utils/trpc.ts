@@ -15,7 +15,7 @@ export const queryClient = new QueryClient({
 export const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
-      url: import.meta.env.VITE_TRPC_ENDPOINT, // has to be prefixed with VITE_ otherwise it won't be included in client side bundle
+      url: import.meta.env.VITE_TRPC_ENDPOINT ?? "http://localhost:3000/trpc", // has to be prefixed with VITE_ otherwise it won't be included in client side bundle
     }),
   ],
 });

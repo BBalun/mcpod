@@ -7,7 +7,7 @@ dotenv.config();
 
 const prisma = new PrismaClient();
 
-const pathToDataDir = process.env.PATH_TO_DATA_DIR ?? "../../data";
+const pathToDataDir = process.env.PATH_TO_DATA_DIR ?? "../data";
 
 async function main() {
   const cache = new Map<string, string>();
