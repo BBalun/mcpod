@@ -166,7 +166,19 @@ const appRouter = t.router({
       return groupByFilterCode(phasedData);
     }),
   search: t.procedure.input(z.string().min(1)).query(async ({ input }) => {
-    const starIds = await fetchObjectIds(input);
+    let starIds;
+
+    try {
+      starIds = await fetchObjectIds(input);
+    } catch (e) {
+      console.error("Failed to fetch object IDs from SIMBAD");
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to fetch object identifiers from SIMBAD",
+      });
+    }
+
     if (!starIds) {
       return null;
     }

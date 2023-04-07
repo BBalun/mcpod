@@ -31,15 +31,15 @@
 - [x] get HD number identifier when data is requested from SIMBAD and use it as a mainId if available
 - [x] investigate usage of named tuples to optimize network usage ---> bad idea
 - [x] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
-- [ ] send an email with invalid data
-- [ ] deploy somewhere
+- [x] send an email with invalid data
+- [x] deploy somewhere
 - [ ] add database references (foreign keys) between tables
-- [ ] script to reseed the database
+- [x] script to reseed the database
 
 ## Nice to have:
 - [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
 - [ ] filtering and calculation on the client 
   - [ ] fetch data from the BE as it is stored
-- [ ] rewrite scripts in `/data/data` to use Node instead of Deno 
+- [x] rewrite scripts in `/data/data` to use Node instead of Deno 
   (may not be necessary, because this should be run only once during development)
 - [ ] seed script - insert csv files into db manually - using prisma.createMany (just to simplify path mapping to data dir from BE (seed script) and DB (CSV insertion))
