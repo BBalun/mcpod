@@ -200,3 +200,27 @@ prefix hd v katalogu
 
 ### dalsie otazky
 - export dat na star page (CSV, PNG a SVG format) ma byt iba data co su prave na grafe, alebo vsetky data
+
+
+##
+- subor reference - com HD num field - "HD" - je to chyba v subore
+
+- vratenie naspat posledny stlpec na stranke reference - nie je mozne - bude obsahovat zle data, pretoze mi data dotahujeme aj z externych katalogov
+ 
+- spravit (reference, hd cislo) unikatne v reference table (pridat unique constraint pre reference table)
+  - upravenim stlpca reference na x.1 a x.2
+    - priklad - rovnake riadky v tvare (123, 456, ...) by sme rozdelili na (123.1., 456) a (123.2, 456)
+
+- uknown filter name pri grafe 
+  - nezname filtre : 11, 72, 77
+  
+- mame celkom dost problemov s integritou dat (nezname filtre, neunikatne referencie a pozorovani)
+  - aby sme zabranili takymto problemom v buducnosti, tak vieme datovy model znormalizovat
+  - zaberie to dost casu a bude treba opravovat dalsie chyby co najdeme
+
+
+<!-- - filtrovanie referencii - ako by to malo fungovat
+  - teraz berieme data z reference suboru, ten neobsahuje info o filtroch
+  - selectneme unikatne referenceIDs z catalog table podla StarID a filterov a tieto referenceIDs pouzijeme na select z reference table
+  -  -->
+-  

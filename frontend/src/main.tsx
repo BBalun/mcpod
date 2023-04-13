@@ -17,56 +17,28 @@ import ErrorPage from "./pages/error-page";
 const router = createBrowserRouter([
   {
     path: "/star/:starId",
-    element: (
-      <Layout>
-        <Star />
-      </Layout>
-    ),
+    element: <Star />,
   },
   {
     path: "/references/:starId",
-    element: (
-      <Layout>
-        <References />,
-      </Layout>
-    ),
+    element: <References />,
   },
   {
     path: "/observations/:starId/:referenceId",
-    element: (
-      <Layout>
-        <Observations />
-      </Layout>
-    ),
+    element: <Observations />,
   },
   {
     path: "/export",
-    element: (
-      <Layout>
-        <ExportPage />
-      </Layout>
-    ),
+    element: <ExportPage />,
   },
   {
     path: "/contact",
-    element: (
-      <Layout>
-        <Contact />
-      </Layout>
-    ),
+    element: <Contact />,
   },
   {
     path: "/",
-    element: (
-      <Layout>
-        <Home />
-      </Layout>
-    ),
-    errorElement: (
-      <Layout>
-        <ErrorPage />
-      </Layout>
-    ),
+    element: <Home />,
+    errorElement: <ErrorPage />,
   },
 ]);
 
@@ -75,7 +47,9 @@ ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
-          <RouterProvider router={router} />
+          <Layout>
+            <RouterProvider router={router} />
+          </Layout>
         </ChakraProvider>
       </QueryClientProvider>
     </trpc.Provider>

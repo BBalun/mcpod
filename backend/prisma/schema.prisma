@@ -10,21 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Ephemeris {
-  starId Int      @id
-  epoch  Decimal?
-  period Decimal?
-}
-
 model Catalog {
   id Int @id @default(autoincrement())
 
+  star Identifier @relation(fields: [starId], references: [starId])
+
   starId      Int
-  julianDate  Decimal
-  magnitude   Decimal?
-  magErr      Decimal?
-  filter      String
   referenceId String
+  filter      String
+  julianDate  Decimal
+
+  magnitude Decimal?
+  magErr    Decimal?
 
   @@index([starId])
   @@index([referenceId])
@@ -33,10 +30,13 @@ model Catalog {
 model Observation {
   id Int @id @default(autoincrement())
 
+  star Identifier @relation(fields: [starId], references: [starId])
+
   starId      Int
-  filter      String
   referenceId String
-  count       Int    @default(0)
+  filter      String
+
+  count Int @default(0)
 
   lambdaEff    Decimal?
   magAverage   Decimal?
@@ -49,23 +49,32 @@ model Observation {
 }
 
 model Reference {
-  id Int @id @default(autoincrement())
-
+  id          Int    @id @default(autoincrement())
   referenceId String
   starId      Int
+
+  star Identifier @relation(fields: [starId], references: [starId])
 
   author           String?
   bibcode          String?
   referenceStarIds String?
 
-  @@unique([referenceId, starId])
+  // @@unique([referenceId, starId])
 }
 
 model Identifier {
-  starId    Int     @id
+  starId Int @id
+
   mainId    String
   isFetched Boolean @default(false)
 
   tyc String?
   hip String?
+
+  epoch  Decimal?
+  period Decimal?
+
+  Catalog     Catalog[]
+  Observation Observation[]
+  Reference   Reference[]
 }

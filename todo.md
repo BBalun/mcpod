@@ -33,8 +33,15 @@
 - [x] static content - pdfs in refer folder - https://mcpod.physics.muni.cz/refer/0023.pdf
 - [x] send an email with invalid data
 - [x] deploy somewhere
-- [ ] add database references (foreign keys) between tables
+- [x] add database references (foreign keys) between tables
 - [x] script to reseed the database
+- [ ] filter out data from tycho that are more than 2 magnitudes larger then average of hipparcos filter (Hp)
+- [ ] change content in home and contact page to use markdown
+- [ ] create apache config
+- [ ] filter reference based on selected filters on the star page
+- [ ] add error bars to the charts (both or only main one?)
+- [ ] deploy to phoenix server
+- [ ] export table data from references and observations pages
 
 ## Nice to have:
 - [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
