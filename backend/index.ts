@@ -15,26 +15,13 @@ const prisma = new PrismaClient();
 const t = initTRPC.create();
 
 async function getEphemerids(starId: number) {
-  const data = await prisma.ephemeris.findFirst({
+  const data = await prisma.identifier.findFirst({
     where: {
       starId,
     },
   });
 
-  if (data) {
-    return {
-      period: data?.period?.toNumber() ?? null,
-      epoch: data?.epoch?.toNumber() ?? null,
-    };
-  }
-
-  const identifier = await prisma.identifier.findUnique({
-    where: {
-      starId,
-    },
-  });
-
-  if (!identifier) {
+  if (!data) {
     console.error(`getEphemerids failed. Parameter starId ${starId} is not present in identifiers table`);
     return {
       period: null,
@@ -42,8 +29,15 @@ async function getEphemerids(starId: number) {
     };
   }
 
+  if (data?.period || data?.epoch) {
+    return {
+      period: data?.period?.toNumber() ?? null,
+      epoch: data?.epoch?.toNumber() ?? null,
+    };
+  }
+
   // TODO: is there a possibility that both hip & tyc will be undefined and mainId won't exist in VSX?
-  const ephemerids = await fetchEphemerids(identifier.hip ?? identifier.tyc ?? identifier.mainId);
+  const ephemerids = await fetchEphemerids(data.hip ?? data.tyc ?? data.mainId);
   if (ephemerids?.epoch) {
     ephemerids.epoch = ephemerids.epoch - 2_400_000;
   }

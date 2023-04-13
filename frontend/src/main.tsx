@@ -1,5 +1,5 @@
 import "./global.css";
-import React, { Suspense } from "react";
+import React from "react";
 import ReactDOM from "react-dom/client";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -17,39 +17,41 @@ import ErrorPage from "./pages/error-page";
 const router = createBrowserRouter([
   {
     path: "/star/:starId",
-    element: <Star />,
+    element: withLayout(<Star />),
   },
   {
     path: "/references/:starId",
-    element: <References />,
+    element: withLayout(<References />),
   },
   {
     path: "/observations/:starId/:referenceId",
-    element: <Observations />,
+    element: withLayout(<Observations />),
   },
   {
     path: "/export",
-    element: <ExportPage />,
+    element: withLayout(<ExportPage />),
   },
   {
     path: "/contact",
-    element: <Contact />,
+    element: withLayout(<Contact />),
   },
   {
     path: "/",
-    element: <Home />,
-    errorElement: <ErrorPage />,
+    element: withLayout(<Home />),
+    errorElement: withLayout(<ErrorPage />),
   },
 ]);
+
+function withLayout(component: React.ReactNode) {
+  return <Layout>{component}</Layout>;
+}
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <React.StrictMode>
     <trpc.Provider client={trpcClient} queryClient={queryClient}>
       <QueryClientProvider client={queryClient}>
         <ChakraProvider>
-          <Layout>
-            <RouterProvider router={router} />
-          </Layout>
+          <RouterProvider router={router} />
         </ChakraProvider>
       </QueryClientProvider>
     </trpc.Provider>

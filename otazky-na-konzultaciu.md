@@ -210,6 +210,8 @@ prefix hd v katalogu
 - spravit (reference, hd cislo) unikatne v reference table (pridat unique constraint pre reference table)
   - upravenim stlpca reference na x.1 a x.2
     - priklad - rovnake riadky v tvare (123, 456, ...) by sme rozdelili na (123.1., 456) a (123.2, 456)
+  - takto by sme mohli nechat dopocitavanie 
+
 
 - uknown filter name pri grafe 
   - nezname filtre : 11, 72, 77
