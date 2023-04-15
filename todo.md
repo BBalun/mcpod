@@ -40,9 +40,12 @@
 - [x] create apache config
 - [ ] filter reference based on selected filters on the star page
 - [ ] add error bars to the charts (both or only main one?)
+- [ ] fix duplicate data in observation file 
+  - [ ] and add unique constraint back to observation table
+- [ ] refactor code
 - [ ] deploy to phoenix server
-- [ ] export table data from references and observations pages
 - [ ] normalize data
+- [ ] export table data from references and observations pages
 - [ ] filter data on the client
 
 ## Nice to have:
