@@ -73,5 +73,14 @@ export async function fetchExternalPhotometryData(hip: string | null, tyc: strin
     sections[currentSectionIndex].push({ julianDate: Number((julianDate + 40_000).toFixed(5)), magnitude, magErr });
   }
 
-  return res;
+  const hipparcosMeanMagnitude = res.Hp.reduce((sum, data) => sum + data.magnitude, 0) / res.Hp.length;
+  return {
+    Hp: res.Hp,
+    Bt: filterOutliers(res.Bt, hipparcosMeanMagnitude - 2, hipparcosMeanMagnitude + 2),
+    Vt: filterOutliers(res.Vt, hipparcosMeanMagnitude - 2, hipparcosMeanMagnitude + 2),
+  };
+}
+
+function filterOutliers(data: PhotometricData[], min: number, max: number) {
+  return data.filter((data) => data.magnitude >= min && data.magnitude <= max);
 }
