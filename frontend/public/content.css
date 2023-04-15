@@ -1,0 +1,35 @@
+.content-h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 300;
+}
+
+.content-h2 {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
+.content-hr {
+  margin-bottom: 0.5rem;
+}
+
+.content-ul {
+  list-style-type: disc;
+  list-style-position: inside;
+}
+
+.content-light {
+  font-weight: 300;
+}
+
+.content-pt-1 {
+  padding-top: 0.25rem;
+}
+
+.content-mt-4 {
+  margin-top: 1rem;
+}
+
+.content-semibold {
+  font-weight: 600;
+}
