@@ -346,20 +346,20 @@
     "displayName": "Maitzen",
     "filters": [
       {
-        "name": "V",
+        "name": "g1",
         "code": "70",
         "displayName": "g[sub]1[/sub]",
         "color": "#cb7086"
       },
       {
-        "name": "B",
+        "name": "g2",
         "code": "71",
         "displayName": "g[sub]2[/sub]",
         "color": "#ae2338"
       },
       {
         "name": "delta_a",
-        "code": "73",
+        "code": "72",
         "displayName": "{Delta}a",
         "color": "#7e3899"
       }

@@ -203,7 +203,7 @@ prefix hd v katalogu
 
 
 ##
-- subor reference - com HD num field - "HD" - je to chyba v subore
+- subor reference - comp HD num field - "HD" - je to chyba v subore
 
 - vratenie naspat posledny stlpec na stranke reference - nie je mozne - bude obsahovat zle data, pretoze mi data dotahujeme aj z externych katalogov
  
@@ -220,7 +220,10 @@ prefix hd v katalogu
   - aby sme zabranili takymto problemom v buducnosti, tak vieme datovy model znormalizovat
   - zaberie to dost casu a bude treba opravovat dalsie chyby co najdeme
 
+- fix conf file
 
+- reference riadky 409, 428 
+  - nie su to rozdielne filtre a taktiez nemaju rozdielne comp HD number
 <!-- - filtrovanie referencii - ako by to malo fungovat
   - teraz berieme data z reference suboru, ten neobsahuje info o filtroch
   - selectneme unikatne referenceIDs z catalog table podla StarID a filterov a tieto referenceIDs pouzijeme na select z reference table
