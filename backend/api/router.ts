@@ -82,7 +82,7 @@ export const appRouter = t.router({
     )
     .query(async ({ input }) => {
       const { starId, filters, startDate, endDate, epoch, period, referenceIds } = input;
-      return await getPhasedData(starId, filters, startDate, endDate, referenceIds, epoch, period);
+      return await getPhasedData(starId, filters, startDate, endDate, referenceIds, period, epoch);
     }),
   search: procedure.input(z.string().min(1)).query(async ({ input }) => {
     return await search(input);
