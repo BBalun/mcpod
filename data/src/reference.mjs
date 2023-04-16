@@ -25,11 +25,6 @@ data.forEach((row, i) => {
     return;
   }
 
-  if (Number(row[0]) === 0) {
-    // Skip all references with id 0. Those are references to the tycho catalog, which is going to be loaded on demand
-    return;
-  }
-
   output.push({
     referenceId: Number(row[0]).toString(),
     starId: `HD${Number(row[1]).toString()}`,
@@ -47,12 +42,16 @@ const nonUniqueRows = Object.values(
 )
   .filter((group) => group.length > 1)
   .map((group) => group.map((r) => r.row).join(", "));
+
 if (nonUniqueRows.length) {
   console.warn("Found some rows that do not have unique hd number and reference combination");
   console.log(nonUniqueRows.join("\n"));
 }
 
-const cvsString = papaparse.unparse(output, {
+// Skip all references with id 0. Those are references to the tycho catalog, which is going to be loaded on demand
+const outputWithoutTycho = output.filter((ref) => +ref.referenceId !== 0);
+
+const cvsString = papaparse.unparse(outputWithoutTycho, {
   delimiter: ",",
   header: true,
 });
