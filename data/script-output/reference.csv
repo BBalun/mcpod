@@ -83,8 +83,8 @@ referenceId,starId,author,bibcode,referenceStarIds
 142,HD26792,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,HD26553
 58,HD27295,"Winzer, John Ernest",1974PhDT........61W,HD27176
 118,HD27295,"Adelman, Saul J.",1993A&A...269..411A,HD27176
-22,HD27309,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD27176
-22,HD27309,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
+22.1,HD27309,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD27176
+22.2,HD27309,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
 23,HD27309,"Nikolov, A. S.",1974IBVS..942....1N,HD27176
 24,HD27309,"Musielok, B.; Lange, D.; Schoenich, W.; et al.",1980AN....301...71M,HD27176
 58,HD27309,"Winzer, John Ernest",1974PhDT........61W,HD27176
@@ -102,8 +102,8 @@ referenceId,starId,author,bibcode,referenceStarIds
 6,HD29305,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
 39,HD29305,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,HD24863
 4,HD30849,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
-27,HD30849,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD31640
-27,HD30849,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,
+27.1,HD30849,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD31640
+27.2,HD30849,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,
 29,HD30849,"Hensberge, H.; Weiss, W. W.; et al.",1982IBVS.2170....1H,HD31640
 21,HD31373,"Adelman, Saul J.; Brunhouse, Eric F.",1998PASP..110.1304A,HD33276
 58,HD32549,"Winzer, John Ernest",1974PhDT........61W,HD33276
@@ -142,8 +142,8 @@ referenceId,starId,author,bibcode,referenceStarIds
 58,HD38104,"Winzer, John Ernest",1974PhDT........61W,HD38179
 58,HD38478,"Winzer, John Ernest",1974PhDT........61W,HD37147
 4,HD38823,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
-27,HD38823,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD38856
-27,HD38823,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,
+27.1,HD38823,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD38856
+27.2,HD38823,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,
 58,HD39317,"Winzer, John Ernest",1974PhDT........61W,HD38899
 37,HD40312,"Adelman, Saul J.",1997PASP..109....9A,HD39182
 58,HD40312,"Winzer, John Ernest",1974PhDT........61W,HD38104
@@ -182,7 +182,7 @@ referenceId,starId,author,bibcode,referenceStarIds
 58,HD55579,"Winzer, John Ernest",1974PhDT........61W,HD57744
 116,HD55579,"Adelman, Saul J.",2005PASP..117..476A,HD57744
 39,HD55719,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD55719,53704"
-27,HD56022,"Hensberge, H.; Deridder, G.; Doom, C.; and co.",1981A&AS...46..151H,HD56456
+27.1,HD56022,"Hensberge, H.; Deridder, G.; Doom, C.; and co.",1981A&AS...46..151H,HD56456
 39,HD56022,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD53704,56456"
 39,HD56455,"Heck, A.; Mathys, G.; Manfroid, J.",1987A&AS...70...33H,"HD53704,56456"
 58,HD58661,"Winzer, John Ernest",1974PhDT........61W,HD60652
@@ -235,7 +235,7 @@ referenceId,starId,author,bibcode,referenceStarIds
 32,HD79158,"Adelman, Saul J.",2000A&A...357..548A,HD79763
 2,HD81009,"Wolff, S. C.",1975ApJ...202..127W,HD80447
 6,HD81009,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
-27,HD81009,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD80447
+27.1,HD81009,"Hensberge, H.; Deridder, G.; Doom, C.; et al.",1981A&AS...46..151H,HD80447
 37,HD81009,"Adelman, Saul J.",1997PASP..109....9A,HD80447
 46,HD81009,"Waelkens, C.",1985A&AS...61..127W,
 110,HD81009,"Adelman, Saul J.",2006PASP..118...77A,HD80447
@@ -283,13 +283,12 @@ referenceId,starId,author,bibcode,referenceStarIds
 93,HD103192,"Sterken, C.; Manfroid, J.; Anton, K.; et al.",1995yCat.2188....0S,
 56,HD110956,"Olsen, E. H.",1977IBVS.1367....1O,
 6,HD111133,"Groote, D.; Kaufmann, J. P.",1983A&AS...53...91G,
-22,HD111133,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD109860
-22,HD111133,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
+22.1,HD111133,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD109860
+22.2,HD111133,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
 95,HD111133,"Wolff, Sidney C.; Wolff, Richard J.",1972ApJ...176..433W,HD109860
 96,HD111133,"Buchholz, M.; Maitzen, H. M.",1979A&A....73..222B,
 113,HD111133,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD109860
 24,HD112185,"Musielok, B.; Lange, D.; Schoenich, W.; and co.",1980AN....301...71M,HD106591
-61,HD119213,"Pyper, D. M.; Adelman, S. J.",1985A&AS...59..369P,
 124,HD112185,"Srivastava, R. K.",1989Ap&SS.154..333S,HD103287
 125,HD112185,"Provin, Sanford S.",1953ApJ...118..489P,HD106591
 53,HD114365,"Manfroid, J.; Renson, P.",1983A&AS...51..267M,
@@ -328,9 +327,6 @@ referenceId,starId,author,bibcode,referenceStarIds
 63,HD125248,"Stibbs, D. W. N.",1950MNRAS.110..395S,HD124683
 64,HD125248,"Maitzen, H. M.; Rakosch, K. D.",1970A&A.....7...10M,HD124683
 66,HD125248,"Maitzen, H. M.; Moffat, A. F. J.",1972A&A....16..385M,HD124683
-66,HD125248,"Maitzen, H. M.; Moffat, A. F. J.",1972A&A....16..385M,HD124683
-66,HD125248,"Maitzen, H. M.; Moffat, A. F. J.",1972A&A....16..385M,HD124683
-67,HD125248,"Catalano, F. A.; Kroll, R.; Leone, F.",1992A&A...263..203C,HD124683
 67,HD125248,"Catalano, F. A.; Kroll, R.; Leone, F.",1992A&A...263..203C,HD124683
 4,HD125630,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
 53,HD125630,"Manfroid, J.; Renson, P.",1983A&AS...51..267M,
@@ -338,8 +334,8 @@ referenceId,starId,author,bibcode,referenceStarIds
 26,HD125823,"Pedersen, H.; Thomsen, B.",1977A&AS...30...11P,
 1,HD126515,"Catalano, F. A.; Leone, F.",1990A&AS...83..491C,"HD127167,HD125489"
 4,HD126515,"Vogt, N.; Faundez, A. M.",1979A&AS...36..477V,
-22,HD126515,"North, P.; Adelman, S. J.",1995A&AS..111...41N,"HD127167,HD125489"
-22,HD126515,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
+22.1,HD126515,"North, P.; Adelman, S. J.",1995A&AS..111...41N,"HD127167,HD125489"
+22.2,HD126515,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
 113,HD126515,"Adelman, Saul J.; Sutton, Jason M.",2007PASP..119..733A,HD127167
 45,HD133029,"Adelman, Saul J.",1998A&AS..128..245A,HD133962
 58,HD133029,"Winzer, John Ernest",1974PhDT........61W,HD133962
@@ -462,8 +458,8 @@ referenceId,starId,author,bibcode,referenceStarIds
 117,HD212432,"Hensberge, H.; de Loore, C.; Zuiderwijk, E. J.",1977A&A....54..443H,HD210931
 119,HD212432,"Hensberge, H.; Sterken, C.; van der Linden, T.",1978A&AS...34...67H,HD210931
 130,HD212432,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
-22,HD215441,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD215501
-22,HD215441,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
+22.1,HD215441,"North, P.; Adelman, S. J.",1995A&AS..111...41N,HD215501
+22.2,HD215441,"North, P.; Adelman, S. J.",1995A&AS..111...41N,
 41,HD215441,"Stepien, K.",1968ApJ...154..945S,
 130,HD215441,"Woźniak, P. R.; Vestrand, W. T.; and co.",2004AJ....127.2436W,
 142,HD215441,"Dukes, Robert J., Jr.; Adelman, Saul J.",2018PASP..130d4202D,
