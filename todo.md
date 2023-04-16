@@ -40,8 +40,8 @@
 - [x] create apache config
 - [x] filter reference based on selected filters on the star page
 - [x] add error bars to the charts (both or only main one?)
-- [ ] fix duplicate data in observation file 
-  - [ ] and add unique constraint back to observation table
+- [x] fix duplicate data in reference file 
+  - [x] and add unique constraint back to reference table
 - [ ] refactor code
 - [ ] deploy to phoenix server
 - [ ] normalize data

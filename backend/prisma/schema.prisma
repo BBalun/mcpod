@@ -59,7 +59,7 @@ model Reference {
   bibcode          String?
   referenceStarIds String?
 
-  // @@unique([referenceId, starId])
+  @@unique([referenceId, starId])
 }
 
 model Identifier {
