@@ -38,7 +38,7 @@
 - [x] filter out data from tycho that are more than 2 magnitudes larger then average of hipparcos filter (Hp)
 - [x] change content in home and contact page to use ~~markdown~~ html templates
 - [x] create apache config
-- [ ] filter reference based on selected filters on the star page
+- [x] filter reference based on selected filters on the star page
 - [ ] add error bars to the charts (both or only main one?)
 - [ ] fix duplicate data in observation file 
   - [ ] and add unique constraint back to observation table

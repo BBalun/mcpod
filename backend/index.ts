@@ -108,15 +108,37 @@ const appRouter = t.router({
     .input(
       z.object({
         starId: z.number(),
+        filters: z.array(z.string()).optional(),
       })
     )
     .query(async ({ input }) => {
-      const { starId } = input;
+      const { starId, filters } = input;
+
+      let referenceIds;
+      if (filters && filters.length) {
+        referenceIds = await prisma.catalog.findMany({
+          select: {
+            referenceId: true,
+          },
+          where: {
+            starId,
+            filter: filters ? { in: filters } : undefined,
+          },
+          distinct: "referenceId",
+        });
+      }
+
       const data = await prisma.reference.findMany({
         where: {
           starId,
+          referenceId: referenceIds
+            ? {
+                in: referenceIds.map((r) => r.referenceId),
+              }
+            : undefined,
         },
       });
+
       return data;
     }),
   getData: t.procedure

@@ -1,4 +1,9 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from "react-router-dom";
 import { trpc } from "../utils/trpc";
 import { Link } from "react-router-dom";
 import styles from "../styles/table.module.css";
@@ -17,6 +22,9 @@ const references = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const [searchParams, _setSearchParams] = useSearchParams();
+  const filters = searchParams.getAll("filters");
+
   const [selectedRefs, setSelectedRefs] = useState([] as string[]);
 
   const starId = /^[0-9]+$/.test(starIdString ?? "")
@@ -31,6 +39,7 @@ const references = () => {
   const { data: references } = trpc.getReferences.useQuery(
     {
       starId,
+      filters: filters.length ? filters : undefined,
     },
     {
       onError: (e) => {
@@ -179,7 +188,7 @@ function ReferenceObservations({
 }) {
   const { data } = trpc.getObservations.useQuery(
     { starId, referenceId },
-    { suspense: true }
+    { suspense: true, staleTime: Infinity }
   );
 
   const { data: systems } = useQuery(["systems"], fetchSystems, {

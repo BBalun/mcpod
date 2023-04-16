@@ -21,11 +21,17 @@ const Star = () => {
     return <Navigate to="/" />;
   }
 
-  const [searchParams, _setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const referenceIds = searchParams.getAll("reference");
   const toast = useToast();
 
-  const [filters, setFilters] = useState<string[]>([]);
+  const filters = searchParams.getAll("filters");
+  const setFilters = (filters: string[]) =>
+    setSearchParams((prev) => ({ ...prev, filters }), {
+      replace: true,
+    });
+
+  // const [filters, setFilters] = useState<string[]>([]);
 
   const [startDate, setStartDate] = useState<number>();
   const [endDate, setEndDate] = useState<number>();
@@ -150,7 +156,12 @@ const Star = () => {
               </Button>
             </form>
             <hr className="my-3" />
-            <Link to={`/references/${starId}`}>
+            <Link
+              to={{
+                pathname: `/references/${starId}`,
+                search: "?" + filters.map((f) => `filters=${f}`).join("&"),
+              }}
+            >
               <Button colorScheme="facebook" variant="solid" w="full">
                 Go to references
               </Button>
