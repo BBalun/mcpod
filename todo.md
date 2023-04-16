@@ -43,8 +43,10 @@
 - [x] fix duplicate data in reference file 
   - [x] and add unique constraint back to reference table
 - [ ] refactor code
-- [ ] deploy to phoenix server
+  - [x] refactor BE to use n-layer architecture
+  - [ ] refactor FE 
 - [ ] normalize data
+- [ ] deploy to phoenix server
 - [ ] export table data from references and observations pages
 - [ ] filter data on the client
 

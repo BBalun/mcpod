@@ -1,11 +1,10 @@
-import { TRPCError } from "@trpc/server";
-
 // Use of isomorphic-fetch is required here, because this endpoint
 // returns malformed HTTP headers. For node to parse them, we need to
 // include --insecure-http-parser flag, which is only applied when
 // using node http module, which is used by isomorphic-fetch.
 // Standard fetch API doesn't work.
 import fetch from "isomorphic-fetch";
+import { InternalServerError } from "../exceptions/InternalServerError";
 
 type PhotometricData = { julianDate: number; magnitude: number; magErr: number };
 
@@ -31,8 +30,7 @@ export async function fetchExternalPhotometryData(hip: string | null, tyc: strin
     console.error(e);
     console.error("Failed to fetch external photometry data from vizier");
     // TODO: should this thrown an exception or just return no data
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
+    throw new InternalServerError({
       message: "Failed to fetch external photometry data from vizier",
     });
   }

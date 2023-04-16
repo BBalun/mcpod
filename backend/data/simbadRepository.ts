@@ -1,8 +1,7 @@
-import { TRPCError } from "@trpc/server";
-// import fetch from "isomorphic-fetch";
 import wretch from "wretch";
 import { retry } from "wretch/middlewares/retry";
 import FormUrlAddon from "wretch/addons/formUrl";
+import { InternalServerError } from "../exceptions/InternalServerError";
 
 const w = wretch()
   .addon(FormUrlAddon)
@@ -37,8 +36,7 @@ export async function fetchStarIds(input: string) {
     console.error(`Failed to fetch data from SIMBAD. Status code: ${res.status}`);
     console.error(`Response body: ${body}`);
 
-    throw new TRPCError({
-      code: "INTERNAL_SERVER_ERROR",
+    throw new InternalServerError({
       message: `Failed to fetch data from SIMBAD. Status code: ${res.status}`,
       cause: body,
     });

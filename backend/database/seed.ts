@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { fetchObjectIds } from "../services/fetchHdNumber";
+import { fetchObjectIds } from "../data/simbadRepository";
 import { replaceColumnValue } from "./replaceColumn";
 import dotenv from "dotenv";
 import papaparse from "papaparse";

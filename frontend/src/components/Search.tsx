@@ -57,9 +57,6 @@ const Search = () => {
         rounded="full"
         required
       />
-      {/* {error && <p className="text-red-500">{error}</p>} */}
-
-      {/* <Button type="submit">Search</Button> */}
     </form>
   );
 };
