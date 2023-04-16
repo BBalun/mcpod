@@ -39,7 +39,7 @@
 - [x] change content in home and contact page to use ~~markdown~~ html templates
 - [x] create apache config
 - [x] filter reference based on selected filters on the star page
-- [ ] add error bars to the charts (both or only main one?)
+- [x] add error bars to the charts (both or only main one?)
 - [ ] fix duplicate data in observation file 
   - [ ] and add unique constraint back to observation table
 - [ ] refactor code

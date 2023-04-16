@@ -1,5 +1,6 @@
 import {
   Button,
+  Checkbox,
   Menu,
   MenuButton,
   MenuItem,
@@ -11,7 +12,7 @@ import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
 import Plotly from "plotly.js-dist-min";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import papaparse from "papaparse";
 import { saveAs } from "file-saver";
 
@@ -40,6 +41,8 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
     xl: 800,
     "2xl": 900,
   });
+
+  const [showErrorBars, setShowErrorBars] = useState(true);
 
   const download = async (format: "svg" | "png" | "csv") => {
     if (format !== "csv") {
@@ -91,6 +94,11 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
             return {
               x: filterData.map((a) => a.julianDate),
               y: filterData.map((a) => a.magnitude),
+              error_y: {
+                type: "data",
+                array: filterData.map((a) => a.magErr ?? null),
+                visible: showErrorBars,
+              },
               mode: "markers",
               type: "scattergl",
               name: filter?.name ?? "unknown",
@@ -98,6 +106,9 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               // marker: {
               //   color: filter?.color,
               // },
+              marker: {
+                size: 5,
+              },
             };
           })}
           layout={{
@@ -106,12 +117,16 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               title: {
                 text: "HJD - 2400000",
               },
+              tickformat: "f",
+              // separatethousands: true,
             },
             yaxis: {
               title: {
                 text: "Mag",
               },
               autorange: "reversed",
+              tickformat: "f",
+              // separatethousands: true,
             },
             dragmode: "pan",
             hovermode: "closest",
@@ -135,7 +150,13 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
           }}
         />
       </div>
-      <div className="flex w-full flex-row justify-end gap-5">
+      <div className="mb-10 mt-2 flex w-full flex-row content-center justify-end gap-5">
+        <Checkbox
+          isChecked={showErrorBars}
+          onChange={(e) => setShowErrorBars(e.target.checked)}
+        >
+          Show error bars
+        </Checkbox>
         <div className="w-3/12">
           <Menu>
             <MenuButton
@@ -143,7 +164,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               colorScheme="facebook"
               rightIcon={<ChevronDownIcon />}
               w={"full"}
-              className="mb-10 mt-2"
             >
               Download
             </MenuButton>

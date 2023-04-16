@@ -107,12 +107,14 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
               title: {
                 text: "Phase",
               },
+              tickformat: "f",
             },
             yaxis: {
               title: {
                 text: "Mag",
               },
               autorange: "reversed",
+              tickformat: "f",
             },
             dragmode: "pan",
             hovermode: "closest",
