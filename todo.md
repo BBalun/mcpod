@@ -45,15 +45,12 @@
 - [ ] refactor code
   - [x] refactor BE to use n-layer architecture
   - [ ] refactor FE 
-- [ ] normalize data
 - [ ] deploy to phoenix server
+- [ ] normalize data
 - [ ] export table data from references and observations pages
+- [ ] replace n-layer architecture on BE for something that makes more sense 
 - [ ] filter data on the client
 
 ## Nice to have:
-- [ ] disable option to hide datasets (by clicking on dataset name on the right side of the chart)
-- [ ] filtering and calculation on the client 
-  - [ ] fetch data from the BE as it is stored
 - [x] rewrite scripts in `/data/data` to use Node instead of Deno 
   (may not be necessary, because this should be run only once during development)
-- [ ] seed script - insert csv files into db manually - using prisma.createMany (just to simplify path mapping to data dir from BE (seed script) and DB (CSV insertion))
