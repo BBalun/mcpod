@@ -45,7 +45,7 @@ async function main() {
   // Add ephemeris information to identifiers
   const ephemerisStr = fs.readFileSync(`${pathToDataDir}/out/ephemeris.csv`, { encoding: "utf8" });
   const ephemerides = papaparse
-    .parse<{ starId: string; epoch: string; period: string }>(ephemerisStr)
+    .parse<{ starId: string; epoch: string; period: string }>(ephemerisStr, { header: true })
     .data.map(({ starId, epoch, period }) => ({
       starId: Number(starId),
       epoch: Number(epoch),
@@ -53,7 +53,7 @@ async function main() {
     }));
 
   const identifiers = [...objectIdsCache.values()].map((identifiers) => {
-    const ephemeris = ephemerides.find((e) => (e.starId = identifiers.oid));
+    const ephemeris = ephemerides.find((e) => e.starId === identifiers.oid);
     return {
       starId: identifiers.oid,
       mainId: identifiers.mainId,
@@ -113,6 +113,7 @@ async function main() {
 
   console.log("DB seeded successfully");
 
+  console.log("Removing temporary files");
   files.forEach((file) => fs.rmSync(`${pathToDataDir}/out/${file}`, { recursive: true, force: true }));
 }
 
