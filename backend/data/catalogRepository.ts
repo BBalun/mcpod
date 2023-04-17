@@ -1,4 +1,3 @@
-import { Prisma } from "@prisma/client";
 import { prisma } from "../database/prisma";
 
 export async function getData(
@@ -18,9 +17,6 @@ export async function getData(
     },
     where: {
       starId,
-      magnitude: {
-        not: null,
-      },
       filter: filters.length ? { in: filters } : undefined,
       julianDate: {
         gte: startDate,
@@ -68,32 +64,43 @@ export function createCatalogs(
   });
 }
 
+type Result = {
+  star: string;
+  referenceId: string;
+  julianDate: number;
+  filter: string;
+  magnitude: number;
+  magErr: number | undefined;
+};
+
 export async function getDataForExport(
   starIds: number[] | undefined,
   filters: string[] | undefined,
   startDate: number | undefined,
   endDate: number | undefined
-) {
-  type Result = {
-    star: string;
-    referenceId: string;
-    julianDate: number;
-    filter: string;
-    magnitude: number;
-    magErr: number | undefined;
-  };
+): Promise<Result[]> {
+  const data = await prisma.catalog.findMany({
+    include: {
+      star: true,
+    },
+    where: {
+      starId: starIds ? { in: starIds } : undefined,
+      filter: filters ? { in: filters } : undefined,
+      julianDate: {
+        gte: startDate,
+        lte: endDate,
+      },
+    },
+  });
 
-  const sql = Prisma.sql`
-    SELECT coalesce("Identifier"."mainId", "Identifier"."starId"::TEXT) as "star", "referenceId", "julianDate", "filter", "magnitude", "magErr"
-    FROM "Catalog" JOIN "Identifier" ON "Catalog"."starId" = "Identifier"."starId"
-    WHERE 1=1
-    ${starIds ? Prisma.sql`AND "Catalog"."starId" IN (${Prisma.join(starIds)})` : Prisma.empty} 
-    ${filters ? Prisma.sql`AND "Catalog"."filter" IN (${Prisma.join(filters)})` : Prisma.empty}
-    ${startDate !== undefined ? Prisma.sql`AND "Catalog"."julianDate" >= ${startDate}` : Prisma.empty}
-    ${endDate !== undefined ? Prisma.sql`AND "Catalog"."julianDate" <= ${endDate}` : Prisma.empty}
-  `;
-
-  return await prisma.$queryRaw<Result[]>(sql);
+  return data.map((catalog) => ({
+    star: catalog.star.mainId,
+    referenceId: catalog.referenceId,
+    julianDate: catalog.julianDate.toNumber(),
+    filter: catalog.filter,
+    magnitude: catalog.magnitude.toNumber(),
+    magErr: catalog.magErr?.toNumber(),
+  }));
 }
 
 export function getCount() {

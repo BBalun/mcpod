@@ -1,6 +1,5 @@
 import { trpc } from "../utils/trpc";
 import { useQuery } from "@tanstack/react-query";
-import { fetchSystems } from "../services/fetchSystems";
 import DateFilters from "../components/DateFilters";
 import Filters from "../components/Filters";
 import DataChart from "../components/Chart";
@@ -9,6 +8,7 @@ import { Link, Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { Button, useToast } from "@chakra-ui/react";
 import { useGlobalLoadingSpinner } from "../atoms/globalLoadingSpinner";
+import { useFetchSystems } from "../hooks/useFetchSystems";
 
 const Star = () => {
   const { starId: starIdString } = useParams();
@@ -40,7 +40,7 @@ const Star = () => {
     [number | undefined, number | undefined]
   >([undefined, undefined]);
 
-  const { data: mainId, isLoading: isMainIdLoading } = trpc.getMainId.useQuery(
+  const { data: mainId } = trpc.getMainId.useQuery(
     {
       starId,
     },
@@ -55,25 +55,11 @@ const Star = () => {
         });
       },
       staleTime: Infinity,
+      suspense: true,
     }
   );
 
-  const { data: systems, isLoading: areSystemsLoading } = useQuery(
-    ["systems"],
-    fetchSystems,
-    {
-      onError(error) {
-        console.error("Fetching of systems failed");
-        console.error(error);
-        toast({
-          description: "Failed to fetch systems and filters",
-          status: "error",
-          position: "bottom-right",
-        });
-      },
-      staleTime: Infinity,
-    }
-  );
+  const systems = useFetchSystems();
 
   const { data: trpcData, isLoading: isDataLoading } = trpc.getData.useQuery(
     {
@@ -101,8 +87,8 @@ const Star = () => {
   const { setSpinnerVisibility } = useGlobalLoadingSpinner();
 
   useEffect(() => {
-    setSpinnerVisibility(isDataLoading || isMainIdLoading || areSystemsLoading);
-  }, [isDataLoading, isMainIdLoading, areSystemsLoading]);
+    setSpinnerVisibility(isDataLoading);
+  }, [isDataLoading]);
 
   const [data, setData] = useState(trpcData);
   useEffect(() => {

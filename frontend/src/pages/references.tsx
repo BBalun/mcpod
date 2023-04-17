@@ -9,12 +9,13 @@ import { Link } from "react-router-dom";
 import styles from "../styles/table.module.css";
 import { useState } from "react";
 import { Button } from "@chakra-ui/button";
-import { useQuery } from "@tanstack/react-query";
-import { fetchSystems } from "../services/fetchSystems";
 import { useToast } from "@chakra-ui/react";
+import { useFetchSystems } from "../hooks/useFetchSystems";
 
 function generateLinkToAds(bibCode: string) {
-  return `https://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=ALL&PRE=YES&warnings=YES&version=1&bibcode=${bibCode}&nr_to_return=100&start_nr=1`;
+  return `https://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=ALL&PRE=YES&warnings=YES&version=1&bibcode=${encodeURIComponent(
+    bibCode
+  )}&nr_to_return=100&start_nr=1`;
 }
 
 const references = () => {
@@ -191,10 +192,7 @@ function ReferenceObservations({
     { suspense: true, staleTime: Infinity }
   );
 
-  const { data: systems } = useQuery(["systems"], fetchSystems, {
-    suspense: true,
-    staleTime: Infinity,
-  });
+  const systems = useFetchSystems();
 
   const filters = systems?.flatMap((system) => system.filters);
 

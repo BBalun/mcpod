@@ -14,33 +14,34 @@ import Home from "./pages/home";
 import Contact from "./pages/contact";
 import ErrorPage from "./pages/error-page";
 
-const router = createBrowserRouter([
-  {
-    path: "/star/:starId",
-    element: withLayout(<Star />),
-  },
-  {
-    path: "/references/:starId",
-    element: withLayout(<References />),
-  },
-  {
-    path: "/observations/:starId/:referenceId",
-    element: withLayout(<Observations />),
-  },
-  {
-    path: "/export",
-    element: withLayout(<ExportPage />),
-  },
-  {
-    path: "/contact",
-    element: withLayout(<Contact />),
-  },
-  {
-    path: "/",
-    element: withLayout(<Home />),
-    errorElement: withLayout(<ErrorPage />),
-  },
-]);
+const router = createBrowserRouter(
+  [
+    {
+      path: "/star/:starId",
+      element: withLayout(<Star />),
+    },
+    {
+      path: "/references/:starId",
+      element: withLayout(<References />),
+    },
+    {
+      path: "/observations/:starId/:referenceId",
+      element: withLayout(<Observations />),
+    },
+    {
+      path: "/export",
+      element: withLayout(<ExportPage />),
+    },
+    {
+      path: "/contact",
+      element: withLayout(<Contact />),
+    },
+    {
+      path: "/",
+      element: withLayout(<Home />),
+    },
+  ].map((route) => ({ ...route, errorElement: withLayout(<ErrorPage />) }))
+);
 
 function withLayout(component: React.ReactNode) {
   return <Layout>{component}</Layout>;

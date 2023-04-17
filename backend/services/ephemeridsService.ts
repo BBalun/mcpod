@@ -1,4 +1,4 @@
-import { fetchEphemerids } from "../data/ephemeridsRepository";
+import { getExternalEphemerids } from "../data/ephemeridsRepository";
 import { findIdentifierByStarId } from "../data/identifierRepository";
 
 export async function getEphemerids(starId: number) {
@@ -20,7 +20,7 @@ export async function getEphemerids(starId: number) {
   }
 
   // TODO: is there a possibility that both hip & tyc will be undefined and mainId won't exist in VSX?
-  const ephemerids = await fetchEphemerids(data.hip ?? data.tyc ?? data.mainId);
+  const ephemerids = await getExternalEphemerids(data.hip ?? data.tyc ?? data.mainId);
   if (ephemerids?.epoch) {
     ephemerids.epoch = ephemerids.epoch - 2_400_000;
   }

@@ -45,12 +45,15 @@
 - [ ] refactor code
   - [x] refactor BE to use n-layer architecture
   - [ ] refactor FE 
-- [ ] deploy to phoenix server
-- [ ] normalize data
+- [x] deploy to phoenix server
+- [ ] ~~normalize data~~
+- [x] bibcode issue with `&` character - needs URL escaping
 - [ ] export table data from references and observations pages
-- [ ] replace n-layer architecture on BE for something that makes more sense 
-- [ ] filter data on the client
+- [x] move systems.json to data folder and create trpc procedure to fetch it
 
 ## Nice to have:
 - [x] rewrite scripts in `/data/data` to use Node instead of Deno 
   (may not be necessary, because this should be run only once during development)
+- [ ] filter data on the client
+- [ ] add npm workspaces
+- [ ] replace n-layer architecture on BE for something that makes more sense 

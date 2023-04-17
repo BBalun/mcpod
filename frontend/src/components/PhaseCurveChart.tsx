@@ -102,6 +102,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
             };
           })}
           layout={{
+            showlegend: true,
             title: `mcPod phased light curve of start ${mainId}`,
             xaxis: {
               title: {

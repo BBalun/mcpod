@@ -1,15 +1,15 @@
 import { PrismaClient } from "@prisma/client";
-import { fetchObjectIds } from "../data/simbadRepository";
+import { getObjectIds } from "../data/simbadRepository";
 import { replaceColumnValue } from "./replaceColumn";
 import dotenv from "dotenv";
 import papaparse from "papaparse";
 import fs from "fs";
+import { pathToDataDir } from "../constants";
 
 dotenv.config();
 
 const prisma = new PrismaClient();
 
-const pathToDataDir = process.env.PATH_TO_DATA_DIR ?? "../data";
 const files = ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"];
 
 async function main() {
@@ -24,7 +24,7 @@ async function main() {
         `${pathToDataDir}/out/${file}`,
         "starId",
         async (starId) => {
-          const identifiers = await fetchObjectIds(starId);
+          const identifiers = await getObjectIds(starId);
           if (!identifiers) {
             console.error(`starId ${starId} could not be converted into simbad object id`);
             process.exit(1);

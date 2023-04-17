@@ -2,9 +2,15 @@ import express from "express";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter } from "./api/router";
 import { prisma } from "./database/prisma";
+import { readFile } from "node:fs/promises";
 
 async function main() {
   const app = express();
+
+  app.use("/systems.json", async (req, res) => {
+    const file = await readFile("/data/systems.json", { encoding: "utf-8" });
+    res.sendFile(file);
+  });
 
   app.use(
     "/trpc",

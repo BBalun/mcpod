@@ -112,6 +112,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
             };
           })}
           layout={{
+            showlegend: true,
             title: `mcPod data for start ${mainId}`,
             xaxis: {
               title: {

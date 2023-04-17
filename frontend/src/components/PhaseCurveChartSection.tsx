@@ -68,34 +68,33 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
     resolver: zodResolver(schema),
   });
 
-  const { isLoading } = trpc.getEphemerids.useQuery(props.starId, {
-    onSuccess(data) {
-      setValue("epoch", (data.epoch?.toString() ?? "") as any);
-      setValue("period", (data.period?.toString() ?? "") as any);
-      setPhaseDataParams({
-        epoch: data.epoch ?? undefined,
-        period: data.period ?? undefined,
-      });
-    },
-    onError: (e) => {
-      console.error(
-        "Failed to fetch ephemerids for star with id",
-        props.starId
-      );
-      console.error(e);
-      toast({
-        description: `Failed to fetch ephemerids for star with id ${props.starId}`,
-        status: "error",
-        position: "bottom-right",
-      });
-    },
-  });
+  const { isLoading: ephemeridsAreLoading } = trpc.getEphemerids.useQuery(
+    props.starId,
+    {
+      onSuccess(data) {
+        setValue("epoch", (data.epoch?.toString() ?? "") as any);
+        setValue("period", (data.period?.toString() ?? "") as any);
+        setPhaseDataParams({
+          epoch: data.epoch ?? undefined,
+          period: data.period ?? undefined,
+        });
+      },
+      onError: (e) => {
+        console.error(
+          "Failed to fetch ephemerids for star with id",
+          props.starId
+        );
+        console.error(e);
+        toast({
+          description: `Failed to fetch ephemerids for star with id ${props.starId}`,
+          status: "error",
+          position: "bottom-right",
+        });
+      },
+    }
+  );
 
-  useEffect(() => {
-    setSpinnerVisibility(isLoading);
-  }, [isLoading]);
-
-  const { data } = trpc.getPhasedData.useQuery(
+  const { data, isLoading } = trpc.getPhasedData.useQuery(
     {
       starId: props.starId,
       filters: props.filters,
@@ -112,11 +111,22 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
     }
   );
 
+  const [phaseData, setPhaseData] = useState(data);
+  useEffect(() => {
+    if (data) {
+      setPhaseData(data);
+    }
+  }, [data]);
+
+  useEffect(() => {
+    setSpinnerVisibility(isLoading);
+  }, [isLoading]);
+
   function submit(values: FormValues) {
     setPhaseDataParams(values);
   }
 
-  if (isLoading) {
+  if (ephemeridsAreLoading) {
     return null;
   }
 
@@ -154,8 +164,12 @@ const PhaseCurveChartSection = (props: PhaseChartProps) => {
           </Button>
         </div>
       </form>
-      {data && (
-        <PhaseChart mainId={props.mainId} systems={props.systems} data={data} />
+      {phaseData && (
+        <PhaseChart
+          mainId={props.mainId}
+          systems={props.systems}
+          data={phaseData}
+        />
       )}
     </>
   );

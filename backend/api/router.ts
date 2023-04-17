@@ -10,6 +10,8 @@ import { getReferences } from "../services/referenceService";
 import { search } from "../services/searchService";
 import { t } from "./trpc";
 import { isInternalServerError } from "../exceptions/InternalServerError";
+import { readFile } from "fs/promises";
+import { pathToDataDir } from "../constants";
 
 const procedure = t.procedure.use(
   t.middleware(({ next }) => {
@@ -120,5 +122,17 @@ export const appRouter = t.router({
       numOfMeasurements,
       numOfStars,
     };
+  }),
+  getSystems: procedure.input(z.object({}).optional()).query(async () => {
+    try {
+      const json = await readFile(pathToDataDir + "/systems.json", { encoding: "utf-8" });
+      return JSON.parse(json);
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to load systems.json file",
+      });
+    }
   }),
 });

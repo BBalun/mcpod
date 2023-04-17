@@ -1,6 +1,6 @@
 import { findIdentifierByStarId, setIdentifierToBeFetched, upsertIdentifiers } from "../data/identifierRepository";
-import { fetchExternalPhotometryData } from "../data/vizierRepository";
-import { fetchObjectIds } from "../data/simbadRepository";
+import { getExternalPhotometryData } from "../data/vizierRepository";
+import { getObjectIds } from "../data/simbadRepository";
 import { createCatalogs } from "../data/catalogRepository";
 import { createObservations } from "../data/observationRepository";
 import { createReferences } from "../data/referenceRepository";
@@ -11,7 +11,7 @@ export async function search(input: string) {
   let starIds;
 
   try {
-    starIds = await fetchObjectIds(input);
+    starIds = await getObjectIds(input);
   } catch (e) {
     console.error("Failed to fetch object IDs from SIMBAD");
     console.error(e);
@@ -46,7 +46,7 @@ export async function search(input: string) {
     const tyc = starIds.tyc?.toLocaleLowerCase().replace("tyc", "") ?? null;
     console.debug("hip", hip, "tyc", tyc);
 
-    const externalData = await fetchExternalPhotometryData(hip, tyc);
+    const externalData = await getExternalPhotometryData(hip, tyc);
     console.debug(
       `Fetched photometry data: Hp - ${externalData.Hp.length}, Bt - ${externalData.Bt.length}, Vt - ${externalData.Vt.length}`
     );

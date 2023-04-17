@@ -1,11 +1,11 @@
 import { SmallCloseIcon } from "@chakra-ui/icons";
 import { Button, Input, Spinner, useToast } from "@chakra-ui/react";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { saveAs } from "file-saver";
 import { useState } from "react";
 import DateFilters from "../components/DateFilters";
 import Filters from "../components/Filters";
-import { fetchSystems } from "../services/fetchSystems";
+import { useFetchSystems } from "../hooks/useFetchSystems";
 import { RouterOutput } from "../types/trpc";
 import { trpc } from "../utils/trpc";
 
@@ -18,19 +18,7 @@ const ExportPage = () => {
   const [startDate, setStartDate] = useState<number>();
   const [endDate, setEndDate] = useState<number>();
 
-  const { data: systems } = useQuery(["systems"], fetchSystems, {
-    onError(error) {
-      console.error("Fetching of systems failed");
-      console.error(error);
-      toast({
-        description: "Failed to fetch systems and filters",
-        status: "error",
-        position: "bottom-right",
-      });
-    },
-    staleTime: Infinity,
-    suspense: true,
-  });
+  const systems = useFetchSystems();
 
   const toast = useToast();
 
