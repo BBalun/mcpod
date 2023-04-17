@@ -20,7 +20,7 @@ model Catalog {
   filter      String
   julianDate  Decimal
 
-  magnitude Decimal?
+  magnitude Decimal
   magErr    Decimal?
 
   @@index([starId])
