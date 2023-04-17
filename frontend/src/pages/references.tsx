@@ -89,7 +89,7 @@ const references = () => {
     if (!references) {
       return;
     }
-    const res = references.map((ref) => ({
+    const data = references.map((ref) => ({
       referenceId: ref.referenceId,
       star: mainId,
       source: ref.author,
@@ -98,7 +98,7 @@ const references = () => {
       other: createOtherColumn(filters, ref.observations),
     }));
 
-    const csv = papaparse.unparse(res, {
+    const csv = papaparse.unparse(data, {
       header: true,
       columns: [
         "referenceId",
