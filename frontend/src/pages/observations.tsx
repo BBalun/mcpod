@@ -1,10 +1,11 @@
 import { Link, Navigate, useParams } from "react-router-dom";
 import { trpc } from "../utils/trpc";
-
 import styles from "../styles/table.module.css";
 import { Button, useToast } from "@chakra-ui/react";
+import papaparse from "papaparse";
+import saveAs from "file-saver";
 
-const observations = () => {
+const ObservationsPage = () => {
   const { starId: starIdString, referenceId } = useParams();
   const toast = useToast();
 
@@ -20,7 +21,7 @@ const observations = () => {
     return <Navigate to="/" />;
   }
 
-  const { data } = trpc.getObservations.useQuery(
+  const { data: observations } = trpc.getObservations.useQuery(
     {
       starId,
       referenceId,
@@ -56,12 +57,12 @@ const observations = () => {
     }
   );
 
-  if (!data || !mainId) {
+  if (!observations || !mainId) {
     // error ocurred
     return null;
   }
 
-  if (data.length === 0) {
+  if (observations.length === 0) {
     return (
       <div>
         No data found for star {mainId} in references {referenceId}
@@ -70,6 +71,42 @@ const observations = () => {
         </Link>
       </div>
     );
+  }
+
+  function exportObservations() {
+    if (!observations) {
+      return;
+    }
+
+    const data = observations.map((observation) => ({
+      star: mainId,
+      referenceId: observation.referenceId,
+      filter: observation.filter,
+      count: observation.count,
+      magavg: observation.magAverage,
+      magerr: observation.magError,
+      stderr: observation.stdError,
+      amplitudeEff: observation.amplitudeEff,
+      lambdaEff: observation.lambdaEff,
+    }));
+
+    const csv = papaparse.unparse(data, {
+      header: true,
+      columns: [
+        "star",
+        "referenceId",
+        "filter",
+        "count",
+        "magavg",
+        "magerr",
+        "stderr",
+        "amplitudeEff",
+        "lambdaEff",
+      ],
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, `${mainId}-${referenceId}-observations.csv`);
   }
 
   return (
@@ -91,8 +128,8 @@ const observations = () => {
               <th>lambda&nbsp;eff</th>
             </tr>
           </thead>
-          <tbody>
-            {data.map((observation) => (
+          <tbody className="text-center">
+            {observations.map((observation) => (
               <tr key={observation.id}>
                 <td>{observation.filter}</td>
                 <td>{observation.count}</td>
@@ -107,13 +144,16 @@ const observations = () => {
         </table>
       </div>
 
-      <div className="flex w-full justify-end">
+      <div className="flex w-full justify-end gap-2">
         <Link to={`/references/${starId}`}>
           <Button colorScheme="facebook">Go back to references</Button>
         </Link>
+        <Button colorScheme="facebook" onClick={exportObservations}>
+          Export to CSV
+        </Button>
       </div>
     </main>
   );
 };
 
-export default observations;
+export default ObservationsPage;
