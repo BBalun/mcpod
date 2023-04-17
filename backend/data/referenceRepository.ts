@@ -1,7 +1,8 @@
 import { prisma } from "../database/prisma";
+import { findObservations } from "./observationRepository";
 
 export async function findReferences(starId: number, referenceIds?: string[]) {
-  return await prisma.reference.findMany({
+  const references = await prisma.reference.findMany({
     where: {
       starId,
       referenceId: referenceIds
@@ -11,6 +12,14 @@ export async function findReferences(starId: number, referenceIds?: string[]) {
         : undefined,
     },
   });
+
+  // include observations
+  return await Promise.all(
+    references.map(async (ref) => {
+      const observations = await findObservations(ref.starId, ref.referenceId);
+      return { ...ref, observations };
+    })
+  );
 }
 
 export function createReferences(

@@ -48,8 +48,11 @@
 - [x] deploy to phoenix server
 - [ ] ~~normalize data~~
 - [x] bibcode issue with `&` character - needs URL escaping
-- [ ] export table data from references and observations pages
+- [x] export table data from references 
+- [ ] export table data from observations pages
 - [x] move systems.json to data folder and create trpc procedure to fetch it
+- [ ] check db indices
+- [ ] replace repositories with something else (we are not using repository pattern)
 
 ## Nice to have:
 - [x] rewrite scripts in `/data/data` to use Node instead of Deno 

@@ -11,6 +11,9 @@ import { useState } from "react";
 import { Button } from "@chakra-ui/button";
 import { useToast } from "@chakra-ui/react";
 import { useFetchSystems } from "../hooks/useFetchSystems";
+import { Filter } from "../types/systems";
+import papaparse from "papaparse";
+import saveAs from "file-saver";
 
 function generateLinkToAds(bibCode: string) {
   return `https://adsabs.harvard.edu/cgi-bin/nph-abs_connect?db_key=ALL&PRE=YES&warnings=YES&version=1&bibcode=${encodeURIComponent(
@@ -23,8 +26,11 @@ const references = () => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const systems = useFetchSystems();
+  const filters = systems?.flatMap((system) => system.filters);
+
   const [searchParams, _setSearchParams] = useSearchParams();
-  const filters = searchParams.getAll("filters");
+  const filtersParams = searchParams.getAll("filters");
 
   const [selectedRefs, setSelectedRefs] = useState([] as string[]);
 
@@ -36,26 +42,6 @@ const references = () => {
     console.error("Invalid starId param:", starIdString);
     return <Navigate to="/" />;
   }
-
-  const { data: references } = trpc.getReferences.useQuery(
-    {
-      starId,
-      filters: filters.length ? filters : undefined,
-    },
-    {
-      onError: (e) => {
-        console.error(`Failed to fetch references for star with id ${starId}`);
-        console.error(e);
-        toast({
-          description: `Failed to fetch references for star with id ${starId}`,
-          status: "error",
-          position: "bottom-right",
-        });
-      },
-      staleTime: Infinity,
-      suspense: true,
-    }
-  );
 
   const { data: mainId } = trpc.getMainId.useQuery(
     { starId },
@@ -74,9 +60,58 @@ const references = () => {
     }
   );
 
+  const { data: references } = trpc.getReferences.useQuery(
+    {
+      starId,
+      filters: filtersParams.length ? filtersParams : undefined,
+    },
+    {
+      onError: (e) => {
+        console.error(`Failed to fetch references for star with id ${starId}`);
+        console.error(e);
+        toast({
+          description: `Failed to fetch references for star with id ${starId}`,
+          status: "error",
+          position: "bottom-right",
+        });
+      },
+      staleTime: Infinity,
+      suspense: true,
+    }
+  );
+
   if (!references || !mainId) {
     // error
     return null;
+  }
+
+  function exportReferences() {
+    if (!references) {
+      return;
+    }
+    const res = references.map((ref) => ({
+      referenceId: ref.referenceId,
+      star: mainId,
+      source: ref.author,
+      bibcode: ref.bibcode,
+      compHdNum: ref.referenceStarIds,
+      other: createOtherColumn(filters, ref.observations),
+    }));
+
+    const csv = papaparse.unparse(res, {
+      header: true,
+      columns: [
+        "referenceId",
+        "star",
+        "source",
+        "bibcode",
+        "compHdNum",
+        "other",
+      ],
+    });
+
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
+    saveAs(blob, `${mainId}-references.csv`);
   }
 
   return (
@@ -138,12 +173,7 @@ const references = () => {
                   )}
                 </td>
                 <td>{reference.referenceStarIds}</td>
-                <td>
-                  <ReferenceObservations
-                    starId={starId}
-                    referenceId={reference.referenceId}
-                  />
-                </td>
+                <td>{createOtherColumn(filters, reference.observations)}</td>
 
                 <td className="text-center">
                   <Link
@@ -175,39 +205,26 @@ const references = () => {
         >
           Show data from selected references
         </Button>
+        <Button colorScheme="facebook" onClick={() => exportReferences()}>
+          Export to CSV
+        </Button>
       </div>
     </main>
   );
 };
 
-function ReferenceObservations({
-  starId,
-  referenceId,
-}: {
-  starId: number;
-  referenceId: string;
-}) {
-  const { data } = trpc.getObservations.useQuery(
-    { starId, referenceId },
-    { suspense: true, staleTime: Infinity }
-  );
-
-  const systems = useFetchSystems();
-
-  const filters = systems?.flatMap((system) => system.filters);
-
-  return (
-    <span>
-      {data
-        ?.map(
-          (o) =>
-            `${filters?.find((filter) => filter.code === o.filter)?.name}(${
-              o.count
-            })`
-        )
-        .join(", ")}
-    </span>
-  );
+function createOtherColumn(
+  filters: Filter[],
+  observations: Array<{ count: number; filter: string }>
+) {
+  return observations
+    ?.map(
+      (o) =>
+        `${filters?.find((filter) => filter.code === o.filter)?.name}(${
+          o.count
+        })`
+    )
+    .join(", ");
 }
 
 export default references;
