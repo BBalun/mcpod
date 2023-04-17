@@ -49,7 +49,7 @@
 - [ ] ~~normalize data~~
 - [x] bibcode issue with `&` character - needs URL escaping
 - [x] export table data from references 
-- [ ] export table data from observations pages
+- [x] export table data from observations pages
 - [x] move systems.json to data folder and create trpc procedure to fetch it
 - [ ] check db indices
 - [ ] replace repositories with something else (we are not using repository pattern)
