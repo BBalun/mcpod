@@ -1,5 +1,5 @@
 import papaparse from "papaparse";
-import { getDataForExport } from "../data/catalogRepository";
+import { getDataForExport } from "../data/catalog";
 
 type ExportOptionsProps = {
   starIds?: number[];

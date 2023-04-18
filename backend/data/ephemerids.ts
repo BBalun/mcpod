@@ -1,6 +1,6 @@
 import { InternalServerError } from "../exceptions/InternalServerError";
 
-export async function getExternalEphemerids(starId: string) {
+export async function fetchExternalEphemerids(starId: string) {
   const url = new URL("https://www.aavso.org/vsx/index.php?view=api.object&format=json");
   url.searchParams.append("ident", starId);
 

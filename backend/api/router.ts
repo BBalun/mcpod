@@ -1,8 +1,8 @@
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
-import { findIdentifierByStarId, getCount as getIdentifierCount } from "../data/identifierRepository";
-import { findObservations } from "../data/observationRepository";
-import { getCount as getCatalogCount } from "../data/catalogRepository";
+import { findIdentifierByStarId, getCount as getIdentifierCount } from "../data/identifier";
+import { findObservations } from "../data/observation";
+import { getCount as getCatalogCount } from "../data/catalog";
 import { getData, getPhasedData } from "../services/catalogService";
 import { getEphemerids } from "../services/ephemeridsService";
 import { exportToCsv } from "../services/exportService";

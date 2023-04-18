@@ -1,4 +1,4 @@
-import * as CatalogRepository from "../data/catalogRepository";
+import * as CatalogRepository from "../data/catalog";
 
 export async function getData(
   starId: number,

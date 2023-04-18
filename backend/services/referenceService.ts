@@ -1,5 +1,5 @@
-import { findUniqueReferenceIds } from "../data/catalogRepository";
-import { findReferences } from "../data/referenceRepository";
+import { findUniqueReferenceIds } from "../data/catalog";
+import { findReferences } from "../data/reference";
 
 export async function getReferences(starId: number, filters?: string[]) {
   let referenceIds;

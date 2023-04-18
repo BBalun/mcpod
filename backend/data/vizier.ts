@@ -8,7 +8,7 @@ import { InternalServerError } from "../exceptions/InternalServerError";
 
 type PhotometricData = { julianDate: number; magnitude: number; magErr: number };
 
-export async function getExternalPhotometryData(hip: string | null, tyc: string | null) {
+export async function fetchExternalPhotometryData(hip: string | null, tyc: string | null) {
   const res = {
     Hp: [] as PhotometricData[],
     Bt: [] as PhotometricData[],

@@ -11,7 +11,7 @@ const w = wretch()
     }),
   ]);
 
-export async function getObjectIds(input: string) {
+export async function fetchObjectIds(input: string) {
   const { data } = await w
     .url("https://simbad.harvard.edu/simbad/sim-tap/sync")
     .formUrl({

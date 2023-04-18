@@ -1,5 +1,5 @@
 import { prisma } from "../database/prisma";
-import { findObservations } from "./observationRepository";
+import { findObservations } from "./observation";
 
 export async function findReferences(starId: number, referenceIds?: string[]) {
   const references = await prisma.reference.findMany({

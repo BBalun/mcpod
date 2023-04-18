@@ -1,5 +1,5 @@
 import { PrismaClient } from "@prisma/client";
-import { getObjectIds } from "../data/simbadRepository";
+import { fetchObjectIds } from "../data/simbad";
 import { replaceColumnValue } from "./replaceColumn";
 import dotenv from "dotenv";
 import papaparse from "papaparse";
@@ -24,7 +24,7 @@ async function main() {
         `${pathToDataDir}/out/${file}`,
         "starId",
         async (starId) => {
-          const identifiers = await getObjectIds(starId);
+          const identifiers = await fetchObjectIds(starId);
           if (!identifiers) {
             console.error(`starId ${starId} could not be converted into simbad object id`);
             process.exit(1);

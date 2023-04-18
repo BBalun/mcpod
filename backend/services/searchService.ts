@@ -1,9 +1,9 @@
-import { findIdentifierByStarId, setIdentifierToBeFetched, upsertIdentifiers } from "../data/identifierRepository";
-import { getExternalPhotometryData } from "../data/vizierRepository";
-import { getObjectIds } from "../data/simbadRepository";
-import { createCatalogs } from "../data/catalogRepository";
-import { createObservations } from "../data/observationRepository";
-import { createReferences } from "../data/referenceRepository";
+import { findIdentifierByStarId, setIdentifierToBeFetched, upsertIdentifiers } from "../data/identifier";
+import { fetchExternalPhotometryData } from "../data/vizier";
+import { fetchObjectIds } from "../data/simbad";
+import { createCatalogs } from "../data/catalog";
+import { createObservations } from "../data/observation";
+import { createReferences } from "../data/reference";
 import { InternalServerError } from "../exceptions/InternalServerError";
 import { prisma } from "../database/prisma";
 
@@ -11,7 +11,7 @@ export async function search(input: string) {
   let starIds;
 
   try {
-    starIds = await getObjectIds(input);
+    starIds = await fetchObjectIds(input);
   } catch (e) {
     console.error("Failed to fetch object IDs from SIMBAD");
     console.error(e);
@@ -46,7 +46,7 @@ export async function search(input: string) {
     const tyc = starIds.tyc?.toLocaleLowerCase().replace("tyc", "") ?? null;
     console.debug("hip", hip, "tyc", tyc);
 
-    const externalData = await getExternalPhotometryData(hip, tyc);
+    const externalData = await fetchExternalPhotometryData(hip, tyc);
     console.debug(
       `Fetched photometry data: Hp - ${externalData.Hp.length}, Bt - ${externalData.Bt.length}, Vt - ${externalData.Vt.length}`
     );
