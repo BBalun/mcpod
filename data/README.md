@@ -1,2 +1,0 @@
-- files in `src` dir were used to pre-process input files (located in input directory) to common CSV format
-- Some line in original `katalog.csv` contained some extra spaces. Those were manually removed before running it through `catalog.mjs` script
