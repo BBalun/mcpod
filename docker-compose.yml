@@ -34,7 +34,7 @@ services:
       - 80:80
     restart: always
     volumes:
-      - ./frontend/public:/var/www/public
+      - ./data/public:/var/www/public
     depends_on:
       - backend
 
