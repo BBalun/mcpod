@@ -1,14 +1,12 @@
-import { PrismaClient } from "@prisma/client";
 import { fetchObjectIds } from "../data/simbad";
 import { replaceColumnValue } from "./replaceColumn";
 import dotenv from "dotenv";
 import papaparse from "papaparse";
 import fs from "fs";
 import { pathToDataDir } from "../constants";
+import { prisma } from "./prisma";
 
 dotenv.config();
-
-const prisma = new PrismaClient();
 
 const files = ["catalog.csv", "ephemeris.csv", "observation.csv", "reference.csv"];
 
