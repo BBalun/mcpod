@@ -42,9 +42,9 @@
 - [x] add error bars to the charts (both or only main one?)
 - [x] fix duplicate data in reference file 
   - [x] and add unique constraint back to reference table
-- [ ] refactor code
+- [x] refactor code
   - [x] refactor BE to use n-layer architecture
-  - [ ] refactor FE 
+  - [x] refactor FE 
 - [x] deploy to phoenix server
 - [ ] ~~normalize data~~
 - [x] bibcode issue with `&` character - needs URL escaping
@@ -53,10 +53,12 @@
 - [x] move systems.json to data folder and create trpc procedure to fetch it
 - [ ] check db indices
 - [x] replace repositories with something else (we are not using repository pattern)
+- [x] move original data and pre-processing scripts from data folder into ...
+- [x] slit data folder into source and public sub-folders
+- [ ] add image with filter code and name mappings
+- [ ] documentation - create readme file for each package
+- [x] add number of data points in each shown filter - 
 
 ## Nice to have:
 - [x] rewrite scripts in `/data/data` to use Node instead of Deno 
-  (may not be necessary, because this should be run only once during development)
 - [ ] filter data on the client
-- [ ] add npm workspaces
-- [ ] replace n-layer architecture on BE for something that makes more sense 
