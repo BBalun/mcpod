@@ -1,0 +1,21 @@
+{
+  "name": "mcpod2",
+  "version": "1.0.0",
+  "scripts": {
+    "docker:build": "docker compose build && cp -r ./frontend/public ./data/public",
+    "podman:build": "podman-compose build && cp -r ./frontend/public ./data/public",
+    "docker:start": "docker compose up -d",
+    "podman:start": "podman-compose up -d",
+    "docker:stop": "docker compose down",
+    "podman:stop": "podman-compose down",
+    "docker:migrate": "docker exec mcpod2_backend \"cd /app && npm run db:migrate\"",
+    "podman:migrate": "podman exec mcpod2_backend \"cd /app && npm run db:migrate\"",
+    "docker:seed": "docker exec mcpod2_backend \"cd /app && npm run db:seed\"",
+    "podman:seed": "podman exec mcpod2_backend \"cd /app && npm run db:seed\"",
+    "build": "npm run podman:build",
+    "start": "npm run podman:start",
+    "migrate": "npm run podman:migrate",
+    "seed": "npm run podman:seed",
+    "stop": "npm run podman:stop"
+  }
+}
