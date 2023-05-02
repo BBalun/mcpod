@@ -2,15 +2,11 @@ import express from "express";
 import * as trpcExpress from "@trpc/server/adapters/express";
 import { appRouter } from "./api/router";
 import { prisma } from "./database/prisma";
-import { readFile } from "node:fs/promises";
+
+const port = 3000;
 
 async function main() {
   const app = express();
-
-  app.use("/systems.json", async (req, res) => {
-    const file = await readFile("/data/systems.json", { encoding: "utf-8" });
-    res.sendFile(file);
-  });
 
   app.use(
     "/trpc",
@@ -19,8 +15,8 @@ async function main() {
     })
   );
 
-  app.listen(3000, () => {
-    console.log("App started on port 3000");
+  app.listen(port, () => {
+    console.log(`App started on port ${port}`);
   });
 }
 
