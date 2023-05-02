@@ -4,7 +4,7 @@ import { findIdentifierByStarId, getCount as getIdentifierCount } from "../data/
 import { findObservations } from "../data/observation";
 import { getCount as getCatalogCount } from "../data/catalog";
 import { getData, getPhasedData } from "../services/catalogService";
-import { getEphemerids } from "../services/ephemeridsService";
+import { getEphemerides } from "../services/ephemerisService";
 import { exportToCsv } from "../services/exportService";
 import { getReferences } from "../services/referenceService";
 import { search } from "../services/searchService";
@@ -32,7 +32,7 @@ const procedure = t.procedure.use(
 
 export const appRouter = t.router({
   getEphemerids: procedure.input(z.number()).query(async ({ input: starId }) => {
-    return await getEphemerids(starId);
+    return await getEphemerides(starId);
   }),
   getObservations: procedure
     .input(
@@ -125,7 +125,7 @@ export const appRouter = t.router({
   }),
   getSystems: procedure.input(z.object({}).optional()).query(async () => {
     try {
-      const json = await readFile(pathToDataDir + "/systems.json", { encoding: "utf-8" });
+      const json = await readFile(pathToDataDir + "/source/systems.json", { encoding: "utf-8" });
       return JSON.parse(json);
     } catch (e) {
       console.error(e);

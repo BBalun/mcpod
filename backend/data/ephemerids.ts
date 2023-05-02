@@ -1,6 +1,4 @@
-import { InternalServerError } from "../exceptions/InternalServerError";
-
-export async function fetchExternalEphemerids(starId: string) {
+export async function fetchExternalEphemerides(starId: string) {
   const url = new URL("https://www.aavso.org/vsx/index.php?view=api.object&format=json");
   url.searchParams.append("ident", starId);
 
@@ -8,9 +6,12 @@ export async function fetchExternalEphemerids(starId: string) {
   if (res.status !== 200) {
     console.error(`Failed to fetch data from aavso. Return status: ${res.status}`);
     console.error(`Body: ${await res.text()}`);
-    throw new InternalServerError({
-      message: `Failed to fetch data from aavso. Return status: ${res.status}`,
-    });
+
+    // Return empty result. The application should still be working despite this request failing
+    return {
+      period: null,
+      epoch: null,
+    };
   }
 
   const body = await res.json();
