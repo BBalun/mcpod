@@ -6,62 +6,52 @@
       {
         "name": "U",
         "displayName": "U",
-        "code": "1",
-        "color": "#381856"
+        "code": "1"
       },
       {
         "name": "B",
         "displayName": "B",
-        "code": "2",
-        "color": "#0f1c50"
+        "code": "2"
       },
       {
         "name": "V",
         "displayName": "V",
-        "code": "3",
-        "color": "#ada794"
+        "code": "3"
       },
       {
         "name": "R",
         "displayName": "R",
-        "code": "4",
-        "color": "#fedddf"
+        "code": "4"
       },
       {
         "name": "Rc",
         "displayName": "R[sub]C[/sub]",
-        "code": "5",
-        "color": "#6c838a"
+        "code": "5"
       },
       {
         "name": "I",
         "displayName": "I",
-        "code": "6",
-        "color": "#805f8b"
+        "code": "6"
       },
       {
         "name": "J",
         "displayName": "J",
-        "code": "7",
-        "color": "#66233d"
+        "code": "7"
       },
       {
         "name": "K",
         "displayName": "K",
-        "code": "8",
-        "color": "#068324"
+        "code": "8"
       },
       {
         "name": "L",
         "displayName": "L",
-        "code": "9",
-        "color": "#6d9fad"
+        "code": "9"
       },
       {
         "name": "M",
         "displayName": "M",
-        "code": "10",
-        "color": "#131d23"
+        "code": "10"
       }
     ]
   },
@@ -72,74 +62,62 @@
       {
         "name": "u",
         "code": "20",
-        "displayName": "u",
-        "color": "#fddff8"
+        "displayName": "u"
       },
       {
         "name": "v",
         "code": "21",
-        "displayName": "v",
-        "color": "#333733"
+        "displayName": "v"
       },
       {
         "name": "b",
         "code": "22",
-        "displayName": "b",
-        "color": "#292a58"
+        "displayName": "b"
       },
       {
         "name": "y",
         "code": "23",
-        "displayName": "y",
-        "color": "#537403"
+        "displayName": "y"
       },
       {
         "name": "c1",
         "code": "24",
-        "displayName": "c[sub]1[/sub]",
-        "color": "#6ee9f8"
+        "displayName": "c[sub]1[/sub]"
       },
       {
         "name": "m1",
         "code": "25",
-        "displayName": "m[sub]1[/sub]",
-        "color": "#a0e570"
+        "displayName": "m[sub]1[/sub]"
       },
       {
         "name": "beta",
         "code": "26",
-        "displayName": "{beta}",
-        "color": "#eeeed8"
+        "displayName": "{beta}"
       },
       {
         "name": "beta191",
         "code": "26.1",
-        "displayName": "{beta}[sub]191[/sub]",
-        "color": "#9692a1"
+        "displayName": "{beta}[sub]191[/sub]"
       },
       {
         "name": "beta37",
         "code": "26.2",
-        "displayName": "{beta}[sub]37[/sub]",
-        "color": "#c7aff3"
+        "displayName": "{beta}[sub]37[/sub]"
       },
       {
         "name": "alpha",
         "code": "27",
-        "displayName": "{alpha}",
-        "color": "#78ae69"
+        "displayName": "{alpha}"
       },
       {
         "name": "b-y",
         "code": "28",
-        "displayName": "(b-y)",
-        "color": "#efd0c2"
+        "displayName": "(b-y)"
       },
       {
         "name": "gamma",
         "code": "29",
-        "displayName": "{gamma}",
-        "color": "#c261ad"
+        "displayName": "{gamma}"
       }
     ]
   },
@@ -150,20 +128,17 @@
       {
         "name": "Hp",
         "code": "30",
-        "displayName": "H[sub]p[/sub]",
-        "color": "#d1e364"
+        "displayName": "H[sub]p[/sub]"
       },
       {
         "name": "Bt",
         "code": "31",
-        "displayName": "B[sub]t[/sub]",
-        "color": "#0b2bd1"
+        "displayName": "B[sub]t[/sub]"
       },
       {
         "name": "Vt",
         "code": "32",
-        "displayName": "V[sub]t[/sub]",
-        "color": "#721154"
+        "displayName": "V[sub]t[/sub]"
       }
     ]
   },
@@ -174,68 +149,57 @@
       {
         "name": "U-B1",
         "code": "36",
-        "displayName": "U-B[sub]1[/sub]",
-        "color": "#b8bcda"
+        "displayName": "U-B[sub]1[/sub]"
       },
       {
         "name": "B1-B2",
         "code": "37",
-        "displayName": "B[sub]1[/sub]-B[sub]2[/sub]",
-        "color": "#9868ee"
+        "displayName": "B[sub]1[/sub]-B[sub]2[/sub]"
       },
       {
         "name": "B2-V1",
         "code": "38",
-        "displayName": "B[sub]2[/sub]-V[sub]1[/sub]",
-        "color": "#253f39"
+        "displayName": "B[sub]2[/sub]-V[sub]1[/sub]"
       },
       {
         "name": "V1-G",
         "code": "39",
-        "displayName": "V[sub]1[/sub]-G",
-        "color": "#6d4507"
+        "displayName": "V[sub]1[/sub]-G"
       },
       {
         "name": "U",
         "code": "40",
-        "displayName": "H",
-        "color": "#3a4955"
+        "displayName": "H"
       },
       {
         "name": "B",
         "code": "41",
-        "displayName": "B",
-        "color": "#f128e0"
+        "displayName": "B"
       },
       {
         "name": "V",
         "code": "42",
-        "displayName": "V",
-        "color": "#284841"
+        "displayName": "V"
       },
       {
         "name": "B1",
         "code": "43",
-        "displayName": "B[sub]1[/sub]",
-        "color": "#31124a"
+        "displayName": "B[sub]1[/sub]"
       },
       {
         "name": "B2",
         "code": "44",
-        "displayName": "B[sub]2[/sub]",
-        "color": "#98a959"
+        "displayName": "B[sub]2[/sub]"
       },
       {
         "name": "V1",
         "code": "45",
-        "displayName": "V[sub]1[/sub]",
-        "color": "#fba8d2"
+        "displayName": "V[sub]1[/sub]"
       },
       {
         "name": "G",
         "code": "46",
-        "displayName": "G",
-        "color": "#25103c"
+        "displayName": "G"
       }
     ]
   },
@@ -246,62 +210,52 @@
       {
         "name": "U",
         "code": "50",
-        "displayName": "U",
-        "color": "#495946"
+        "displayName": "U"
       },
       {
         "name": "P",
         "code": "51",
-        "displayName": "P",
-        "color": "#12546f"
+        "displayName": "P"
       },
       {
         "name": "X",
         "code": "52",
-        "displayName": "X",
-        "color": "#f75149"
+        "displayName": "X"
       },
       {
         "name": "Y",
         "code": "53",
-        "displayName": "Y",
-        "color": "#7f5c30"
+        "displayName": "Y"
       },
       {
         "name": "Z",
         "code": "54",
-        "displayName": "Z",
-        "color": "#11f536"
+        "displayName": "Z"
       },
       {
         "name": "V",
         "code": "55",
-        "displayName": "V",
-        "color": "#1c080e"
+        "displayName": "V"
       },
       {
         "name": "HR",
         "code": "56",
-        "displayName": "HR",
-        "color": "#471c67"
+        "displayName": "HR"
       },
       {
         "name": "S",
         "code": "57",
-        "displayName": "S",
-        "color": "#a0cbb1"
+        "displayName": "S"
       },
       {
         "name": "MR",
         "code": "58",
-        "displayName": "MR",
-        "color": "#bf96ab"
+        "displayName": "MR"
       },
       {
         "name": "DR",
         "code": "59",
-        "displayName": "DR",
-        "color": "#adfbf5"
+        "displayName": "DR"
       }
     ]
   },
@@ -312,32 +266,27 @@
       {
         "name": "V",
         "code": "60",
-        "displayName": "V",
-        "color": "#ac9bf7"
+        "displayName": "V"
       },
       {
         "name": "B",
         "code": "61",
-        "displayName": "B",
-        "color": "#fcb78d"
+        "displayName": "B"
       },
       {
         "name": "L",
         "code": "62",
-        "displayName": "L",
-        "color": "#423235"
+        "displayName": "L"
       },
       {
         "name": "U",
         "code": "63",
-        "displayName": "U",
-        "color": "#ae8d57"
+        "displayName": "U"
       },
       {
         "name": "W",
         "code": "64",
-        "displayName": "W",
-        "color": "#306468"
+        "displayName": "W"
       }
     ]
   },
@@ -348,20 +297,17 @@
       {
         "name": "g1",
         "code": "70",
-        "displayName": "g[sub]1[/sub]",
-        "color": "#cb7086"
+        "displayName": "g[sub]1[/sub]"
       },
       {
         "name": "g2",
         "code": "71",
-        "displayName": "g[sub]2[/sub]",
-        "color": "#ae2338"
+        "displayName": "g[sub]2[/sub]"
       },
       {
         "name": "delta_a",
         "code": "72",
-        "displayName": "{Delta}a",
-        "color": "#7e3899"
+        "displayName": "{Delta}a"
       }
     ]
   },
@@ -372,38 +318,32 @@
       {
         "name": "D",
         "code": "90",
-        "displayName": "D",
-        "color": "#fed879"
+        "displayName": "D"
       },
       {
         "name": "H",
         "code": "91",
-        "displayName": "H",
-        "color": "#6de763"
+        "displayName": "H"
       },
       {
         "name": "B",
         "code": "92",
-        "displayName": "B",
-        "color": "#a379bc"
+        "displayName": "B"
       },
       {
         "name": "V",
         "code": "93",
-        "displayName": "V",
-        "color": "#18364f"
+        "displayName": "V"
       },
       {
         "name": "Bq",
         "code": "94",
-        "displayName": "B'",
-        "color": "#442170"
+        "displayName": "B'"
       },
       {
         "name": "Vq",
         "code": "95",
-        "displayName": "V'",
-        "color": "#b3fdc1"
+        "displayName": "V'"
       }
     ]
   },
@@ -414,8 +354,7 @@
       {
         "name": "Vm",
         "code": "100",
-        "displayName": "V[sub]m[/sub]",
-        "color": "#e5c4e5"
+        "displayName": "V[sub]m[/sub]"
       }
     ]
   },
@@ -426,14 +365,12 @@
       {
         "name": "4200A",
         "code": "75",
-        "displayName": "4200{Aring}",
-        "color": "#497253"
+        "displayName": "4200{Aring}"
       },
       {
         "name": "5360A",
         "code": "76",
-        "displayName": "5360{Aring}",
-        "color": "#febdbb"
+        "displayName": "5360{Aring}"
       }
     ]
   }

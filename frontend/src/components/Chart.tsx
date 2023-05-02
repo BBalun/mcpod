@@ -103,10 +103,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               mode: "markers",
               type: "scattergl",
               name: (filter?.name ?? "unknown") + ` (${filterData.length})`,
-              // TODO: uncomment to use colors from systems.json file
-              // marker: {
-              //   color: filter?.color,
-              // },
               marker: {
                 size: 5,
               },
@@ -120,7 +116,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
                 text: "HJD - 2400000",
               },
               tickformat: "f",
-              // separatethousands: true,
             },
             yaxis: {
               title: {
@@ -128,7 +123,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               },
               autorange: "reversed",
               tickformat: "f",
-              // separatethousands: true,
             },
             dragmode: "pan",
             hovermode: "closest",
@@ -173,7 +167,6 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
               <MenuItem onClick={() => download("csv")}>
                 Download as CSV
               </MenuItem>
-              {/* <MenuItem onClick={}>Download as TXT</MenuItem> */}
               <MenuItem onClick={() => download("png")}>
                 Download as PNG
               </MenuItem>
