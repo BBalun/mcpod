@@ -14,12 +14,16 @@ async function main() {
   const cache = new Map<string, string>();
   const objectIdsCache = new Map<string, { oid: number; mainId: string; hip?: string; tyc?: string }>();
 
+  if (!fs.existsSync(pathToDataDir + "/temp")) {
+    fs.mkdirSync(pathToDataDir + "/temp");
+  }
+
   try {
     for (const file of files) {
       console.log(`Converting star IDs from ${file} into SIMBAD IDs`);
       await replaceColumnValue(
-        `${pathToDataDir}/script-output/${file}`,
-        `${pathToDataDir}/out/${file}`,
+        `${pathToDataDir}/source/${file}`,
+        `${pathToDataDir}/temp/${file}`,
         "starId",
         async (starId) => {
           const identifiers = await fetchObjectIds(starId);
@@ -41,7 +45,7 @@ async function main() {
   }
 
   // Add ephemeris information to identifiers
-  const ephemerisStr = fs.readFileSync(`${pathToDataDir}/out/ephemeris.csv`, { encoding: "utf8" });
+  const ephemerisStr = fs.readFileSync(`${pathToDataDir}/temp/ephemeris.csv`, { encoding: "utf8" });
   const ephemerides = papaparse
     .parse<{ starId: string; epoch: string; period: string }>(ephemerisStr, { header: true })
     .data.map(({ starId, epoch, period }) => ({
@@ -78,19 +82,19 @@ async function main() {
       // path to CSV files depends on how is data file mounted in docker-compose.yml
       prisma.$executeRawUnsafe(`
         COPY public."Reference"("referenceId", "starId", "author", "bibcode", "referenceStarIds")
-        FROM '/data/out/reference.csv' 
+        FROM '/data/temp/reference.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
       prisma.$executeRawUnsafe(`
         COPY public."Catalog"("starId", "julianDate", "magnitude", "magErr", "filter", "referenceId")
-        FROM '/data/out/catalog.csv' 
+        FROM '/data/temp/catalog.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
       prisma.$executeRawUnsafe(`
         COPY public."Observation"("starId", "lambdaEff", "filter", "referenceId", "magAverage", "magError", "stdError", "amplitudeEff")
-        FROM '/data/out/observation.csv' 
+        FROM '/data/temp/observation.csv' 
         DELIMITER ',' 
         CSV HEADER;
       `),
@@ -112,7 +116,8 @@ async function main() {
   console.log("DB seeded successfully");
 
   console.log("Removing temporary files");
-  files.forEach((file) => fs.rmSync(`${pathToDataDir}/out/${file}`, { recursive: true, force: true }));
+  files.forEach((file) => fs.rmSync(`${pathToDataDir}/temp/${file}`, { recursive: true, force: true }));
+  fs.rmdirSync(pathToDataDir + "/temp");
 }
 
 main()
