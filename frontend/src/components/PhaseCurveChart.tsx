@@ -94,7 +94,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
               y: filterData.map((a) => a.magnitude),
               mode: "markers",
               type: "scattergl",
-              name: filter?.name ?? "unknown",
+              name: (filter?.name ?? "unknown") + ` (${filterData.length})`,
               // TODO: uncomment to use colors from systems.json file
               // marker: {
               //   color: filter?.color,

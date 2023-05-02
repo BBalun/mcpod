@@ -98,10 +98,11 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
                 type: "data",
                 array: filterData.map((a) => a.magErr ?? null),
                 visible: showErrorBars,
+                color: "#a9b1bc",
               },
               mode: "markers",
               type: "scattergl",
-              name: filter?.name ?? "unknown",
+              name: (filter?.name ?? "unknown") + ` (${filterData.length})`,
               // TODO: uncomment to use colors from systems.json file
               // marker: {
               //   color: filter?.color,
