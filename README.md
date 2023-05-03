@@ -21,4 +21,4 @@ Reseed the application's database after the source data was updated:
 
 
 ## Notes
-- Always run start (`npm run start`) script as a super user. This is because container would be force stopped after logout.
+- Always run start script (`npm run start`) as a super user. This is because container would be force stopped after logout.
