@@ -13,6 +13,7 @@ import Layout from "./components/Layout";
 import Home from "./pages/home";
 import Contact from "./pages/contact";
 import ErrorPage from "./pages/error-page";
+import Systems from "./pages/systems";
 
 const router = createBrowserRouter(
   [
@@ -35,6 +36,10 @@ const router = createBrowserRouter(
     {
       path: "/contact",
       element: withLayout(<Contact />),
+    },
+    {
+      path: "/systems",
+      element: withLayout(<Systems />),
     },
     {
       path: "/",

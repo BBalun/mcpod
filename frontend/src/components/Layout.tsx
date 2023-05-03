@@ -30,8 +30,11 @@ function NavBar() {
 
   return (
     <nav className="flex h-16 w-full overflow-hidden bg-slate-800 px-3 text-slate-100">
-      <div className="container mx-auto flex h-full flex-row items-center gap-9">
-        <Link to="/" className="mr-12 text-2xl font-light">
+      <div className="container mx-auto flex h-full flex-row items-center justify-around gap-4 md:justify-start md:gap-9">
+        <Link
+          to="/"
+          className="mr-12 hidden text-2xl font-light md:inline-block"
+        >
           mCPod
         </Link>
         <Link to="/">Search</Link>
@@ -40,6 +43,7 @@ function NavBar() {
           About
         </Link>
         <Link to="/contact">Contact</Link>
+        <Link to="/systems">Filters</Link>
       </div>
     </nav>
   );

@@ -55,9 +55,9 @@
 - [x] replace repositories with something else (we are not using repository pattern)
 - [x] move original data and pre-processing scripts from data folder into ...
 - [x] slit data folder into source and public sub-folders
-- [ ] add image with filter code and name mappings
-- [ ] documentation - create readme file for each package
 - [x] add number of data points in each shown filter 
+- [x] add image with filter code and name mappings
+- [ ] documentation - create readme file for each package
 
 ## Nice to have:
 - [x] rewrite scripts in `/data/data` to use Node instead of Deno 
