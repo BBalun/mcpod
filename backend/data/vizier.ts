@@ -74,8 +74,8 @@ export async function fetchExternalPhotometryData(hip: string | null, tyc: strin
   const hipparcosMeanMagnitude = res.Hp.reduce((sum, data) => sum + data.magnitude, 0) / res.Hp.length;
   return {
     Hp: res.Hp,
-    Bt: filterOutliers(res.Bt, hipparcosMeanMagnitude - 2, hipparcosMeanMagnitude + 2),
-    Vt: filterOutliers(res.Vt, hipparcosMeanMagnitude - 2, hipparcosMeanMagnitude + 2),
+    Bt: filterOutliers(res.Bt, hipparcosMeanMagnitude - 1, hipparcosMeanMagnitude + 1),
+    Vt: filterOutliers(res.Vt, hipparcosMeanMagnitude - 1, hipparcosMeanMagnitude + 1),
   };
 }
 

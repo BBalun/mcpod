@@ -39,11 +39,11 @@ function NavBar() {
         </Link>
         <Link to="/">Search</Link>
         <Link to="/export">Export</Link>
+        <Link to="/systems">Filters</Link>
         <Link to="/#about" onClick={scrollToAbout}>
           About
         </Link>
         <Link to="/contact">Contact</Link>
-        <Link to="/systems">Filters</Link>
       </div>
     </nav>
   );

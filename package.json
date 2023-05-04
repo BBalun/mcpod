@@ -2,8 +2,8 @@
   "name": "mcpod2",
   "version": "1.0.0",
   "scripts": {
-    "docker:build": "cp -r ./frontend/public ./data && docker compose build ",
-    "podman:build": "cp -r ./frontend/public ./data && podman-compose build ",
+    "docker:build": "cp -n ./frontend/public/* ./data/public && docker compose build ",
+    "podman:build": "cp -n ./frontend/public/* ./data/public && podman-compose build ",
     "docker:start": "docker compose up -d",
     "podman:start": "podman-compose up -d",
     "docker:stop": "docker compose down",

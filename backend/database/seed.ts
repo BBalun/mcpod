@@ -113,6 +113,13 @@ async function main() {
     process.exit(1);
   }
 
+  const [numOfMeasurements, numOfStars] = await Promise.all([prisma.catalog.count(), prisma.identifier.count()]);
+
+  fs.writeFileSync(
+    `${pathToDataDir}/source/statistics.json`,
+    JSON.stringify({ numOfMeasurements, numOfStars }, undefined, 2)
+  );
+
   console.log("DB seeded successfully");
 
   console.log("Removing temporary files");

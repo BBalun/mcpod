@@ -116,12 +116,16 @@ export const appRouter = t.router({
       return await exportToCsv(input);
     }),
   getHomepageStatistics: procedure.input(z.object({}).optional()).query(async () => {
-    const [numOfMeasurements, numOfStars] = await Promise.all([getCatalogCount(), getIdentifierCount()]);
-
-    return {
-      numOfMeasurements,
-      numOfStars,
-    };
+    try {
+      const json = await readFile(pathToDataDir + "/source/statistics.json", { encoding: "utf-8" });
+      return JSON.parse(json);
+    } catch (e) {
+      console.error(e);
+      throw new TRPCError({
+        code: "INTERNAL_SERVER_ERROR",
+        message: "Failed to load statistics.json file",
+      });
+    }
   }),
   getSystems: procedure.input(z.object({}).optional()).query(async () => {
     try {
