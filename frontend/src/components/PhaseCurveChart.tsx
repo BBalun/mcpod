@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Plot from "react-plotly.js";
 import { System } from "../types/systems";
 import { findFilterUsingCode } from "../utils/system";
@@ -11,6 +11,7 @@ import {
   MenuList,
   MenuItem,
   useBreakpointValue,
+  Checkbox,
 } from "@chakra-ui/react";
 import papaparse from "papaparse";
 import { saveAs } from "file-saver";
@@ -40,6 +41,8 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
     xl: 800,
     "2xl": 900,
   });
+
+  const [showErrorBars, setShowErrorBars] = useState(true);
 
   const download = async (format: "svg" | "png" | "csv") => {
     if (format !== "csv") {
@@ -92,6 +95,12 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
             return {
               x: filterData.map((a) => a.phase),
               y: filterData.map((a) => a.magnitude),
+              error_y: {
+                type: "data",
+                array: filterData.map((a) => a.magErr ?? null),
+                visible: showErrorBars,
+                color: "#a9b1bc",
+              },
               mode: "markers",
               type: "scattergl",
               name: (filter?.name ?? "unknown") + ` (${filterData.length})`,
@@ -99,7 +108,7 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
           })}
           layout={{
             showlegend: true,
-            title: `mcPod phased light curve of star ${mainId}`,
+            title: `mCPod phased light curve of star ${mainId}`,
             xaxis: {
               title: {
                 text: "Phase",
@@ -136,6 +145,12 @@ const PhaseCurveChart = ({ data, systems, mainId }: PhaseCurveChartProps) => {
         />
       </div>
       <div className="flex w-full flex-row justify-end gap-5">
+        <Checkbox
+          isChecked={showErrorBars}
+          onChange={(e) => setShowErrorBars(e.target.checked)}
+        >
+          Show error bars
+        </Checkbox>
         <div className="w-3/12">
           <Menu>
             <MenuButton

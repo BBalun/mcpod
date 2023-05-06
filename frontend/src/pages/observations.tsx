@@ -65,7 +65,7 @@ const ObservationsPage = () => {
   if (observations.length === 0) {
     return (
       <div>
-        No data found for star {mainId} in references {referenceId}
+        No data found for the star {mainId} in the reference {referenceId}
         <Link to={`/references/${starId}`}>
           <Button colorScheme="facebook">Go back to references</Button>
         </Link>
@@ -112,7 +112,7 @@ const ObservationsPage = () => {
   return (
     <main className="container mx-auto h-full w-full items-center justify-center gap-3 p-3 lg:p-20">
       <h1 className="mb-3 text-3xl font-light">
-        Dataset statistics for star {mainId} in references {referenceId}
+        Dataset statistics for the star {mainId} in the reference {referenceId}
       </h1>
 
       <div className="mb-4 overflow-x-auto rounded-xl">

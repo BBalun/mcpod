@@ -75,7 +75,7 @@ const ExportPage = () => {
   }
 
   return (
-    <main className="mb-12 mt-7 flex w-full flex-col items-center">
+    <main className="mb-12 mt-7 flex w-full flex-col items-center px-5">
       <div className="flex w-full flex-col gap-3 lg:w-1/2">
         <section>
           <h2 className="mb-3 text-lg font-semibold">
@@ -126,7 +126,7 @@ const ExportPage = () => {
                           setStars((stars) => stars.filter((s) => s !== star))
                         }
                       >
-                        <SmallCloseIcon className="text-sm" />
+                        <SmallCloseIcon className="text-sm" color="#d35050" />
                       </button>
                       {star.mainId}
                     </li>

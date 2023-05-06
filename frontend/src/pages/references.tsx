@@ -117,7 +117,8 @@ const references = () => {
   return (
     <main className="container mx-auto h-full w-full items-center justify-center gap-3 p-3 lg:p-20">
       <h1 className="mb-3 text-3xl font-light">
-        References for {mainId} {filters.length && " for selected filters"}
+        References for {mainId}{" "}
+        {filtersParams.length ? " for selected filters" : ""}
       </h1>
 
       <div className="mb-4 overflow-x-auto rounded-xl">

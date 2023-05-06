@@ -110,7 +110,7 @@ const DataChart = ({ data, systems, mainId }: ChartProps) => {
           })}
           layout={{
             showlegend: true,
-            title: `mcPod data for star ${mainId}`,
+            title: `mCPod data for star ${mainId}`,
             xaxis: {
               title: {
                 text: "HJD - 2400000",
